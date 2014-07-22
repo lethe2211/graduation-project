@@ -52,6 +52,7 @@ public class UnityChanScript : CharacterScript {
 			if(animator.GetBool("Clear")) return;
 			animator.SetBool("Clear", true);
 			mainCameraHorizontalObject.transform.Rotate(0, 180, 0);
+			System.Threading.Thread.Sleep(2000);
 			Application.LoadLevel("StageSelect");
 			return;
 		}else{
