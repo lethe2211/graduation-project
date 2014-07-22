@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ElevatorScript : MonoBehaviour {
-
+public class MovePlateScript : MonoBehaviour {
+	
 	private float frame = 0;
 	private float stopFrame = 0;
-
+	
 	private float centerPositionY;
 	private float moveRangeHalf; 
-
+	
 	// Use this for initialization
 	void Start () {
 		centerPositionY = transform.position.y;
@@ -19,9 +19,9 @@ public class ElevatorScript : MonoBehaviour {
 	void Update () {
 		frame += 0.01f;
 		float sin = Mathf.Sin(frame);
-
+		
 		if(sin == 0) frame = 0.0f;
-
+		
 		if (sin == 1 || sin == -1) {
 			stopFrame++;
 			if(stopFrame <= 50) return;
@@ -29,15 +29,20 @@ public class ElevatorScript : MonoBehaviour {
 			stopFrame = 0;
 		}
 
-		float y = centerPositionY + sin * moveRangeHalf;
-		Vector3 p = transform.position;
-		transform.position = new Vector3(p.x, y, p.z);
+		Vector3 v = new Vector3(sin * 5000, 0, 0);
+		print ("force power: " + sin * 10000);
+		rigidbody.AddForce(v);
+		
+		//float x = centerPositionY + sin * moveRangeHalf;
+		//Vector3 p = transform.position;
+		//transform.position = new Vector3(x, p.y, p.z);
 	}
+
 
 	void OnCollisionEnter(Collision c){
 		c.gameObject.transform.parent = transform;
 	}
-
+	
 	void OnCollisionExit(Collision c){
 		c.gameObject.transform.parent = null;
 	}

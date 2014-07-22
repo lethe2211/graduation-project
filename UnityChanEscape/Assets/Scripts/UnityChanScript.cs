@@ -23,6 +23,8 @@ public class UnityChanScript : CharacterScript {
 		gameOverCameraObject = GameObject.Find("GameOverCamera");
 		gameOverCamera = gameOverCameraObject.GetComponent<Camera>();
 		gameOverCamera.enabled = false;
+
+		cameraObject = GameObject.Find ("MainCameraHorizontalObject");
 	}
 	
 	// Update is called once per frame
@@ -115,5 +117,7 @@ public class UnityChanScript : CharacterScript {
 		mainCamera.enabled = false;
 		subCamera.enabled = false;
 		gameOverCamera.enabled = true;
+		// gameOverCamera.SendMessage("fadeOut");
+
 	}
 }

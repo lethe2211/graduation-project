@@ -7,6 +7,7 @@ public class BUnityChanScript : CharacterScript {
 	// Use this for initialization
 	protected void Start () {
 		base.Start ();
+		cameraObject = GameObject.Find ("SubCameraHorizontalObject");
 	}
 	
 	// Update is called once per frame

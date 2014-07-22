@@ -120,7 +120,7 @@ Transition:
   m_SrcState: {fileID: 110255474}
   m_DstState: {fileID: 110222699}
   m_TransitionDuration: .0862068832
-  m_TransitionOffset: .0398582257
+  m_TransitionOffset: .0998055786
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Jump
@@ -239,8 +239,8 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110200000}
   m_DstState: {fileID: 110222699}
-  m_TransitionDuration: .20323433
-  m_TransitionOffset: .043674536
+  m_TransitionDuration: .116277941
+  m_TransitionOffset: .126678452
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Jump
@@ -341,7 +341,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Jump
-  m_Speed: 1
+  m_Speed: .699999988
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: d6fd0c7048894427c8663615237d6a77, type: 3}

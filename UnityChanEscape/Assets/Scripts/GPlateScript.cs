@@ -50,7 +50,7 @@ public class GPlateScript : MonoBehaviour {
 			boxunitychanFlag = true;
 		}
 	}
-	
+
 	void OnCollisionExit(Collision collision){
 		// オブジェクトが離れた時
 	}
