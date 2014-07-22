@@ -52,6 +52,7 @@ public class UnityChanScript : CharacterScript {
 			if(animator.GetBool("Clear")) return;
 			animator.SetBool("Clear", true);
 			mainCameraHorizontalObject.transform.Rotate(0, 180, 0);
+			Application.LoadLevel("StageSelect");
 			return;
 		}else{
 			animator.SetBool("Clear", false);
@@ -111,6 +112,7 @@ public class UnityChanScript : CharacterScript {
 
 	void GameOver(){
 		print ("Game Over");
+		Application.LoadLevel("StageSelect");
 		animator.SetBool ("Fall", true);
 		Vector3 v = transform.position;
 		gameOverCameraObject.transform.position = new Vector3(v.x, -3, v.z);
