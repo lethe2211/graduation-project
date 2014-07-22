@@ -54,12 +54,12 @@ public class CharacterScript : MonoBehaviour {
 		Vector3 horizontal_forward = new Vector3(transform.forward.x, 0, transform.forward.z);
 
 		if(Input.GetKey("up")){
-			transform.position += horizontal_forward * 0.05f;
+			transform.position += horizontal_forward * 0.1f;
 			animator.SetBool("isRunning", true);
 			
 		}else if(Input.GetKey("down")){
 			animator.SetBool("Back", true);
-			transform.position -= horizontal_forward * 0.02f;
+			transform.position -= horizontal_forward * 0.05f;
 		}
 		
 		if(Input.GetKey ("right")) transform.Rotate(0, 3, 0);
