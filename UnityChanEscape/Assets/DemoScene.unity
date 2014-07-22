@@ -3630,7 +3630,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 539631288}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 19f0cdfc754d14c348c2512028521b72, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -8411,6 +8411,7 @@ GameObject:
   - 65: {fileID: 1267509326}
   - 23: {fileID: 1267509325}
   - 114: {fileID: 1267509330}
+  - 54: {fileID: 1267509329}
   m_Layer: 0
   m_Name: GPlate
   m_TagString: Untagged
@@ -8469,6 +8470,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 376002686}
   m_RootOrder: 0
+--- !u!54 &1267509329
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1267509324}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!114 &1267509330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9567,7 +9583,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1465253750}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 19f0cdfc754d14c348c2512028521b72, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -9803,7 +9819,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400300, guid: 6788413dff62c534d8ca610faef3c7a2, type: 2}
   m_PrefabInternal: {fileID: 2126154840}
   m_GameObject: {fileID: 1540735271}
-  m_LocalRotation: {x: -.0937465429, y: .697855175, z: .707469046, w: .0608067587}
+  m_LocalRotation: {x: -.0937465355, y: .697855115, z: .707468987, w: .0608067513}
   m_LocalPosition: {x: -.0554340295, y: .00173068431, z: .0986537337}
   m_LocalScale: {x: 1.00000036, y: 1.0000006, z: 1.00000048}
   m_Children:
@@ -13414,19 +13430,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400300, guid: 6788413dff62c534d8ca610faef3c7a2, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -.0937465355
+      value: -.0937465429
       objectReference: {fileID: 0}
     - target: {fileID: 400300, guid: 6788413dff62c534d8ca610faef3c7a2, type: 2}
       propertyPath: m_LocalRotation.y
-      value: .697855115
+      value: .697855175
       objectReference: {fileID: 0}
     - target: {fileID: 400300, guid: 6788413dff62c534d8ca610faef3c7a2, type: 2}
       propertyPath: m_LocalRotation.z
-      value: .707468987
+      value: .707469046
       objectReference: {fileID: 0}
     - target: {fileID: 400300, guid: 6788413dff62c534d8ca610faef3c7a2, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .060806755
+      value: .0608067587
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 6788413dff62c534d8ca610faef3c7a2, type: 2}
       propertyPath: m_Controller
