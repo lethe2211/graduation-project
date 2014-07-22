@@ -10,7 +10,7 @@ public class BUnityChanScript : CharacterScript {
 	}
 	
 	// Update is called once per frame
-	protected void FixedUpdate () {
+	protected void Update () {
 
 		// gravity
 		rigidbody.AddForce (unityChan.transform.up * 50);

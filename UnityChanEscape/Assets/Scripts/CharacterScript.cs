@@ -39,8 +39,8 @@ public class CharacterScript : MonoBehaviour {
 		}
 		if (jumpFrame >= 2) {
 			jumpFrame++;
-			if(jumpFrame >= 40){
-				rigidbody.AddForce(transform.up * 3000); //  , ForceMode.Impulse);
+			if(jumpFrame >= 20){
+				rigidbody.AddForce(transform.up * 2000); //  , ForceMode.Impulse);
 				jumpFrame = 1;
 			}else{
 				return;
