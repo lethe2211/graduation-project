@@ -73,13 +73,17 @@ public class CharacterScript : MonoBehaviour {
 		
 		Vector3 input = new Vector3 (h, 0, v);
 		Quaternion r = cameraObject.transform.rotation;
+		Debug.Log (r);
 		input = r * input;
 		Vector3 velocity = new Vector3 (0, 0, 0);		// 上下のキー入力からZ軸方向の移動量を取得
 		
 		if (v > 0.1 || v < -0.1 || h > 0.1 || h < -0.1) {
 			animator.SetBool ("isRunning", true);
+			Debug.Log (Quaternion.LookRotation (input));
+						//Quaternion to = Quaternion.Euler (0, Quaternion.LookRotation(input).y * 360, 0);
 			//transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation (velocity), 0.1f);
 			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (input), 0.1f); 
+						//transform.rotation = Quaternion.Slerp (transform.rotation, to, 0.1f); 
 			velocity = transform.forward * System.Math.Max (System.Math.Abs (v), System.Math.Abs (h));
 			velocity *= 5.0f;
 		} else {
