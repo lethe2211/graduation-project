@@ -5,6 +5,7 @@ public class StageSelect : MonoBehaviour {
 
 	public int stage;
 	LineRenderer selectRectangle;
+	private string[] stageList = { "DemoScene", "Stage2" };
 	// Use this for initialization
 	void Start () {
 	
@@ -31,7 +32,7 @@ public class StageSelect : MonoBehaviour {
 
 		if (Input.GetKeyDown ("z")) {
 
-			if (stage == 1) Application.LoadLevel("DemoScene");
+			Application.LoadLevel(stageList[stage-1]);
 
 		}
 

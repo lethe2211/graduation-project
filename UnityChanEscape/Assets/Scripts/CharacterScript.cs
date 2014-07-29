@@ -80,7 +80,6 @@ public class CharacterScript : MonoBehaviour {
 		
 		if (v > 0.1 || v < -0.1 || h > 0.1 || h < -0.1) {
 			animator.SetBool ("isRunning", true);
-			float ue = transform.up.z;
 			Quaternion to = Quaternion.Euler(0, Quaternion.LookRotation (input).eulerAngles.y, rotationZ);
 						transform.rotation = Quaternion.Slerp (transform.rotation, to, 0.5f); 
 			velocity = transform.forward * System.Math.Max (System.Math.Abs (v), System.Math.Abs (h));
