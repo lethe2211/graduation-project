@@ -10,6 +10,7 @@ public class UnityChanScript : CharacterScript {
 
 	GameObject gameOverCameraObject;
 	Camera gameOverCamera;
+	GameObject gameClearObject;
 
 	
 	protected GameObject mainCameraHorizontalObject;
@@ -26,6 +27,8 @@ public class UnityChanScript : CharacterScript {
 
 		cameraObject = GameObject.Find ("MainCameraHorizontalObject");
 		rotationZ = 0;
+
+		gameClearObject = GameObject.Find ("GameClearObject");
 	}
 	
 	// Update is called once per frame
@@ -52,9 +55,8 @@ public class UnityChanScript : CharacterScript {
 		if(cleared){
 			if(animator.GetBool("Clear")) return;
 			animator.SetBool("Clear", true);
-			mainCameraHorizontalObject.transform.Rotate(0, 180, 0);
-			System.Threading.Thread.Sleep(2000);
-			Application.LoadLevel("StageSelect");
+						mainCameraHorizontalObject.transform.position = transform.position + transform.up / 2;
+			mainCameraHorizontalObject.transform.forward = transform.forward;
 			return;
 		}else{
 			animator.SetBool("Clear", false);
@@ -89,6 +91,7 @@ public class UnityChanScript : CharacterScript {
 		string name = collision.gameObject.name;
 		if(name == "Goal"){
 			cleared = true;
+			gameClearObject.SendMessage ("Cleared");
 			Destroy(collision.gameObject);
 		} 
 
@@ -105,12 +108,12 @@ public class UnityChanScript : CharacterScript {
 		}
 	}
 
-	void ClearAnimation(){
-		print("anitmation!");
-		animator.SetBool("Clear", true);
-		mainCameraHorizontalObject.transform.Rotate(0, 180, 0);
-		//camera.transform.localPosition = new Vector3(0.0f, 0.7f, 3.0f);
-	}
+//	void ClearAnimation(){
+//		print("anitmation!");
+//		animator.SetBool("Clear", true);
+//		mainCameraHorizontalObject.transform.Rotate(0, 180, 0);
+//		//camera.transform.localPosition = new Vector3(0.0f, 0.7f, 3.0f);
+//	}
 
 	void GameOver(){
 		print ("Game Over");
