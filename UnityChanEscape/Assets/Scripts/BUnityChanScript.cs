@@ -36,6 +36,13 @@ public class BUnityChanScript : CharacterScript {
 		if(collision.gameObject.name.IndexOf("Plate") >= 0){
 			jumpFrame = 0;
 			animator.SetBool("Jump", false);
+
+			// enable patema
+			if(unityChanComponent.patema == -1){
+				unityChanComponent.patema = 0;
+				print("emable patema");
+			}
 		}
+
 	}
 }

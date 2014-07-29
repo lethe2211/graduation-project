@@ -9,9 +9,12 @@ public class UnityChanScript : CharacterScript {
 	private bool gameOverFlag = false;
 
 	public int patema = 0;
+	private int patemaDisableFrame = 0;
+	// patema = -1, -2 : disable patema
 	// patema = 0 : not patema
 	// patema = 1 : patema and unitychan's mass > bunity's mass
 	// patema = 2 : patema and unitychan's mass < bunity's mass
+	// patema = 3 : patema unitychan's mass == bunity's mass ??
 
 	GameObject gameOverCameraObject;
 	Camera gameOverCamera;
@@ -71,9 +74,9 @@ public class UnityChanScript : CharacterScript {
 		base.Move();
 
 		// resummon Box Unity-chan
-		if (Input.GetKeyDown(KeyCode.X)){
-			boxUnityChan.transform.position = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z);
-		}
+//		if (Input.GetKeyDown(KeyCode.X)){
+//			boxUnityChan.transform.position = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z);
+//		}
 
 		// reset camera position
 		if(Input.GetKey("g")){
@@ -106,7 +109,7 @@ public class UnityChanScript : CharacterScript {
 
 
 		// patema
-		if(name == "BoxUnityChan"){
+		if(name == "BoxUnityChan" && patema == 0){
 			print ("patema!!");
 			print("UnityChan.mass: " + unityChan.rigidbody.mass);
 			print("BoxUnityChan.mass: " + boxUnityChan.rigidbody.mass);
@@ -120,6 +123,9 @@ public class UnityChanScript : CharacterScript {
 				cc.center = new Vector3(cc.center.x, cc.center.y + 0.7f, cc.center.z);
 				cc.height = 3.2f; 
 			}
+
+			// TODO: add script for patema when unity's mass < box's mass
+
 		}
 	}
 

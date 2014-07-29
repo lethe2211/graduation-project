@@ -15,6 +15,7 @@ public class CharacterScript : MonoBehaviour {
 
 	protected int jumpFrame = 0;
 
+
 	// Use this for initialization
 	protected void Start () {
 		animator = GetComponent<Animator>();
@@ -33,11 +34,34 @@ public class CharacterScript : MonoBehaviour {
 	// Update is called once per frame
 	protected void Move () {
 
+		// patema kaijo
+		if (Input.GetKeyDown(KeyCode.X)){
+			 if(unityChanComponent.patema > 0){
+
+//				if(unityChanComponent.patema == 1){
+//					Vector3 uv = unityChan.transform.position;
+//					boxUnityChan.transform.position = new Vector3(uv.x, uv.y + 5.2f, uv.z);
+//				} 
+
+				unityChanComponent.patema *= -1;
+
+				CapsuleCollider cc = (CapsuleCollider)unityChan.collider;
+				cc.enabled = true;
+				cc.center = new Vector3(0.0f , 0.8f, 0.0f);
+				cc.height = 1.6f; 
+				 
+				CapsuleCollider bcc = (CapsuleCollider)boxUnityChan.collider;
+				bcc.enabled = true;
+				bcc.center = new Vector3(0.0f , 0.7f, 0.0f);
+				bcc.height = 1.5f; 
+			}
+		}
+
 		// Jump FIXME: Jump Flag
 		// while jumping, Jump flag = true and finish jumping and 
 		// Collision enter on Rand Plane, set Jump flag = false
 		// rigidbody.useGravity = true;
-		if (Input.GetKeyDown(KeyCode.Space) && jumpFrame == 0){
+		if (Input.GetKeyDown(KeyCode.Z) && jumpFrame == 0){
 			print ("JUMP!");
 			jumpFrame = 2;
 			animator.SetBool("Jump", true);
