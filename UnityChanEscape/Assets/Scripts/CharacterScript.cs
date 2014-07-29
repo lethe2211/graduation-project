@@ -23,7 +23,7 @@ public class CharacterScript : MonoBehaviour {
 	}
 
 	protected void Update(){
-		print ("update");
+		//print ("update");
 	}
 
 	
@@ -35,7 +35,7 @@ public class CharacterScript : MonoBehaviour {
 		// Collision enter on Rand Plane, set Jump flag = false
 		// rigidbody.useGravity = true;
 		if (Input.GetKeyDown(KeyCode.Space) && jumpFrame == 0){
-			print ("JUMP!");
+			//print ("JUMP!");
 			jumpFrame = 2;
 			animator.SetBool("Jump", true);
 		}
@@ -74,7 +74,7 @@ public class CharacterScript : MonoBehaviour {
 		
 		Vector3 input = new Vector3 (h, 0, v);
 		Quaternion r = cameraObject.transform.rotation;
-		Debug.Log (r);
+		//Debug.Log (r);
 		input = r * input;
 		Vector3 velocity = new Vector3 (0, 0, 0);		// 上下のキー入力からZ軸方向の移動量を取得
 		

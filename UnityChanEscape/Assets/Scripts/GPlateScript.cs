@@ -19,14 +19,14 @@ public class GPlateScript : MonoBehaviour {
 
 		Vector3 v = transform.localPosition;
 		float y = v.y;
-		print ("plate position is " + y);
+		//print ("plate position is " + y);
 
 		if (unitychanFlag){
 			y += 0.1f;
-			print("unitychan flag " + y);
+			//print("unitychan flag " + y);
 		}
 		if (boxunitychanFlag){
-			print("boxunitychan flag" + y);
+			//print("boxunitychan flag" + y);
 			y -= 0.1f;
 		}
 
@@ -38,15 +38,15 @@ public class GPlateScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision){
-		print ("gplate Enter");
+		//print ("gplate Enter");
 		// オブジェクトが接触した時
 		if(collision.gameObject.name == "unitychan"){
-			print ("unity chan");
+			//print ("unity chan");
 			unitychanFlag = true;
 		}
 
 		if(collision.gameObject.name == "BoxUnityChan"){
-			print ("box unity chan");
+			//print ("box unity chan");
 			boxunitychanFlag = true;
 		}
 	}
