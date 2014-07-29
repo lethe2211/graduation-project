@@ -30,12 +30,7 @@ public class MovePlateScript : MonoBehaviour {
 		}
 
 		Vector3 v = new Vector3(sin * 5000, 0, 0);
-		print ("force power: " + sin * 10000);
 		rigidbody.AddForce(v);
-		
-		//float x = centerPositionY + sin * moveRangeHalf;
-		//Vector3 p = transform.position;
-		//transform.position = new Vector3(x, p.y, p.z);
 	}
 
 

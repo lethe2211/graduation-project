@@ -14,16 +14,25 @@ public class BUnityChanScript : CharacterScript {
 	// Update is called once per frame
 	protected void FixedUpdate () {
 
+		// when patemed
+		if(unityChanComponent.patema == 1){
+			Vector3 v = unityChan.transform.position;
+			transform.position = new Vector3(v.x, v.y + 2.5f, v.z);
+			return;
+		} 
+
+		// else when pateming 
+
 		// gravity
 		rigidbody.AddForce (unityChan.transform.up * 50);
-
+		
+		animator.SetBool("isRunning", false);
 		if(!subCamera.enabled) return;
-
 
 		base.Move ();
 	}
 
-	void OnCollisionEnter(Collision collision){
+	protected void OnCollisionEnter(Collision collision){ 
 		if(collision.gameObject.name.IndexOf("Plate") >= 0){
 			jumpFrame = 0;
 			animator.SetBool("Jump", false);

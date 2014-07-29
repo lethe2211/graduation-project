@@ -8,6 +8,11 @@ public class UnityChanScript : CharacterScript {
 	private bool cleared = false;
 	private bool gameOverFlag = false;
 
+	public int patema = 0;
+	// patema = 0 : not patema
+	// patema = 1 : patema and unitychan's mass > bunity's mass
+	// patema = 2 : patema and unitychan's mass < bunity's mass
+
 	GameObject gameOverCameraObject;
 	Camera gameOverCamera;
 
@@ -46,6 +51,7 @@ public class UnityChanScript : CharacterScript {
 		}
 
 		// if camera is selected, you can move unity-chan
+		animator.SetBool("isRunning", false);
 		if(!mainCamera.enabled) return;
 
 		// flag for stage clear
@@ -101,7 +107,19 @@ public class UnityChanScript : CharacterScript {
 
 		// patema
 		if(name == "BoxUnityChan"){
-			print ("box unity chan dayo-");
+			print ("patema!!");
+			print("UnityChan.mass: " + unityChan.rigidbody.mass);
+			print("BoxUnityChan.mass: " + boxUnityChan.rigidbody.mass);
+			
+
+			// FIXME: patema
+			if(rigidbody.mass > boxUnityChan.rigidbody.mass){
+				patema = 1;
+				boxUnityChan.collider.enabled = false; 
+				CapsuleCollider cc = (CapsuleCollider)collider;
+				cc.center = new Vector3(cc.center.x, cc.center.y + 0.7f, cc.center.z);
+				cc.height = 3.2f; 
+			}
 		}
 	}
 
@@ -122,6 +140,5 @@ public class UnityChanScript : CharacterScript {
 		subCamera.enabled = false;
 		gameOverCamera.enabled = true;
 		// gameOverCamera.SendMessage("fadeOut");
-
 	}
 }
