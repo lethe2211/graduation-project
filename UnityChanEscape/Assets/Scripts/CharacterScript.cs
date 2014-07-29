@@ -9,6 +9,7 @@ public class CharacterScript : MonoBehaviour {
 	protected Camera mainCamera;
 	protected GameObject cameraObject;
 	protected Camera subCamera;
+	protected int rotationZ;
 	
 	protected int jumpFrame = 0;
 
@@ -79,11 +80,9 @@ public class CharacterScript : MonoBehaviour {
 		
 		if (v > 0.1 || v < -0.1 || h > 0.1 || h < -0.1) {
 			animator.SetBool ("isRunning", true);
-			Debug.Log (Quaternion.LookRotation (input));
-						//Quaternion to = Quaternion.Euler (0, Quaternion.LookRotation(input).y * 360, 0);
-			//transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation (velocity), 0.1f);
-			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (input), 0.1f); 
-						//transform.rotation = Quaternion.Slerp (transform.rotation, to, 0.1f); 
+			float ue = transform.up.z;
+			Quaternion to = Quaternion.Euler(0, Quaternion.LookRotation (input).eulerAngles.y, rotationZ);
+			transform.rotation = Quaternion.Slerp (transform.rotation, to, 0.1f); 
 			velocity = transform.forward * System.Math.Max (System.Math.Abs (v), System.Math.Abs (h));
 			velocity *= 5.0f;
 		} else {

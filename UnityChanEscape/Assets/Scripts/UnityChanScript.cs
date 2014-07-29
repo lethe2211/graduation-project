@@ -25,6 +25,7 @@ public class UnityChanScript : CharacterScript {
 		gameOverCamera.enabled = false;
 
 		cameraObject = GameObject.Find ("MainCameraHorizontalObject");
+		rotationZ = 0;
 	}
 	
 	// Update is called once per frame

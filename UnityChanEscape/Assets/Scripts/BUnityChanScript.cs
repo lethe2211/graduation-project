@@ -8,6 +8,7 @@ public class BUnityChanScript : CharacterScript {
 	protected void Start () {
 		base.Start ();
 		cameraObject = GameObject.Find ("SubCameraHorizontalObject");
+		rotationZ = 180;
 	}
 	
 	// Update is called once per frame
