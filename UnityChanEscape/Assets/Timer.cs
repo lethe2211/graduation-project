@@ -5,6 +5,7 @@ public class Timer : MonoBehaviour {
 
 	public float timer;
 	public GUIText TimerText;
+	private bool is_available;
 
 	// Use this for initialization
 	void Start () {
@@ -13,12 +14,19 @@ public class Timer : MonoBehaviour {
 
 	private void reset()
 	{
+		is_available = true;
 		timer = 0.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		timer += Time.deltaTime;
+		if (is_available) {
+			timer += Time.deltaTime;
+		}
 		TimerText.text = (timer).ToString("f2") + "秒";
+	}
+
+	void Stop (){
+		is_available = false;
 	}
 }
