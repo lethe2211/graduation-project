@@ -7,14 +7,17 @@ public class SignboardScript : MonoBehaviour {
 	public GameObject cone;
 	private float flame;
 	public GUIText text;
+	public GUITexture textback;
 	private bool isReadable;
 	
 	// Use this for initialization
 	void Start () {
 		cone = transform.FindChild("Cone").gameObject;
 		text = transform.FindChild("Text").guiText;
+		textback = transform.FindChild("TextBack").guiTexture;
 		cone.renderer.enabled = false;
 		text.enabled = false;
+		textback.enabled = false;
 		flame = 0;
 		isReadable = false;
 	}
@@ -29,6 +32,7 @@ public class SignboardScript : MonoBehaviour {
 		
 		if (isReadable && Input.GetKeyDown ("z")) {
 			text.enabled = !text.enabled;
+			textback.enabled = !textback.enabled;
 		}
 	}
 		
@@ -45,6 +49,8 @@ public class SignboardScript : MonoBehaviour {
 		if (c.gameObject.name == "unitychan") {
 			cone.renderer.enabled = false;
 			isReadable = false;
+			text.enabled = false;
+			textback.enabled = false;
 		}
 	}
 }
