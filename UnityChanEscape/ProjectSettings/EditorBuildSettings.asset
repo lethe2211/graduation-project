@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/DemoScene.unity
   - enabled: 1
     path: Assets/Stage2.unity
+  - enabled: 1
+    path: Assets/stage3.unity
