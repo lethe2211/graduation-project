@@ -8,14 +8,6 @@ public class UnityChanScript : CharacterScript {
 	private bool cleared = false;
 	private bool gameOverFlag = false;
 
-	public int patema = 0;
-	private int patemaDisableFrame = 0;
-	// patema = -1, -2 : disable patema
-	// patema = 0 : not patema
-	// patema = 1 : patema and unitychan's mass > bunity's mass
-	// patema = 2 : patema and unitychan's mass < bunity's mass
-	// patema = 3 : patema unitychan's mass == bunity's mass ??
-
 	GameObject gameOverCameraObject;
 	Camera gameOverCamera;
 
@@ -40,7 +32,7 @@ public class UnityChanScript : CharacterScript {
 	void FixedUpdate () {
 
 		// gravity
-		rigidbody.AddForce (unityChan.transform.up * -50);
+		if(rigidbody.mass > 0.1)rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * -7);
 
 		// GameOver
 		if(gameOverFlag){
@@ -94,7 +86,9 @@ public class UnityChanScript : CharacterScript {
 		}
 	}
 	
-	void OnCollisionEnter(Collision collision){
+	protected void OnCollisionEnter(Collision collision){
+		base.OnCollisionEnter (collision);
+
 		string name = collision.gameObject.name;
 		if(name == "Goal"){
 			cleared = true;
@@ -107,26 +101,7 @@ public class UnityChanScript : CharacterScript {
 			animator.SetBool("Jump", false);
 		}
 
-
-		// patema
-		if(name == "BoxUnityChan" && patema == 0){
-			print ("patema!!");
-			print("UnityChan.mass: " + unityChan.rigidbody.mass);
-			print("BoxUnityChan.mass: " + boxUnityChan.rigidbody.mass);
-			
-
-			// FIXME: patema
-			if(rigidbody.mass > boxUnityChan.rigidbody.mass){
-				patema = 1;
-				boxUnityChan.collider.enabled = false; 
-				CapsuleCollider cc = (CapsuleCollider)collider;
-				cc.center = new Vector3(cc.center.x, cc.center.y + 0.7f, cc.center.z);
-				cc.height = 3.2f; 
-			}
-
-			// TODO: add script for patema when unity's mass < box's mass
-
-		}
+	
 	}
 
 	void ClearAnimation(){

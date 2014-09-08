@@ -13,7 +13,13 @@ public class CharacterScript : MonoBehaviour {
 	protected Camera subCamera;
 	protected int rotationZ;
 
+	protected ArrayList weightArray;
+	protected ArrayList weightHaving;
+
 	protected int jumpFrame = 0;
+	protected float prevMass;
+	
+	public static int patema = 0;
 
 
 	// Use this for initialization
@@ -25,6 +31,9 @@ public class CharacterScript : MonoBehaviour {
 		boxUnityChan = GameObject.Find ("BoxUnityChan");
 		unityChanComponent = unityChan.GetComponent<UnityChanScript>();
 		boxUnityChanComponent = boxUnityChan.GetComponent<BUnityChanScript>();
+
+		weightArray = new ArrayList ();
+		weightHaving = new ArrayList ();
 	}
 
 	protected void Update(){
@@ -34,17 +43,22 @@ public class CharacterScript : MonoBehaviour {
 	// Update is called once per frame
 	protected void Move () {
 
-		// patema kaijo
+
 		if (Input.GetKeyDown(KeyCode.X)){
-			 if(unityChanComponent.patema > 0){
-
-//				if(unityChanComponent.patema == 1){
-//					Vector3 uv = unityChan.transform.position;
-//					boxUnityChan.transform.position = new Vector3(uv.x, uv.y + 5.2f, uv.z);
-//				} 
-
-				unityChanComponent.patema *= -1;
-
+			// パテマしてる場合はパテマ解除  
+			 if(patema > 0){
+				print("patema kaijo");
+				// 合体を解除
+				unityChan.transform.parent = null;
+				boxUnityChan.transform.parent = null;
+				 
+				// パテマフラグを負にする(すぐパテマしなおしてしまわないように)
+				patema *= -1;
+				// 手を下げる
+				unityChanComponent.animator.SetBool("Patema", false);
+				boxUnityChanComponent.animator.SetBool("Patema", false);
+				 
+				// コライダ復活
 				CapsuleCollider cc = (CapsuleCollider)unityChan.collider;
 				cc.enabled = true;
 				cc.center = new Vector3(0.0f , 0.8f, 0.0f);
@@ -54,13 +68,27 @@ public class CharacterScript : MonoBehaviour {
 				bcc.enabled = true;
 				bcc.center = new Vector3(0.0f , 0.7f, 0.0f);
 				bcc.height = 1.5f; 
+
+				// FIXME: 体重を元に戻す(仮)
+				// print ("buem " + boxUnityChanComponent.extendedMass + " uem " + boxUnityChanComponent.extendedMass);
+				unityChan.rigidbody.mass =  unityChanComponent.prevMass;
+				boxUnityChan.rigidbody.mass = boxUnityChanComponent.prevMass;
+			
+			}else if(weightArray.Count > 0){
+				// get weight item
+				GameObject weightObject = weightArray[0] as GameObject;
+				
+				print ("get weight item! " + weightObject.name); 
+
+				// mass plus
+				rigidbody.mass += weightObject.rigidbody.mass; 
+				Destroy(weightObject);
 			}
+
+
 		}
 
-		// Jump FIXME: Jump Flag
-		// while jumping, Jump flag = true and finish jumping and 
-		// Collision enter on Rand Plane, set Jump flag = false
-		// rigidbody.useGravity = true;
+		// Zボタンでジャンプ
 		if (Input.GetKeyDown(KeyCode.Z) && jumpFrame == 0){
 			print ("JUMP!");
 			jumpFrame = 2;
@@ -102,5 +130,83 @@ public class CharacterScript : MonoBehaviour {
 		transform.position += velocity * Time.fixedDeltaTime;
 		
 		cameraObject.transform.position = transform.position + transform.up;
+	}
+
+	protected void OnCollisionEnter(Collision collision){
+		string name = collision.gameObject.name;
+		GameObject obj = collision.gameObject; // object of collision
+		
+		if(name.IndexOf("weight") >= 0){
+			weightArray.Add (collision.gameObject); 
+			print("OnCollisionEnter: " + name + "\t array count: " + weightArray.Count);
+		}
+
+		// patema パテマフラグが0でないとパテマされない
+		// 体重の重い方がパテマ処理する (全部どちらかに処理させないと厄介になる)
+		if(name.IndexOf("Chan") >= 0 && patema == 0)
+			if(rigidbody.mass > obj.rigidbody.mass)
+				doPatema(collision);
+	}
+
+	private void doPatema(Collision collision){
+		// パテマするのはジャンプ時のみ
+		if(!unityChanComponent.animator.GetBool("Jump") && !boxUnityChanComponent.animator.GetBool("Jump")) return;
+		
+		GameObject obj = collision.gameObject; // object of collision
+
+		patema = 2; // パテマフラグ2はパテマされてる状態 
+		
+		// 体重の記憶
+		unityChanComponent.prevMass = unityChan.rigidbody.mass;
+		boxUnityChanComponent.prevMass = boxUnityChan.rigidbody.mass;
+		
+		// DEBUG CODE
+		print("UnityChan.mass: " + unityChan.rigidbody.mass);
+		print("BoxUnityChan.mass: " + boxUnityChan.rigidbody.mass);
+		print ("patema!!");
+		
+		// 両手を挙げさせる
+		animator.SetBool("Patema", true);
+		obj.GetComponent<Animator>().SetBool("Patema", true);
+		
+		// パテマされた方のコライダを無効化
+		obj.collider.enabled = false; 
+		// その代わり自分のコライダを大きくする
+		CapsuleCollider cc = (CapsuleCollider)collider;
+		cc.center = new Vector3(cc.center.x, cc.center.y + 0.7f, cc.center.z);
+		cc.height = 3.2f; 
+		
+		// 合体させる
+		obj.transform.parent = transform;
+		
+		// mass を0.1以下にすると重力が無効になる
+		// 相方の重力を切る 
+		obj.rigidbody.mass = 0.01f;
+		
+		// 相方の位置を補正
+		Vector3 p = new Vector3(-0.05f, 3.0f, 0.0f);
+		obj.transform.localPosition = p;
+		Vector3 r = obj.transform.eulerAngles;
+		obj.transform.localEulerAngles = new Vector3(r.x, 0, r.z);
+		
+		
+		// effect
+		(GameObject.Find("PatemaParticle").GetComponent("ParticleSystem") as ParticleSystem).Play();
+
+	}
+
+	protected void OnCollisionExit(Collision collision){
+		
+		string name = collision.gameObject.name;
+
+		
+		if(collision.gameObject.name.IndexOf("Plate") >= 0 && patema < 0){
+			patema++;
+		}
+		
+		if(name.IndexOf("weight") >= 0){
+			weightArray.Remove(collision.gameObject);
+			print("OnCollisionExit: " + name + "\t array count: " + weightArray.Count);
+		}
 	}
 }
