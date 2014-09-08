@@ -5,7 +5,7 @@ public class StageSelect : MonoBehaviour {
 
 	public int stage;
 	LineRenderer selectRectangle;
-	private string[] stageList = { "DemoScene", "Stage2", "stage3"};
+	private string[] stageList = { "DemoScene", "Stage2", "stage3" };
 	// Use this for initialization
 	void Start () {
 	

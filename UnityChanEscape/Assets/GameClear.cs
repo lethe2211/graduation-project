@@ -4,6 +4,7 @@ using System.Collections;
 public class GameClear : MonoBehaviour {
 
 	public GUIText clearText;
+	public AudioSource clearVoice;
 	private bool is_cleared = false;
 
 	GameObject TimerObject;
@@ -24,6 +25,7 @@ public class GameClear : MonoBehaviour {
 	void Cleared () {
 		TimerObject.SendMessage ("Stop");
 		clearText.enabled = true;
+		clearVoice.Play();
 		is_cleared = true;
 	}
 }
