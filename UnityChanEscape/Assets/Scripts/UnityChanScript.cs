@@ -35,7 +35,7 @@ public class UnityChanScript : CharacterScript {
 	void FixedUpdate () {
 
 		// gravity
-		rigidbody.AddForce (unityChan.transform.up * -50);
+		if(rigidbody.mass > 0.1)rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * -7);
 
 		// GameOver
 		if(gameOverFlag){
@@ -49,6 +49,7 @@ public class UnityChanScript : CharacterScript {
 		}
 
 		// if camera is selected, you can move unity-chan
+		animator.SetBool("isRunning", false);
 		if(!mainCamera.enabled) return;
 
 		// flag for stage clear
@@ -67,9 +68,9 @@ public class UnityChanScript : CharacterScript {
 		base.Move();
 
 		// resummon Box Unity-chan
-		if (Input.GetKeyDown(KeyCode.X)){
-			boxUnityChan.transform.position = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z);
-		}
+//		if (Input.GetKeyDown(KeyCode.X)){
+//			boxUnityChan.transform.position = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z);
+//		}
 
 		// reset camera position
 		if(Input.GetKey("g")){
@@ -87,7 +88,9 @@ public class UnityChanScript : CharacterScript {
 		}
 	}
 	
-	void OnCollisionEnter(Collision collision){
+	protected void OnCollisionEnter(Collision collision){
+		base.OnCollisionEnter (collision);
+
 		string name = collision.gameObject.name;
 		if(name == "Goal"){
 			cleared = true;
@@ -101,11 +104,7 @@ public class UnityChanScript : CharacterScript {
 			animator.SetBool("Jump", false);
 		}
 
-
-		// patema
-		if(name == "BoxUnityChan"){
-			print ("box unity chan dayo-");
-		}
+	
 	}
 
 //	void ClearAnimation(){
@@ -125,6 +124,5 @@ public class UnityChanScript : CharacterScript {
 		subCamera.enabled = false;
 		gameOverCamera.enabled = true;
 		// gameOverCamera.SendMessage("fadeOut");
-
 	}
 }

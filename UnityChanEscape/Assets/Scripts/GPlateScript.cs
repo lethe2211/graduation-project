@@ -19,7 +19,6 @@ public class GPlateScript : MonoBehaviour {
 
 		Vector3 v = transform.localPosition;
 		float y = v.y;
-		//print ("plate position is " + y);
 
 		if (unitychanFlag){
 			y += 0.1f;
