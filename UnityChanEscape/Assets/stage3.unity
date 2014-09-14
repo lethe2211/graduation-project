@@ -3158,7 +3158,7 @@ Transform:
   m_PrefabInternal: {fileID: 552940784}
   m_GameObject: {fileID: 426267025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: .5, y: .800000012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 892004994}
@@ -3835,11 +3835,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: 14b6b2c2706414dd7b36d8a6f7b0ff6d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 14b6b2c2706414dd7b36d8a6f7b0ff6d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: .800000012
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 14b6b2c2706414dd7b36d8a6f7b0ff6d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3872,6 +3872,18 @@ Prefab:
     - target: {fileID: 13200000, guid: 14b6b2c2706414dd7b36d8a6f7b0ff6d, type: 2}
       propertyPath: m_FontSize
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 14b6b2c2706414dd7b36d8a6f7b0ff6d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 14b6b2c2706414dd7b36d8a6f7b0ff6d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 14b6b2c2706414dd7b36d8a6f7b0ff6d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 14b6b2c2706414dd7b36d8a6f7b0ff6d, type: 2}
@@ -6175,7 +6187,7 @@ Transform:
   m_PrefabInternal: {fileID: 552940784}
   m_GameObject: {fileID: 892004992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .437379509, y: -.848978579, z: 9.8125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 426267026}
