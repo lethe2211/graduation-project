@@ -1,41 +1,72 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class StageSelect : MonoBehaviour {
 
-	public int stage;
-	LineRenderer selectRectangle;
-	private string[] stageList = { "DemoScene", "Stage2", "stage3"};
-	// Use this for initialization
-	void Start () {
-	
-		stage = 1;
+		public int selectedStage; // 今選択されているステージのID
+		private string[] stageList = { "DemoScene", "Stage2", "stage3"}; // ステージに相当するシーンの名前の配列
+		public int maxStageNum; // ステージIDの最大値
 
-	}
+		SaveDataReaderWriter saveDataReaderWriter;
+		List<StageInfo> allStageInfo; // 全ステージの情報
+
+		// Use this for initialization
+		void Start () {
 	
-	// Update is called once per frame
-	void Update () {
+				saveDataReaderWriter = new SaveDataReaderWriter ();
+				allStageInfo = saveDataReaderWriter.GetAllStageInfo ();
+
+				selectedStage = 1;
+				maxStageNum = 5;
+
+		}
 	
+		// Update is called once per frame
+		void Update () {
+	
+				int prev = selectedStage;
+
+				Debug.Log ("stage: " + selectedStage.ToString());
+
+				// 左キー
+				if (Input.GetKeyDown ("left")) {
+
+						if (selectedStage > 1) {
+								selectedStage -= 1;
+								while (allStageInfo [selectedStage - 1].isAppeared == false) {
+										if (selectedStage == 1) {
+												selectedStage = prev;
+												break;
+										}
+										selectedStage -= 1;
+								}
+						}
+				}
 		
-		if (Input.GetKeyDown ("left")) {
-			
-			if (stage > 1) stage -= 1;
-			
+				// 右キー
+				if (Input.GetKeyDown ("right")) {
+
+						if (selectedStage < maxStageNum) {
+								selectedStage += 1;
+								while (allStageInfo [selectedStage - 1].isAppeared == false) {
+										if (selectedStage == maxStageNum) {
+												selectedStage = prev;
+												break;	
+										}
+										selectedStage += 1;
+								}
+						}
+				}
+						
+				// zキー
+				if (Input.GetKeyDown ("z")) {
+								
+						Debug.Log (stageList [selectedStage - 1]);
+						Application.LoadLevel(stageList[selectedStage - 1]);
+
+				}
+
+
 		}
-		
-		if (Input.GetKeyDown ("right")) {
-			
-			if (stage < 5) stage += 1;
-			
-			
-		}
-
-		if (Input.GetKeyDown ("z")) {
-
-			Application.LoadLevel(stageList[stage-1]);
-
-		}
-
-
-	}
 }
