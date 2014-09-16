@@ -27,7 +27,7 @@ public class StageSelect : MonoBehaviour {
 	
 				int prev = selectedStage;
 
-				Debug.Log ("stage: " + selectedStage.ToString());
+				// Debug.Log ("stage: " + selectedStage.ToString());
 
 				// 左キー
 				if (Input.GetKeyDown ("left")) {
@@ -62,7 +62,7 @@ public class StageSelect : MonoBehaviour {
 				// zキー
 				if (Input.GetKeyDown ("z")) {
 								
-						Debug.Log (stageList [selectedStage - 1]);
+						// Debug.Log (stageList [selectedStage - 1]);
 						Application.LoadLevel(stageList[selectedStage - 1]);
 
 				}

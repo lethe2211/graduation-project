@@ -33,10 +33,6 @@ public class SaveDataReaderWriter {
 										var line = sr.ReadLine();
 										// 読み込んだ一行をカンマ毎に分けて配列に格納する
 										string[] values = line.Split(',');
-//										Hashtable lineData = new Hashtable();
-//										for (int colNum = 0; colNum < values.Length; colNum++) {
-//												lineData[header[colNum]] = values[colNum];
-//										}
 										SaveData.Add(values);
 								}
 								
@@ -45,17 +41,6 @@ public class SaveDataReaderWriter {
 				catch (System.Exception e) {
 						// ファイルを開くのに失敗したとき
 						Debug.Log (e.Message);
-				}
-						
-//				foreach (DictionaryEntry h in header) {
-//						Debug.Log (h.Key + ": " + h.Value);
-//				}
-				foreach (string[] data in SaveData) {
-						foreach (string key in header.Keys) {
-								// Debug.Log ((int)header [key]);
-								//Debug.Log (typeof(key));
-								// Debug.Log (key + ": " + data [(int)header[key]]);
-						}
 				}
 
 		}
@@ -77,9 +62,9 @@ public class SaveDataReaderWriter {
 						stageControllers.Add (si);
 				}
 
-				foreach (var item in stageControllers) {
-						Debug.Log (item.stageNo);
-				}
+//				foreach (var item in stageControllers) {
+//						Debug.Log (item.stageNo);
+//				}
 
 		}
 
@@ -111,9 +96,7 @@ public class SaveDataReaderWriter {
 
 		// ステージの情報をStageInfoクラスのインスタンスとして返す
 		public StageInfo GetStageInfo(int stageNo) {
-				Debug.Log ("GetStageInfo: " + stageNo);
 				StageInfo si = stageControllers [stageNo - 1];
-				Debug.Log (si);
 				return si;
 		}
 
@@ -121,10 +104,6 @@ public class SaveDataReaderWriter {
 		// 行のインデックス，ヘッダのキー，書き換えたい値を入力として受け取り，セーブデータの値を書き換える
 		// 先にLoad()の呼び出しが必要
 		public string Write(int rowNum, string key, string value) {
-//				Hashtable row = (Hashtable)SaveData [rowNum];
-//				Debug.Log (row);
-//				row [key] = value;
-//				SaveData [rowNum] = row;
 
 				string[] row = (string[])SaveData [rowNum];
 				row [(int)header [key]] = value;
@@ -139,12 +118,6 @@ public class SaveDataReaderWriter {
 							
 								string firstLine = "";
 								int index = 0;
-//								foreach (DictionaryEntry d in (Hashtable)SaveData[0]) {
-//										if (index == 0) firstLine += d.Key;
-//										else firstLine += "," + d.Key;
-//										index += 1;
-//								}
-//								sw.WriteLine(firstLine);
 								for(int i = 0; i < header.Count; i++) {
 										if (i == 0) {
 												foreach (string k in header.Keys) {
@@ -162,11 +135,7 @@ public class SaveDataReaderWriter {
 								foreach (string[] data in SaveData) {
 										string line = "";
 										int i = 0;
-//										foreach(DictionaryEntry d in data) {
-//												if (i == 0) line += d.Value;
-//												else line += "," + d.Value;
-//											i += 1;
-//										}
+
 										foreach(string s in data) {
 												if (i == 0) line += s;
 												else line += "," + s;
@@ -181,7 +150,7 @@ public class SaveDataReaderWriter {
 						System.Console.WriteLine(e.Message);
 						return null;
 				}
-				Debug.Log ("Saved!");
+//				Debug.Log ("Saved!");
 
 				return value;
 		}
