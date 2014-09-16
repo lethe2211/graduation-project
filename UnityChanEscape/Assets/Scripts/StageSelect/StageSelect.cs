@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class StageSelect : MonoBehaviour {
 
 		public int selectedStage; // 今選択されているステージのID
-		private string[] stageList = { "DemoScene", "Stage2", "stage3"}; // ステージに相当するシーンの名前の配列
+		private string[] stageList = { "Stage1", "Stage2", "stage3"}; // ステージに相当するシーンの名前の配列
 		public int maxStageNum; // ステージIDの最大値
 
 		SaveDataReaderWriter saveDataReaderWriter;
