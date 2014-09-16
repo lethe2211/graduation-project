@@ -20,6 +20,7 @@ public class CharacterScript : MonoBehaviour {
 	protected float prevMass;
 	
 	public static int patema = 0;
+		
 
 
 	// Use this for initialization
@@ -40,8 +41,8 @@ public class CharacterScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	protected void Move () {
-
+	protected void Move ()
+	{	
 		if (Input.GetKeyDown(KeyCode.X)){
 			// パテマしてる場合はパテマ解除  
 			 if(patema > 0){
