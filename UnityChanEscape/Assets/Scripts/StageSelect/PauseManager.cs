@@ -5,9 +5,10 @@ using System.Collections.Generic;
 public class PauseManager: MonoBehaviour {
 
 		public int selectedText; // 今選択されているステージのID
-		public GUIText[] TextList; // 選択できるテキストのリスト
-		public GUIText Arrow; // 矢印
-		public GUIText[] AllTexts; // ポーズ中の全テキスト
+		public GUIText[] textList; // 選択できるテキストのリスト
+		public GUIText arrow; // 矢印
+		public GUIText[] allTexts; // ポーズ中の全テキスト
+		public GUITexture manual; // 操作マニュアル
 		private int maxTextNum; // ステージIDの最大値
 		protected bool isPaused; // ポーズ中かどうかを表すフラグ
 
@@ -15,11 +16,12 @@ public class PauseManager: MonoBehaviour {
 		void Start ()
 		{	
 				selectedText = 0;
-				maxTextNum = TextList.Length - 1;
+				maxTextNum = textList.Length - 1;
 				isPaused = false;
-				foreach (GUIText gt in AllTexts) {
+				foreach (GUIText gt in allTexts) {
 						gt.enabled = false;
 				}
+				manual.enabled = false;
 		}
 	
 		// Update is called once per frame
@@ -30,9 +32,10 @@ public class PauseManager: MonoBehaviour {
 						if (Input.GetKeyDown ("p")) {
 								Time.timeScale = 0f;
 								isPaused = true;
-								foreach (GUIText gt in AllTexts) {
+								foreach (GUIText gt in allTexts) {
 										gt.enabled = true;
 								}
+								manual.enabled = true;
 						}
 
 				} else {
@@ -57,15 +60,16 @@ public class PauseManager: MonoBehaviour {
 
 						}
 						
-						Arrow.transform.position = new Vector3 (0.25f, 0.5f - 0.1f * selectedText, 0f);
+						arrow.transform.position = new Vector3 (0.25f, 0.5f - 0.1f * selectedText, 0f);
 						
 						// zキー
 						if (Input.GetKeyDown ("z")) {
 								switch (selectedText) {
 									case 0:
-										foreach (GUIText gt in AllTexts) {
+										foreach (GUIText gt in allTexts) {
 											gt.enabled = false;
 										}
+										manual.enabled = false;
 										Time.timeScale = 1f;
 										isPaused = false;
 										break;
