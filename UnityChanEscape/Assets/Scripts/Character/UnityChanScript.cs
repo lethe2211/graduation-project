@@ -11,6 +11,7 @@ public class UnityChanScript : CharacterScript {
 	GameObject gameOverCameraObject;
 	Camera gameOverCamera;
 	GameObject gameClearObject;
+	GameObject gameOverObject;
 
 	
 	protected GameObject mainCameraHorizontalObject;
@@ -29,6 +30,7 @@ public class UnityChanScript : CharacterScript {
 		rotationZ = 0;
 
 		gameClearObject = GameObject.Find ("GameClearObject");
+		gameOverObject = GameObject.Find ("GameOverObject");				
 	}
 	
 	// Update is called once per frame
@@ -116,7 +118,8 @@ public class UnityChanScript : CharacterScript {
 
 	void GameOver(){
 		print ("Game Over");
-		Application.LoadLevel("StageSelect");
+		//Application.LoadLevel("StageSelect");
+		gameOverObject.SendMessage("Over");
 		animator.SetBool ("Fall", true);
 		Vector3 v = transform.position;
 		gameOverCameraObject.transform.position = new Vector3(v.x, -3, v.z);
