@@ -5,10 +5,10 @@ public class GameOver : MonoBehaviour {
 
 	public GUIText[] allTexts;
 	public GUIText arrow;
+	public AudioSource gameOverVoice;
 	private int selectedText;
 	private int maxTextNum;
-	//public AudioSource clearVoice;
-	private bool is_cleared = false;
+	private bool is_over = false;
 
 	GameObject TimerObject;
 
@@ -27,7 +27,7 @@ public class GameOver : MonoBehaviour {
 	void Update ()
 	{
 			//クリア時の処理
-			if (is_cleared) {
+			if (is_over) {
 						
 					// 上キー
 					if (Input.GetKeyDown ("up")) {
@@ -74,7 +74,7 @@ public class GameOver : MonoBehaviour {
 			foreach (GUIText gt in allTexts) {
 						gt.enabled = true;
 			}
-			//clearVoice.Play();
-			is_cleared = true;
+			gameOverVoice.Play();
+			is_over = true;
 	}
 }
