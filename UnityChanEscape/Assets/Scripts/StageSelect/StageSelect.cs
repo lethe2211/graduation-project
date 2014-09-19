@@ -2,24 +2,26 @@
 using System.Collections;
 using System.Collections.Generic;
 
+// ステージセレクトのロジックを記述したクラス
 public class StageSelect : MonoBehaviour {
 
 		public int selectedStage; // 今選択されているステージのID
 		private string[] stageList = { "Stage1", "Stage2", "stage3"}; // ステージに相当するシーンの名前の配列
 		public int maxStageNum; // ステージIDの最大値
 
-		SaveDataReaderWriter saveDataReaderWriter;
+		SaveDataAnalyzer saveDataAnalyzer;
 		List<StageInfo> allStageInfo; // 全ステージの情報
 
 		// Use this for initialization
-		void Start () {
-	
-				saveDataReaderWriter = new SaveDataReaderWriter ();
-				allStageInfo = saveDataReaderWriter.GetAllStageInfo ();
+		void Start () {	
+				saveDataAnalyzer = new SaveDataAnalyzer ();
+				allStageInfo = saveDataAnalyzer.GetAllStageInfo ();
 
 				selectedStage = 1;
 				maxStageNum = 5;
-
+				while (allStageInfo [selectedStage - 1].isAppeared == false && selectedStage <= maxStageNum) {
+						selectedStage += 1;
+				}				
 		}
 	
 		// Update is called once per frame
@@ -27,11 +29,8 @@ public class StageSelect : MonoBehaviour {
 	
 				int prev = selectedStage;
 
-				// Debug.Log ("stage: " + selectedStage.ToString());
-
 				// 左キー
 				if (Input.GetKeyDown ("left")) {
-
 						if (selectedStage > 1) {
 								selectedStage -= 1;
 								while (allStageInfo [selectedStage - 1].isAppeared == false) {
@@ -46,7 +45,6 @@ public class StageSelect : MonoBehaviour {
 		
 				// 右キー
 				if (Input.GetKeyDown ("right")) {
-
 						if (selectedStage < maxStageNum) {
 								selectedStage += 1;
 								while (allStageInfo [selectedStage - 1].isAppeared == false) {
@@ -61,10 +59,7 @@ public class StageSelect : MonoBehaviour {
 						
 				// zキー
 				if (Input.GetKeyDown ("z")) {
-								
-						// Debug.Log (stageList [selectedStage - 1]);
 						Application.LoadLevel(stageList[selectedStage - 1]);
-
 				}
 
 

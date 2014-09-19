@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// ステージセレクト画面の画像のコントローラ
 public class StageImageController : MonoBehaviour
 {
 		SpriteRenderer spriteRenderer; // スプライト
@@ -8,7 +9,7 @@ public class StageImageController : MonoBehaviour
 		StageSelect stageSelect; // ステージ選択用のスクリプト
 		int imageNum; // アタッチされている画像(スプライト)の番号
 
-		SaveDataReaderWriter saveDataReaderWriter;
+		SaveDataAnalyzer saveDataAnalyzer; // セーブデータを扱うクラス
 		StageInfo stageInfo; // このステージに関する情報
 
 		// Use this for initialization
@@ -17,11 +18,11 @@ public class StageImageController : MonoBehaviour
 
 				spriteRenderer = GetComponent<SpriteRenderer> ();
 				stageSelect = GameObject.Find ("GameManager").GetComponent<StageSelect> ();
+				saveDataAnalyzer = new SaveDataAnalyzer ();
 
 				imageNum = int.Parse (this.name.Substring (this.name.Length - 1)); // アタッチされているゲームオブジェクトの名前から番号を取得
 
-				saveDataReaderWriter = new SaveDataReaderWriter();
-				stageInfo = saveDataReaderWriter.GetStageInfo (imageNum);
+				stageInfo = saveDataAnalyzer.GetStageInfo (imageNum);
 
 		}
 		// Update is called once per frame
@@ -37,7 +38,7 @@ public class StageImageController : MonoBehaviour
 						}
 						spriteRenderer.color = color;
 				} else {
-						gameObject.SetActive (false);
+						gameObject.SetActive (false); // 非表示にする
 				}
 
 		}
