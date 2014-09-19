@@ -24,9 +24,8 @@ public class SaveDataReaderWriter {
 		// "/Assets/CSVFile"内のファイル名を入力として受け取り，そのファイルを読み込む
 		// Ex. sdrw.LoadFile(@"stageinfo.csv");
 		public void LoadFile(string fileName) {
-				filePath += fileName;
 				try {
-						using (StreamReader sr = new StreamReader(filePath, Encoding. GetEncoding("utf-8"))) {
+						using (StreamReader sr = new StreamReader(filePath + fileName, Encoding. GetEncoding("utf-8"))) {
 								// ヘッダの行の読み込み
 								string firstLine = sr.ReadLine();
 								string[] headerValue = firstLine.Split(',');
@@ -71,9 +70,8 @@ public class SaveDataReaderWriter {
 
 		// ファイル名を入力として受け取り，データを書き込む
 		public void WriteFile(string fileName) {
-
 				try {
-						using (StreamWriter sw = new StreamWriter(fileName, false)) {							
+						using (StreamWriter sw = new StreamWriter(filePath + fileName, false)) {							
 								// ヘッダの行を書き込む
 								string firstLine = "";
 

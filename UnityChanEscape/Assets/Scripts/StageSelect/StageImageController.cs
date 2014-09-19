@@ -18,13 +18,13 @@ public class StageImageController : MonoBehaviour
 
 				spriteRenderer = GetComponent<SpriteRenderer> ();
 				stageSelect = GameObject.Find ("GameManager").GetComponent<StageSelect> ();
-				saveDataAnalyzer = new SaveDataAnalyzer ();
+				saveDataAnalyzer = SaveDataAnalyzer.GetInstance ();
 
 				imageNum = int.Parse (this.name.Substring (this.name.Length - 1)); // アタッチされているゲームオブジェクトの名前から番号を取得
 
 				stageInfo = saveDataAnalyzer.GetStageInfo (imageNum);
-
 		}
+
 		// Update is called once per frame
 		void Update ()
 		{

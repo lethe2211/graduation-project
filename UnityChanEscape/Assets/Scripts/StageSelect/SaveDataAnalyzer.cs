@@ -4,18 +4,30 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 
+// ステージに関するセーブデータ解析用のクラス
+// シングルトンパターンのクラス
+// インスタンスの生成は，"new SaveDataAnalyzer();"ではなく，"SaveDataAnalyzer.GetInstance();"で行う
 public class SaveDataAnalyzer {
 	
-		SaveDataReaderWriter saveDataReaderWriter;
-		StageInfoList stageInfoList;
+		private static SaveDataAnalyzer _singleInstance = new SaveDataAnalyzer ();
 
-		public SaveDataAnalyzer() {
-				saveDataReaderWriter = new SaveDataReaderWriter (@"stageinfo.csv");
+		SaveDataReaderWriter saveDataReaderWriter; // セーブデータ読み込み用のクラス
+		StageInfoList stageInfoList; // ステージの情報
+
+		// インスタンスの生成用関数
+		public static SaveDataAnalyzer GetInstance() {
+				return _singleInstance;
+		}
+
+		// コンストラクタ
+		private SaveDataAnalyzer() {
+				saveDataReaderWriter = new SaveDataReaderWriter (@"stageInfo.csv");
 				stageInfoList = new StageInfoList ();
 				Analyze ();
 		}
 
-		public void Analyze() {
+		// 読み込んだセーブデータを解析する
+		void Analyze() {
 				
 				for (int i = 0; i < saveDataReaderWriter.CountRow(); i++) {
 						List<string> header = saveDataReaderWriter.header;
@@ -29,7 +41,7 @@ public class SaveDataAnalyzer {
 						int score = int.Parse (row [5]);
 						int clearTime = int.Parse (row [6]);
 
-						Debug.Log ("stageNo: " + stageNo);
+						//Debug.Log ("stageNo: " + stageNo);
 						StageInfo stageInfo = new StageInfo (stageNo, world, isAppeared, isCleared, deathCount, score, clearTime);
 						stageInfoList.Add(stageInfo);
 				}
@@ -45,10 +57,19 @@ public class SaveDataAnalyzer {
 				return stageInfoList.GetAll ();
 		}
 
-		// ステージの情報をStageInfoクラスのインスタンスとして返す
+		// ステージの情報をStageInfoクラスのオブジェクトとして返す
 		public StageInfo GetStageInfo(int stageNo) {				
 				return stageInfoList [stageNo - 1];
 		}
 
+		// ステージ番号とStageInfoクラスのオブジェクトを受け取り，そのステージ番号のセーブデータを書き換える
+		public void UpdateStageInfo(int stageNo, StageInfo stageInfo) {
+				saveDataReaderWriter.Update (stageNo - 1, stageInfo.ToList ());
+		}
+
+		// 変更をファイルに書き込む
+		public void WriteStageInfo() {
+				saveDataReaderWriter.WriteFile (@"stageInfo.csv");
+		}
 
 }

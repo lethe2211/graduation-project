@@ -14,7 +14,7 @@ public class StageSelect : MonoBehaviour {
 
 		// Use this for initialization
 		void Start () {	
-				saveDataAnalyzer = new SaveDataAnalyzer ();
+				saveDataAnalyzer = SaveDataAnalyzer.GetInstance ();
 				allStageInfo = saveDataAnalyzer.GetAllStageInfo ();
 
 				selectedStage = 1;
