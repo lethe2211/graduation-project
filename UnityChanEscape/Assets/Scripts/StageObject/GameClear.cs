@@ -10,10 +10,10 @@ public class GameClear : MonoBehaviour {
 	public AudioSource clearVoice;
 	private bool is_cleared = false;
 	string loadedLevelName; // 現在のシーン名
-	int stageNo;
+	int currentStageNo;
 
 	GameObject TimerObject;
-	SaveDataAnalyzer saveDataAnalyzer = SaveDataAnalyzer.GetInstance(); 
+	SaveDataAnalyzer saveDataAnalyzer; 
 
 	// Use this for initialization
 	void Start ()
@@ -25,7 +25,8 @@ public class GameClear : MonoBehaviour {
 			selectedText = 0;
 			maxTextNum = 1;
 			loadedLevelName = Application.loadedLevelName;
-			stageNo = int.Parse (loadedLevelName.Substring (5));
+			currentStageNo = int.Parse (loadedLevelName.Substring (5));
+			saveDataAnalyzer = SaveDataAnalyzer.GetInstance ();
 	}
 	
 	// Update is called once per frame
@@ -59,12 +60,12 @@ public class GameClear : MonoBehaviour {
 					
 					// zキー
 					if (Input.GetKeyDown ("z")) {
-							StageInfo stageInfo = saveDataAnalyzer.GetStageInfo (stageNo);
+							StageInfo stageInfo = saveDataAnalyzer.GetStageInfo (currentStageNo);
 							stageInfo.isCleared = true; // クリアした
 
 							// ここにステージ解放の処理を書く
 
-							saveDataAnalyzer.UpdateStageInfo (stageNo, stageInfo);
+							saveDataAnalyzer.UpdateStageInfo (currentStageNo, stageInfo);
 							saveDataAnalyzer.WriteStageInfo ();
 
 							switch (selectedText) {

@@ -9,8 +9,11 @@ public class GameOver : MonoBehaviour {
 	private int selectedText;
 	private int maxTextNum;
 	private bool is_over = false;
+	string loadedLevelName; // 現在のシーン名
+	int currentStageNo; // 現在のステージID
 
 	GameObject TimerObject;
+	SaveDataAnalyzer saveDataAnalyzer;
 
 	// Use this for initialization
 	void Start ()
@@ -21,6 +24,9 @@ public class GameOver : MonoBehaviour {
 			}
 			selectedText = 0;
 			maxTextNum = 1;
+			loadedLevelName = Application.loadedLevelName;
+			currentStageNo = int.Parse (loadedLevelName.Substring (5));
+			saveDataAnalyzer = SaveDataAnalyzer.GetInstance ();
 	}
 	
 	// Update is called once per frame
@@ -54,6 +60,11 @@ public class GameOver : MonoBehaviour {
 					
 					// zキー
 					if (Input.GetKeyDown ("z")) {
+							StageInfo stageInfo = saveDataAnalyzer.GetStageInfo (currentStageNo);
+							stageInfo.deathCount += 1; // 死亡カウントを1増やす
+							saveDataAnalyzer.UpdateStageInfo (currentStageNo, stageInfo);
+							saveDataAnalyzer.WriteStageInfo ();
+
 							switch (selectedText) {
 							case 0:
 									Application.LoadLevel (Application.loadedLevel);
