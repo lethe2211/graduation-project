@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class StageSelect : MonoBehaviour {
 
 		public int selectedStage; // 今選択されているステージのID
-		private string[] stageList = { "Stage1", "Stage2", "stage3"}; // ステージに相当するシーンの名前の配列
 		public int maxStageNum; // ステージIDの最大値
 
 		SaveDataAnalyzer saveDataAnalyzer;
@@ -59,7 +58,8 @@ public class StageSelect : MonoBehaviour {
 						
 				// zキー
 				if (Input.GetKeyDown ("z")) {
-						Application.LoadLevel(stageList[selectedStage - 1]);
+						string stageName = "Stage" + selectedStage; // 選択したステージの名前
+						Application.LoadLevel(stageName);
 				}
 
 
