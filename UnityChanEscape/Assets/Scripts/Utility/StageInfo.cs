@@ -22,6 +22,17 @@ public class StageInfo {
 				this.score = score;
 				this.clearTime = clearTime;
 		}
+		
+		// stringのListを入力として受け取れるようにコンストラクタをオーバーロード
+		public StageInfo (List<string> row) {
+				this.stageNo = int.Parse (row [0]);
+				this.world = int.Parse (row [1]);
+				this.isAppeared = (row [2] == "1") ? true : false;
+				this.isCleared = (row [3] == "1") ? true : false;
+				this.deathCount = int.Parse (row [4]);
+				this.score = int.Parse (row [5]);
+				this.clearTime = int.Parse (row [6]);
+		}
 
 		public List<string> ToList() {
 				string s_stageNo = stageNo.ToString();

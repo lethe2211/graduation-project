@@ -32,7 +32,7 @@ public class GameOver : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-			//クリア時の処理
+			//ゲームオーバー時の処理
 			if (is_over) {
 						
 					// 上キー

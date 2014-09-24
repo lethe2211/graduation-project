@@ -33,16 +33,8 @@ public class SaveDataAnalyzer {
 						List<string> header = saveDataReaderWriter.header;
 						List<string> row = saveDataReaderWriter.Read (i);
 
-						int stageNo = int.Parse (row [0]);
-						int world = int.Parse (row [1]);
-						bool isAppeared = (row [2] == "1") ? true : false;
-						bool isCleared = (row [3] == "1") ? true : false;
-						int deathCount = int.Parse (row [4]);
-						int score = int.Parse (row [5]);
-						int clearTime = int.Parse (row [6]);
-
 						//Debug.Log ("stageNo: " + stageNo);
-						StageInfo stageInfo = new StageInfo (stageNo, world, isAppeared, isCleared, deathCount, score, clearTime);
+						StageInfo stageInfo = new StageInfo (row);
 						stageInfoList.Add(stageInfo);
 				}
 
