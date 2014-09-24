@@ -39,6 +39,10 @@ public class PauseManager: MonoBehaviour {
 						}
 
 				} else {
+						// Pボタンでポーズ解除
+						if (Input.GetKeyDown ("p")) {
+								Unpause();
+						}
 			
 						// 上キー
 						if (Input.GetKeyDown ("up")) {
@@ -66,12 +70,7 @@ public class PauseManager: MonoBehaviour {
 						if (Input.GetKeyDown ("z")) {
 								switch (selectedText) {
 									case 0:
-										foreach (GUIText gt in allTexts) {
-											gt.enabled = false;
-										}
-										manual.enabled = false;
-										Time.timeScale = 1f;
-										isPaused = false;
+										Unpause();
 										break;
 									case 1:
 										Application.LoadLevel(Application.loadedLevel);
@@ -84,5 +83,14 @@ public class PauseManager: MonoBehaviour {
 								}
 						}
 				}
+		}
+		
+		void Unpause () {
+				foreach (GUIText gt in allTexts) {
+						gt.enabled = false;
+				}
+				manual.enabled = false;
+				Time.timeScale = 1f;
+				isPaused = false;
 		}
 }
