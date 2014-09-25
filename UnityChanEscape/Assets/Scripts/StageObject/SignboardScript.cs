@@ -23,7 +23,7 @@ public class SignboardScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
 		flame += 0.01f;
 		float pos = Mathf.Sin (flame * 5);

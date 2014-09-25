@@ -17,7 +17,7 @@ public class RedButtonScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		Vector3 p = redWall.transform.position;
 		if(buttonFlag && p.y >= -1.1)
 			redWall.transform.position = new Vector3(p.x, p.y - 0.1f, p.z);

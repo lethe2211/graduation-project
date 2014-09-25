@@ -16,7 +16,7 @@ public class MovePlateScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		frame += 0.01f;
 		float sin = Mathf.Sin(frame);
 		

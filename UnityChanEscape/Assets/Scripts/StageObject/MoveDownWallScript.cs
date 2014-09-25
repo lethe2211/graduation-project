@@ -17,7 +17,7 @@ public class MoveDownWallScript : MonoBehaviour {
 		}
 
 		// Update is called once per frame
-		void Update () {
+		void FixedUpdate () {
 
 				pos = transform.position;
 

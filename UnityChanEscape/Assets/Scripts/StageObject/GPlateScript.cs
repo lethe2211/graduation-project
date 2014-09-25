@@ -15,7 +15,7 @@ public class GPlateScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		Vector3 v = transform.localPosition;
 		float y = v.y;
