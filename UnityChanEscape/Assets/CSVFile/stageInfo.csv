@@ -1,6 +1,6 @@
 stageNo,world,isAppeared,isCleared,deathCount,score,clearTime,stageTitle
-1,1,1,1,11,0,0,stage1
-2,1,1,1,10,0,0,stage2
-3,2,1,0,10,0,0,stage3
-4,2,0,0,0,0,0,stage4
+1,1,1,1,9,0,0,stage1
+2,1,1,1,11,0,0,stage2
+3,2,1,0,2,0,0,stage3
+4,2,0,1,0,0,0,stage4
 5,2,0,0,0,0,0,stage5
