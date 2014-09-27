@@ -30,7 +30,7 @@ public class StageImageController : MonoBehaviour
 		{
 				// ステージが出現しているかどうか
 				if (stageInfo.isAppeared) {
-						if (imageNum == stageSelect.stageNo()) {
+						if (imageNum == StageNoManager.stageNo()) {
 								color = new Color (1.0f, 1.0f, 1.0f, 1.0f); // なぜか元の画像に色が加算される
 
 						} else {
