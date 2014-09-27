@@ -12,8 +12,9 @@ public class StageInfo {
 		public int deathCount;
 		public int score;
 		public int clearTime;
+		public string stageTitle;
 		
-		public StageInfo(int stageNo, int world, bool isAppeared, bool isCleared, int deathCount, int score, int clearTime) {
+		public StageInfo(int stageNo, int world, bool isAppeared, bool isCleared, int deathCount, int score, int clearTime, string stageTitle) {
 				this.stageNo = stageNo;
 				this.world = world;
 				this.isAppeared = isAppeared;
@@ -21,6 +22,7 @@ public class StageInfo {
 				this.deathCount = deathCount;
 				this.score = score;
 				this.clearTime = clearTime;
+				this.stageTitle = stageTitle;
 		}
 		
 		// stringのListを入力として受け取れるようにコンストラクタをオーバーロード
@@ -32,6 +34,7 @@ public class StageInfo {
 				this.deathCount = int.Parse (row [4]);
 				this.score = int.Parse (row [5]);
 				this.clearTime = int.Parse (row [6]);
+				this.stageTitle = row [7];
 		}
 
 		public List<string> ToList() {
@@ -42,8 +45,9 @@ public class StageInfo {
 				string s_deathCount = deathCount.ToString();
 				string s_score = score.ToString();
 				string s_clearTime = clearTime.ToString();
+				string s_stageTitle = stageTitle;
 
-				return new List<string> {s_stageNo, s_world, s_isAppeared, s_isCleared, s_deathCount, s_score, s_clearTime};
+				return new List<string> {s_stageNo, s_world, s_isAppeared, s_isCleared, s_deathCount, s_score, s_clearTime, s_stageTitle};
 		}
 
 }

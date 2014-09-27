@@ -378,7 +378,7 @@ GameObject:
   - 4: {fileID: 510920741}
   - 132: {fileID: 510920740}
   m_Layer: 0
-  m_Name: GUI Text
+  m_Name: WorldTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -510,7 +510,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedStage: 0
+  selectedWorld: 0
   maxStageNum: 0
+  maxWorldNum: 0
+  worldTitle: {fileID: 510920740}
 --- !u!1 &1372353067
 GameObject:
   m_ObjectHideFlags: 0

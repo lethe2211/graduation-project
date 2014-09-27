@@ -6,8 +6,12 @@ using System.Collections.Generic;
 public class StageSelect : MonoBehaviour {
 
 		public int selectedStage; // 今選択されているステージのID
+		public int selectedWorld; // 
 		public int maxStageNum; // ステージIDの最大値
+		public int maxWorldNum; // 
 
+		public GUIText worldTitle;
+		List<string> worldTitleList = new List<string> {"escape 1", "escape 2", "escape 3", "escape 4", "escape 5"};
 		SaveDataAnalyzer saveDataAnalyzer;
 		List<StageInfo> allStageInfo; // 全ステージの情報
 
@@ -17,16 +21,28 @@ public class StageSelect : MonoBehaviour {
 				allStageInfo = saveDataAnalyzer.GetAllStageInfo ();
 
 				selectedStage = 1;
+				selectedWorld = 1;
+
 				maxStageNum = 5;
 				while (allStageInfo [selectedStage - 1].isAppeared == false && selectedStage <= maxStageNum) {
 						selectedStage += 1;
-				}				
+				}		
+				maxWorldNum = 5;
 		}
 	
 		// Update is called once per frame
 		void Update () {
 	
 				int prev = selectedStage;
+
+
+				if (Input.GetKeyDown ("up")) {
+						if (selectedWorld > 1) selectedWorld -= 1;
+				}
+
+				if (Input.GetKeyDown ("down")) {
+						if (selectedWorld < maxWorldNum) selectedWorld += 1;
+				}
 
 				// 左キー
 				if (Input.GetKeyDown ("left")) {
@@ -62,6 +78,7 @@ public class StageSelect : MonoBehaviour {
 						Application.LoadLevel(stageName);
 				}
 
+				worldTitle.text = worldTitleList [selectedWorld - 1];
 
 		}
 }
