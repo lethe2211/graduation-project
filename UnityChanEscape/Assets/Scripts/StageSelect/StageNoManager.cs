@@ -14,7 +14,9 @@ public static class StageNoManager{
 		
 		public static void selectedStageInc () {
 				if (StageNoManager.selectedStage < StageNoManager.stageNumPerWorld[StageNoManager.selectedWorld]) {
-						StageNoManager.selectedStage += 1;
+						if(StageNoManager.stageInfoList[StageNoManager.stageNo()].isAppeared){
+							StageNoManager.selectedStage += 1;	
+						}
 				}
 		}
 
@@ -26,7 +28,9 @@ public static class StageNoManager{
 
 		public static void selectedWorldInc () {
 				if (StageNoManager.selectedWorld < StageNoManager.maxWorldNum) {
-						StageNoManager.selectedWorld += 1;
+						if(StageNoManager.stageInfoList[StageNoManager.stageNo()].isAppeared){
+							StageNoManager.selectedWorld += 1;	
+						}
 				}
 				StageNoManager.selectedStage = 1;
 		}
