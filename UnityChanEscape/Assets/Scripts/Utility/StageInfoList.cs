@@ -47,4 +47,11 @@ public class StageInfoList {
 				return stageInfoList.Count;
 		}
 
+		public List<int> CountStageNumPerWorld() {
+		List<int> stageNumPerWorld = new List<int> {0, 0, 0, 0, 0, 0};
+		for (int i = 0; i < this.Count(); i++) {
+			stageNumPerWorld[this[i].world] += 1;
+		}
+		return stageNumPerWorld;
+		}
 }

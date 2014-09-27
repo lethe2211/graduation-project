@@ -12,7 +12,7 @@ public class SaveDataAnalyzer {
 		private static SaveDataAnalyzer _singleInstance = new SaveDataAnalyzer ();
 
 		SaveDataReaderWriter saveDataReaderWriter; // セーブデータ読み込み用のクラス
-		StageInfoList stageInfoList; // ステージの情報
+		public StageInfoList stageInfoList; // ステージの情報
 
 		// インスタンスの生成用関数
 		public static SaveDataAnalyzer GetInstance() {
@@ -48,7 +48,7 @@ public class SaveDataAnalyzer {
 		public List<StageInfo> GetAllStageInfo() {
 				return stageInfoList.GetAll ();
 		}
-
+	
 		// ステージの情報をStageInfoクラスのオブジェクトとして返す
 		public StageInfo GetStageInfo(int stageNo) {				
 				return stageInfoList [stageNo - 1];
