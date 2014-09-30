@@ -23,7 +23,7 @@ public class CameraObjectScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if(isMainCamera && !mainCamera.enabled) return;
 		if(!isMainCamera && !subCamera.enabled) return;
 

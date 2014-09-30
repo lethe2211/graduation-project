@@ -18,7 +18,7 @@ public class CameraScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		// change camera 切り替え
 		if (Input.GetKeyDown(KeyCode.C))
