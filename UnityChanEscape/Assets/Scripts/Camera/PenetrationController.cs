@@ -11,13 +11,18 @@ public class PenetrationController : MonoBehaviour {
 		GameObject unityChan;
 		GameObject boxUnityChan;
 		List<GameObject> disabledObjects;
+		private Shader nShader;
+		private Shader pShader;
 
-		void Start () {
-				mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
-				subCamera = GameObject.Find("SubCamera").GetComponent<Camera>();
-				unityChan = GameObject.Find("unitychan");
-				boxUnityChan = GameObject.Find("BoxUnityChan");
+		void Start ()
+		{
+				mainCamera = GameObject.Find ("MainCamera").GetComponent<Camera> ();
+				subCamera = GameObject.Find ("SubCamera").GetComponent<Camera> ();
+				unityChan = GameObject.Find ("unitychan");
+				boxUnityChan = GameObject.Find ("BoxUnityChan");
 				disabledObjects = new List<GameObject> ();
+				nShader = Shader.Find("Bumped Specular");
+				pShader = Shader.Find("Transparent/Bumped Specular");
 		}
 	
 		void FixedUpdate ()
@@ -29,7 +34,7 @@ public class PenetrationController : MonoBehaviour {
 				
 				// 非表示にしていたオブジェクトを元に戻す
 				for (int i = 0; i < disabledObjects.Count; i++) {
-						disabledObjects [i].renderer.enabled = true;
+						disabledObjects [i].renderer.material.shader = nShader;
 				}
 				
 				// 操作中のキャラクターと利用中のカメラの位置を取得
@@ -57,7 +62,7 @@ public class PenetrationController : MonoBehaviour {
 				foreach (RaycastHit hit in hits) {
 						// レンダラーを非表示に
 						if (hit.collider.gameObject.renderer && canBePenetrated(hit.collider.gameObject)) {
-								hit.collider.gameObject.renderer.enabled = false;
+								hit.collider.gameObject.renderer.material.shader = pShader;
 								if (disabledObjects.IndexOf (hit.collider.gameObject) == -1) {
 										disabledObjects.Add (hit.collider.gameObject); // 非表示済みオブジェクトに登録
 								}
@@ -70,5 +75,14 @@ public class PenetrationController : MonoBehaviour {
 		bool canBePenetrated (GameObject go)
 		{
 				return go.name.IndexOf("Plate") > -1 || go.name.IndexOf("Wall") > -1;
+		}
+		
+		// gameObjectのcolorのアルファ値を変更する
+		// 今は使ってない
+		void SetAlpha (GameObject go, float alpha)
+		{
+				Color color = go.renderer.material.color;
+				color.a = alpha;
+				go.renderer.material.color = color;
 		}
 }

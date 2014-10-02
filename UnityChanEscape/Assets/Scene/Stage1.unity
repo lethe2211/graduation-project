@@ -4948,6 +4948,10 @@ Prefab:
       propertyPath: m_Name
       value: MoveOnceWall
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
   m_RootGameObject: {fileID: 1327785367}
@@ -7383,7 +7387,7 @@ GameObject:
   - 23: {fileID: 1063419208}
   m_Layer: 0
   m_Name: PlateT
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7754,7 +7758,7 @@ GameObject:
   - 23: {fileID: 1079087496}
   m_Layer: 0
   m_Name: PlateLeft2
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9455,7 +9459,7 @@ GameObject:
   - 114: {fileID: 1327785372}
   m_Layer: 0
   m_Name: MoveOnceWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12853,7 +12857,7 @@ GameObject:
   - 23: {fileID: 1812364038}
   m_Layer: 0
   m_Name: PlateRight
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14263,7 +14267,7 @@ GameObject:
   - 23: {fileID: 1999627305}
   m_Layer: 0
   m_Name: PlateLeft
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -4476,7 +4476,7 @@ GameObject:
   - 23: {fileID: 649325356}
   m_Layer: 0
   m_Name: PlateRotate
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5319,7 +5319,7 @@ GameObject:
   - 23: {fileID: 748063881}
   m_Layer: 0
   m_Name: PlateT
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8214,7 +8214,7 @@ GameObject:
   - 23: {fileID: 1118124345}
   m_Layer: 0
   m_Name: PlateRotate
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9731,7 +9731,7 @@ GameObject:
   - 23: {fileID: 1357433377}
   m_Layer: 0
   m_Name: PlateT
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10519,7 +10519,7 @@ GameObject:
   - 23: {fileID: 1454721872}
   m_Layer: 0
   m_Name: PlateRotate
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14258,7 +14258,7 @@ GameObject:
   - 23: {fileID: 1969511374}
   m_Layer: 0
   m_Name: PlateT
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
