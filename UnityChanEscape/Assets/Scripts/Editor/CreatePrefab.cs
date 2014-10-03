@@ -8,7 +8,7 @@ public class CreatePrefab : ScriptableWizard {
 		private static string [] prefabs; // Resourcesフォルダ内のprefab名のリスト
 		private static int selectIndex = 0;
 		
-		[MenuItem ("GameObject/Create Other/Prefab")]
+		[MenuItem ("GameObject/Create Prefab")]
 		static void Init ()
 		{
 				// Resoursesフォルダ内のprefabファイル名をすべて取得
@@ -31,5 +31,6 @@ public class CreatePrefab : ScriptableWizard {
 				// 選択されたprefabのインスタンスを生成
 				GameObject go = Instantiate((GameObject)Resources.Load ("Prefab/" + prefabs[selectIndex])) as GameObject;
 				go.transform.position = new Vector3(0, 0, 0);
+				go.name = go.name.Split("("[0])[0]; // GameObject名に(Clone)がつかないようにする
 		}
 }
