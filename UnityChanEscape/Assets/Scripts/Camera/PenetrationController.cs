@@ -21,8 +21,8 @@ public class PenetrationController : MonoBehaviour {
 				unityChan = GameObject.Find ("unitychan");
 				boxUnityChan = GameObject.Find ("BoxUnityChan");
 				disabledObjects = new List<GameObject> ();
-				nShader = Shader.Find("Bumped Specular");
-				pShader = Shader.Find("Transparent/Bumped Specular");
+				nShader = Shader.Find("Bumped Specular"); // 通常時のシェーダー
+				pShader = Shader.Find("Transparent/Bumped Specular"); // 透過時のシェーダー
 		}
 	
 		void FixedUpdate ()
