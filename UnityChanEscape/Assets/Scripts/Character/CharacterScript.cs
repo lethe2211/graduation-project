@@ -35,11 +35,12 @@ public class CharacterScript : MonoBehaviour {
 		if(!moveEnabled) return;
 		
 		// Zボタンでジャンプ
-		if (Input.GetKeyDown(KeyCode.Z) && !animator.GetBool("Jump")){
+		if (Input.GetKeyDown(KeyCode.Z) && jumpFrame == 0){
 			print ("JUMP!");
 			jumpFrame = 2;
 			animator.SetBool("Jump", true);
 		}
+		print ("jumpFrame: z" + jumpFrame);
 	}
 	
 	// Update is called once per frame
@@ -84,8 +85,9 @@ public class CharacterScript : MonoBehaviour {
 
 		if (jumpFrame >= 2) {
 			jumpFrame++;
-			if(jumpFrame >= 5){
-				rigidbody.AddForce(transform.up * 1700); //  , ForceMode.Impulse);
+			if(jumpFrame >= 5){ 
+				print ("Add Jump Force");
+				rigidbody.AddForce(transform.up * 4, ForceMode.VelocityChange);
 				jumpFrame = 1;
 			}else{
 				return;
@@ -201,7 +203,6 @@ public class CharacterScript : MonoBehaviour {
 			animator.SetBool("Jump", false);
 			jumpFrame = 0;
 		}
-
 		
 		// patema パテマフラグが0でないとパテマされない
 		// 体重の重い方がパテマ処理する (全部どちらかに処理させないと厄介になる)
