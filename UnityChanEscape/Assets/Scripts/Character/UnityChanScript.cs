@@ -120,7 +120,6 @@ public class UnityChanScript : CharacterScript {
 	void GameOver(){
 		print ("Game Over");
 		gameOverObject.SendMessage("Over");
-		Application.LoadLevel("StageSelect");
 		animator.SetBool ("Fall", true);
 		Vector3 v = transform.position;
 		gameOverCameraObject.transform.position = new Vector3(v.x, -3, v.z);
