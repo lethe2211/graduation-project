@@ -11,7 +11,7 @@ public class UnityChanScript : CharacterScript {
 	GameObject gameOverCameraObject;
 	Camera gameOverCamera;
 	GameObject gameClearObject;
-
+	GameObject gameOverObject;
 	
 	protected GameObject mainCameraHorizontalObject;
 	public float gameOverPosition;
@@ -28,6 +28,7 @@ public class UnityChanScript : CharacterScript {
 		cameraObject = GameObject.Find ("MainCameraHorizontalObject");
 		rotationZ = 0;
 
+		gameOverObject = GameObject.Find ("GameOverObject");
 		gameClearObject = GameObject.Find ("GameClearObject");
 	}
 
@@ -118,6 +119,7 @@ public class UnityChanScript : CharacterScript {
 
 	void GameOver(){
 		print ("Game Over");
+		gameOverObject.SendMessage("Over");
 		Application.LoadLevel("StageSelect");
 		animator.SetBool ("Fall", true);
 		Vector3 v = transform.position;
