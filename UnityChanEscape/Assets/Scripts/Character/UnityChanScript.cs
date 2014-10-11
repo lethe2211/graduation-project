@@ -11,7 +11,6 @@ public class UnityChanScript : CharacterScript {
 	GameObject gameOverCameraObject;
 	Camera gameOverCamera;
 	GameObject gameClearObject;
-	GameObject gameOverObject;
 
 	
 	protected GameObject mainCameraHorizontalObject;
@@ -30,7 +29,16 @@ public class UnityChanScript : CharacterScript {
 		rotationZ = 0;
 
 		gameClearObject = GameObject.Find ("GameClearObject");
-		gameOverObject = GameObject.Find ("GameOverObject");				
+	}
+
+
+	void Update() {
+		// カメラが有効な時だけ動く 
+		if(!mainCamera.enabled) return;
+		// パテマとかで動きが制限されている場合
+		if(!moveEnabled) return;
+
+		base.Update ();
 	}
 	
 	// Update is called once per frame
@@ -53,6 +61,12 @@ public class UnityChanScript : CharacterScript {
 		// if camera is selected, you can move unity-chan
 		animator.SetBool("isRunning", false);
 		if(!mainCamera.enabled) return;
+		if(!moveEnabled){
+			print ("unity-chan ugokenai");
+			Vector3 p = new Vector3(-0.05f, 3.0f, 0.0f);
+			transform.localPosition = p;
+			return;
+		}
 
 		// flag for stage clear
 		if(cleared){
@@ -65,14 +79,7 @@ public class UnityChanScript : CharacterScript {
 			animator.SetBool("Clear", false);
 		}
 
-
-		//
 		base.Move();
-
-		// resummon Box Unity-chan
-//		if (Input.GetKeyDown(KeyCode.X)){
-//			boxUnityChan.transform.position = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z);
-//		}
 
 		// reset camera position
 		if(Input.GetKey("g")){
@@ -91,35 +98,27 @@ public class UnityChanScript : CharacterScript {
 	}
 	
 	protected void OnCollisionEnter(Collision collision){
+		print ("UnityChanScript.OnCollisionEnter");
 		base.OnCollisionEnter (collision);
+		GameObject obj = collision.gameObject; // object of collision
 
 		string name = collision.gameObject.name;
 		if(name == "Goal"){
 			cleared = true;
 			gameClearObject.SendMessage ("Cleared");
 			Destroy(collision.gameObject);
-		} 
-
-		
-		if(name.IndexOf("Plate") >= 0){
-			jumpFrame = 0;
-			animator.SetBool("Jump", false);
 		}
 
-	
+		// patema パテマフラグが0でないとパテマされない
+		// 体重の重い方がパテマ処理する (全部どちらかに処理させないと厄介になる)
+		if(name.IndexOf("BoxUnityChan") >= 0 && patema == 0)
+				DoPatema(collision);
 	}
 
-//	void ClearAnimation(){
-//		print("anitmation!");
-//		animator.SetBool("Clear", true);
-//		mainCameraHorizontalObject.transform.Rotate(0, 180, 0);
-//		//camera.transform.localPosition = new Vector3(0.0f, 0.7f, 3.0f);
-//	}
 
 	void GameOver(){
 		print ("Game Over");
-		//Application.LoadLevel("StageSelect");
-		gameOverObject.SendMessage("Over");
+		Application.LoadLevel("StageSelect");
 		animator.SetBool ("Fall", true);
 		Vector3 v = transform.position;
 		gameOverCameraObject.transform.position = new Vector3(v.x, -3, v.z);
