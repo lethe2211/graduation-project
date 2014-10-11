@@ -12,15 +12,12 @@ public class CharacterScript : MonoBehaviour {
 	protected GameObject cameraObject;
 	protected Camera subCamera;
 	protected int rotationZ;
-
-	protected ArrayList weightArray;
-	protected ArrayList weightHaving;
+	protected bool moveEnabled = true;
 
 	protected int jumpFrame = 0;
 	protected float prevMass;
 	
 	public static int patema = 0;
-		
 
 
 	// Use this for initialization
@@ -32,17 +29,23 @@ public class CharacterScript : MonoBehaviour {
 		boxUnityChan = GameObject.Find ("BoxUnityChan");
 		unityChanComponent = unityChan.GetComponent<UnityChanScript>();
 		boxUnityChanComponent = boxUnityChan.GetComponent<BUnityChanScript>();
-
-		weightArray = new ArrayList ();
-		weightHaving = new ArrayList ();
 	}
 
 	protected void Update(){
+		if(!moveEnabled) return;
+		
+		// Zボタンでジャンプ
+		if (Input.GetKeyDown(KeyCode.Z) && jumpFrame == 0){
+			print ("JUMP!");
+			jumpFrame = 2;
+			animator.SetBool("Jump", true);
+		}
+		print ("jumpFrame: z" + jumpFrame);
 	}
 	
 	// Update is called once per frame
-	protected void Move ()
-	{	
+	protected void Move () {
+
 		if (Input.GetKeyDown(KeyCode.X)){
 			// パテマしてる場合はパテマ解除  
 			 if(patema > 0){
@@ -68,35 +71,23 @@ public class CharacterScript : MonoBehaviour {
 				bcc.center = new Vector3(0.0f , 0.7f, 0.0f);
 				bcc.height = 1.5f; 
 
+				unityChanComponent.SetMoveEnabled(true);
+				boxUnityChanComponent.SetMoveEnabled(true);
+
 				// FIXME: 体重を元に戻す(仮)
 				// print ("buem " + boxUnityChanComponent.extendedMass + " uem " + boxUnityChanComponent.extendedMass);
-				unityChan.rigidbody.mass =  unityChanComponent.prevMass;
-				boxUnityChan.rigidbody.mass = boxUnityChanComponent.prevMass;
-			
-			}else if(weightArray.Count > 0){
-				// get weight item
-				GameObject weightObject = weightArray[0] as GameObject;
-				
-				print ("get weight item! " + weightObject.name); 
-
-				// mass plus
-				rigidbody.mass += weightObject.rigidbody.mass; 
-				Destroy(weightObject);
+				unityChanComponent.LoadMass();
+				boxUnityChanComponent.LoadMass();
+				unityChan.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+				boxUnityChan.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 			}
-
-
 		}
 
-		// Zボタンでジャンプ
-		if (Input.GetKeyDown(KeyCode.Z) && jumpFrame == 0){
-			print ("JUMP!");
-			jumpFrame = 2;
-			animator.SetBool("Jump", true);
-		}
 		if (jumpFrame >= 2) {
 			jumpFrame++;
-			if(jumpFrame >= 5){
-				rigidbody.AddForce(transform.up * 1700); //  , ForceMode.Impulse);
+			if(jumpFrame >= 5){ 
+				print ("Add Jump Force");
+				rigidbody.AddForce(transform.up * 4, ForceMode.VelocityChange);
 				jumpFrame = 1;
 			}else{
 				return;
@@ -104,8 +95,7 @@ public class CharacterScript : MonoBehaviour {
 		}
 
 		// move
-		animator.SetBool("isRunning", false);
-		animator.SetBool("Back", false);
+		// animator.SetBool("isRunning", false);
 		
 		Vector3 horizontal_forward = new Vector3(transform.forward.x, 0, transform.forward.z);
 		float h = - Input.GetAxis ("Horizontal");				// 入力デバイスの水平軸をhで定義
@@ -130,33 +120,17 @@ public class CharacterScript : MonoBehaviour {
 		cameraObject.transform.position = transform.position + transform.up;
 	}
 
-	protected void OnCollisionEnter(Collision collision){
-		string name = collision.gameObject.name;
-		GameObject obj = collision.gameObject; // object of collision
+	protected void DoPatema(Collision collision){
+		print ("UnityChanScript.DoPatema");
 		
-		if(name.IndexOf("weight") >= 0){
-			weightArray.Add (collision.gameObject); 
-			print("OnCollisionEnter: " + name + "\t array count: " + weightArray.Count);
-		}
-
-		// patema パテマフラグが0でないとパテマされない
-		// 体重の重い方がパテマ処理する (全部どちらかに処理させないと厄介になる)
-		if(name.IndexOf("Chan") >= 0 && patema == 0)
-			if(rigidbody.mass > obj.rigidbody.mass)
-				doPatema(collision);
-	}
-
-	private void doPatema(Collision collision){
-		// パテマするのはジャンプ時のみ
-		if(!unityChanComponent.animator.GetBool("Jump") && !boxUnityChanComponent.animator.GetBool("Jump")) return;
+		// パテマするのはジャンプ時のみ FIXME
+		if(unityChanComponent.GetAnimatorPatema() || boxUnityChanComponent.GetAnimatorPatema()) return;
 		
-		GameObject obj = collision.gameObject; // object of collision
-
 		patema = 2; // パテマフラグ2はパテマされてる状態 
 		
-		// 体重の記憶
-		unityChanComponent.prevMass = unityChan.rigidbody.mass;
-		boxUnityChanComponent.prevMass = boxUnityChan.rigidbody.mass;
+		// もとの体重を記憶しておく
+		unityChanComponent.SaveMass();
+		boxUnityChanComponent.SaveMass();
 		
 		// DEBUG CODE
 		print("UnityChan.mass: " + unityChan.rigidbody.mass);
@@ -164,47 +138,88 @@ public class CharacterScript : MonoBehaviour {
 		print ("patema!!");
 		
 		// 両手を挙げさせる
-		animator.SetBool("Patema", true);
-		obj.GetComponent<Animator>().SetBool("Patema", true);
+		unityChanComponent.SetAnimatorPatema(true);
+		boxUnityChanComponent.SetAnimatorPatema(true);
+		
+		// 体重が重い方: sbj　軽い方: obj
+		float unity_mass = unityChanComponent.rigidbody.mass;
+		float bunity_mass = boxUnityChanComponent.rigidbody.mass;
+		GameObject sbj, obj;
+		CharacterScript sbj_component, obj_component;
+		if(unity_mass >= bunity_mass){
+			print ("unity-chanの方が重い");
+			sbj = unityChan;
+			sbj_component = unityChanComponent;
+			obj = boxUnityChan;
+			obj_component = boxUnityChanComponent;
+		}else{
+			print ("box-unity-chanの方が重い");
+			sbj = boxUnityChan;
+			sbj_component = boxUnityChanComponent;
+			obj = unityChan;
+			obj_component = unityChanComponent;
+		}     
 		
 		// パテマされた方のコライダを無効化
 		obj.collider.enabled = false; 
 		// その代わり自分のコライダを大きくする
-		CapsuleCollider cc = (CapsuleCollider)collider;
+		CapsuleCollider cc = (CapsuleCollider)sbj.collider;
 		cc.center = new Vector3(cc.center.x, cc.center.y + 0.7f, cc.center.z);
 		cc.height = 3.2f; 
 		
 		// 合体させる
-		obj.transform.parent = transform;
+		obj.transform.parent = sbj.transform;
 		
 		// mass を0.1以下にすると重力が無効になる
 		// 相方の重力を切る 
 		obj.rigidbody.mass = 0.01f;
 		
+		// 相方が動かないようにする
+		obj.rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+		obj_component.SetMoveEnabled(false);
+		
 		// 相方の位置を補正
 		Vector3 p = new Vector3(-0.05f, 3.0f, 0.0f);
 		obj.transform.localPosition = p;
-		Vector3 r = obj.transform.eulerAngles;
+		Vector3 r = obj.transform.localEulerAngles;
 		obj.transform.localEulerAngles = new Vector3(r.x, 0, r.z);
 		
 		
 		// effect
 		(GameObject.Find("PatemaParticle").GetComponent("ParticleSystem") as ParticleSystem).Play();
-
+		
 	}
+
+
+	protected void OnCollisionEnter(Collision collision){
+		string name = collision.gameObject.name;
+		GameObject obj = collision.gameObject; // object of collision
+
+		
+		print ("CharacterScript.OnColisionEnter");
+		if(collision.gameObject.name.IndexOf("Plate") >= 0){
+			print ("着地");
+			if(patema < 0) patema++;
+			animator.SetBool("Jump", false);
+			jumpFrame = 0;
+		}
+		
+		// patema パテマフラグが0でないとパテマされない
+		// 体重の重い方がパテマ処理する (全部どちらかに処理させないと厄介になる)
+		if(obj.tag.CompareTo("player") == 0){
+			if(rigidbody.mass > obj.rigidbody.mass) DoPatema(collision);
+		}
+	}
+
 
 	protected void OnCollisionExit(Collision collision){
-		
 		string name = collision.gameObject.name;
-
-		
-		if(collision.gameObject.name.IndexOf("Plate") >= 0 && patema < 0){
-			patema++;
-		}
-		
-		if(name.IndexOf("weight") >= 0){
-			weightArray.Remove(collision.gameObject);
-			print("OnCollisionExit: " + name + "\t array count: " + weightArray.Count);
-		}
 	}
+
+	// setter / getter
+	public bool GetAnimatorPatema(){ return animator.GetBool("Patema"); }
+	public void SetAnimatorPatema(bool b){ animator.SetBool("Patema", b); }
+	public void SetMoveEnabled(bool b){ moveEnabled = b; }
+	public void SaveMass(){ prevMass = rigidbody.mass; }
+	public void LoadMass(){ rigidbody.mass = prevMass; }
 }
