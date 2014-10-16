@@ -20,6 +20,8 @@ public class SignboardScript : MonoBehaviour {
 		textback.enabled = false;
 		flame = 0;
 		isReadable = false;
+		text.transform.position = new Vector3(0.5f, 0.1f, 2f);
+		textback.transform.position = new Vector3(0.5f, 0.1f, 0f);
 	}
 	
 	// Update is called once per frame
