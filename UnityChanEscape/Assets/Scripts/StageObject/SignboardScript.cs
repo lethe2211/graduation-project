@@ -30,7 +30,7 @@ public class SignboardScript : MonoBehaviour {
 		cone.transform.Rotate (0, 0, 3);
 		cone.transform.position = new Vector3 (cone.transform.position.x, 1.5f + pos / 5, cone.transform.position.z);
 		
-		if (isReadable && Input.GetKeyDown (KeyInputManager.subKeyCode)) {
+		if (isReadable && Input.GetKeyDown ("z")) {
 			text.enabled = !text.enabled;
 			textback.enabled = !textback.enabled;
 		}
