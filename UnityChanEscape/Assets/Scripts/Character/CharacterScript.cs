@@ -207,7 +207,7 @@ public class CharacterScript : MonoBehaviour {
 		
 		// patema パテマフラグが0でないとパテマされない
 		// 体重の重い方がパテマ処理する (全部どちらかに処理させないと厄介になる)
-		if(obj.tag.CompareTo("player") == 0){
+		if(obj.tag.CompareTo("Player") == 0){
 			if(rigidbody.mass > obj.rigidbody.mass) DoPatema(collision);
 		}
 	}

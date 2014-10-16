@@ -112,8 +112,8 @@ public class UnityChanScript : CharacterScript {
 
 		// patema パテマフラグが0でないとパテマされない
 		// 体重の重い方がパテマ処理する (全部どちらかに処理させないと厄介になる)
-		if(name.IndexOf("BoxUnityChan") >= 0 && patema == 0)
-				DoPatema(collision);
+		//if(name.IndexOf("BoxUnityChan") >= 0 && patema == 0)
+		//		DoPatema(collision);
 	}
 
 
