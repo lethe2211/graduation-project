@@ -46,7 +46,7 @@ public class UnityChanScript : CharacterScript {
 	void FixedUpdate () {
 
 		// gravity
-		if(rigidbody.mass > 0.1)rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * -7);
+		if(gravityEnabled)rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * -7);
 
 		// GameOver
 		if(gameOverFlag){
@@ -64,8 +64,8 @@ public class UnityChanScript : CharacterScript {
 		if(!mainCamera.enabled) return;
 		if(!moveEnabled){
 			print ("unity-chan ugokenai");
-			Vector3 p = new Vector3(-0.05f, 3.0f, 0.0f);
-			transform.localPosition = p;
+			// Vector3 p = new Vector3(-0.05f, 3.0f, 0.0f);
+			// transform.localPosition = p;
 			return;
 		}
 
@@ -110,10 +110,6 @@ public class UnityChanScript : CharacterScript {
 			Destroy(collision.gameObject);
 		}
 
-		// patema パテマフラグが0でないとパテマされない
-		// 体重の重い方がパテマ処理する (全部どちらかに処理させないと厄介になる)
-		//if(name.IndexOf("BoxUnityChan") >= 0 && patema == 0)
-		//		DoPatema(collision);
 	}
 
 

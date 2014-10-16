@@ -59,20 +59,14 @@ public class CameraObjectScript : MonoBehaviour {
 				// 背面カメラ
 				if (Input.GetKeyDown (KeyInputManager.cameraBackKeyCode)) {
 						isRotateToBack = true;
-
-
-
 				}
 
 				// TODO: キーを押しっぱなしにすると回転し続けてしまうので直す
 				if (isRotateToBack) {
-
-						Debug.Log ("isRotateToBack");
 						// 操作中のキャラクターと利用中のカメラの位置を取得
 						if (mainCamera.enabled) {
 								cameraPosition = mainCamera.transform.position;
 								characterPosition = unityChan.transform.position + unityChan.transform.up.normalized;
-								//characterRotation = unityChan.transform.rotation + unityChan.transform
 						} else if (subCamera.enabled) {
 								cameraPosition = subCamera.transform.position;
 								characterPosition = boxUnityChan.transform.position + boxUnityChan.transform.up.normalized;
@@ -80,7 +74,6 @@ public class CameraObjectScript : MonoBehaviour {
 								return;
 
 						cameraPosition = characterPosition;
-						//Vector3 cameraRotation = mainCamera.transform.rotation;
 						Vector3 r = unityChan.transform.eulerAngles;
 						Quaternion from = mainCamera.transform.rotation;
 						Quaternion to = Quaternion.Euler(r.x, r.y, r.z);
@@ -92,10 +85,7 @@ public class CameraObjectScript : MonoBehaviour {
 
 						Debug.Log ("isRotateBack is true");
 						horizontalObject.transform.rotation = Quaternion.Slerp (from, to, 0.1f);
-						//horizontalObject.transform.eulerAngles = r;
 						horizontalObject.transform.Rotate (0f, 180f, 0f);
-						// Debug.Log (horizontalObject.transform.rotation);
 				}
-
 	}
 }

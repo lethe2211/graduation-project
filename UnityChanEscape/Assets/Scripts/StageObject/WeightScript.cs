@@ -14,7 +14,7 @@ public class WeightScript : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if(rigidbody.mass > 0.1){
-			Vector3 v = new Vector3(0, g, 0);
+			Vector3 v = new Vector3(0, -g, 0);
 			rigidbody.AddForce (v * 50);
 
 			/*
