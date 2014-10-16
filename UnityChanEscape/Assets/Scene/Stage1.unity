@@ -4193,7 +4193,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: d6dad0fb52ba12f458cc7ffb66882391, type: 3}
   m_Controller: {fileID: 9100000, guid: d21be61ad9abf46b78296dd506cbde90, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 1
+  m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
 --- !u!1 &593149308
@@ -10979,7 +10979,7 @@ Prefab:
       objectReference: {fileID: 9100000, guid: d21be61ad9abf46b78296dd506cbde90, type: 2}
     - target: {fileID: 9500000, guid: 6788413dff62c534d8ca610faef3c7a2, type: 2}
       propertyPath: m_UpdateMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 6788413dff62c534d8ca610faef3c7a2, type: 2}
       propertyPath: m_CullingMode
