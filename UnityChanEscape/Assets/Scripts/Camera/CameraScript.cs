@@ -30,16 +30,21 @@ public class CameraScript : MonoBehaviour {
 				
 				if (isFirstPersonCamera) {
 						
-						if(Input.GetKeyUp (KeyInputManager.cameraFirstPersonKeyCode)) {
-						transform.eulerAngles = defaultEulerAngles;
-						transform.localPosition = new Vector3(0.0f, 0.0f, 3.0f);
-						isFirstPersonCamera = false;
-						unityChan.SendMessage("SetMoveEnabled", true);
-						boxUnityChan.SendMessage("SetMoveEnabled", true);
-					}
+						if (Input.GetKeyUp (KeyInputManager.cameraFirstPersonKeyCode)) {
+								EnabledCamera ().transform.eulerAngles = defaultEulerAngles;
+								EnabledCamera ().transform.localPosition = new Vector3 (0.0f, 0.0f, 3.0f);
+								isFirstPersonCamera = false;
+								unityChan.SendMessage ("SetMoveEnabled", true);
+								boxUnityChan.SendMessage ("SetMoveEnabled", true);
+						}
 						
-					Vector3 nr = transform.eulerAngles;
-					transform.eulerAngles = new Vector3 (nr.x - 3.0f * v, nr.y + 3.0f * h, nr.z);
+						Vector3 nr = EnabledCamera ().transform.eulerAngles;
+						if (mainCamera.enabled) {
+								EnabledCamera ().transform.eulerAngles = new Vector3 (nr.x - 3.0f * v, nr.y + 3.0f * h, nr.z);
+						} else if (subCamera.enabled) {
+								EnabledCamera ().transform.eulerAngles = new Vector3 (nr.x + 3.0f * v, nr.y - 3.0f * h, nr.z);
+
+						}
 		}
 				
 				// change camera 切り替え
@@ -55,12 +60,19 @@ public class CameraScript : MonoBehaviour {
 			
 				// 主眼カメラ
 				if(Input.GetKeyDown (KeyInputManager.cameraFirstPersonKeyCode) && h == 0 && v == 0) {
-						transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-						defaultEulerAngles = transform.eulerAngles;
+						EnabledCamera().transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+						defaultEulerAngles = EnabledCamera().transform.eulerAngles;
 						isFirstPersonCamera = true;
 						unityChan.SendMessage("SetMoveEnabled", false);
 						boxUnityChan.SendMessage("SetMoveEnabled", false);
 				}
 						
+		}
+		
+		GameObject EnabledCamera ()
+		{
+				if(mainCamera.enabled) return GameObject.Find("MainCamera");
+				else if(subCamera.enabled) return GameObject.Find("SubCamera");
+				else return null;
 		}
 }
