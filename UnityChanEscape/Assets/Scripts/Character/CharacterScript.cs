@@ -44,9 +44,10 @@ public class CharacterScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	protected void Move () {
 
-		if (Input.GetKeyDown(KeyCode.X)){
+	protected void Move ()
+	{	
+		if (Input.GetKeyDown(KeyInputManager.subKeyCode)){
 			// パテマしてる場合はパテマ解除  
 			 if(patema > 0){
 				print("patema kaijo");
@@ -83,7 +84,7 @@ public class CharacterScript : MonoBehaviour {
 				boxUnityChan.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 			}
 		}
-
+						
 		if (jumpFrame >= 2) {
 			jumpFrame++;
 			if(jumpFrame >= 5){ 

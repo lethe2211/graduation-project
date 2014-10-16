@@ -28,67 +28,44 @@ public class BoxController : MonoBehaviour
 				pos = transform.position;
 
 				if (reversed == true) {
-	
 						rigidbody.AddForce (transform.up * 1000);
 						if (pos.y > maxHeight)
 								transform.position = init_position;
-
 				} else {
 						if (pos.y < minHeight)
 								transform.position = init_position;
 				}
-		
 		}
 				
 		void OnCollisionStay (Collision col)
 		{
-				Debug.Log ("ontriggerenter");
+				// Debug.Log ("ontriggerenter");
 
 				double error = collisionError;
 		
 				if (col.gameObject.tag == "Player") {
-
 						ContactPoint contact = col.contacts [0];
-
-//				foreach (ContactPoint c in col.contacts) {
-//					
-//					Debug.Log("contact point: " + c.point);
-//
-//				}
-							
-					bool canPushForward = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z + 0.5)) <= error;
-					bool canPushBack = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z - 0.5)) <= error;
-					bool canPushLeft = System.Math.Abs (contact.point.z - transform.position.z) <= collisionWidth && System.Math.Abs (contact.point.x - (transform.position.x - 0.5)) <= error;
-					bool canPushRight = System.Math.Abs (contact.point.z - transform.position.z) <= collisionWidth && System.Math.Abs (contact.point.x - (transform.position.x + 0.5)) <= error;
-
-					col.gameObject.GetComponent<Animator> ().SetBool ("isPushing", true);
 					
-					if (canPushForward) {
-							//if (contact.point.x >= (transform.position.x - collisionWidth) && contact.point.x <= (transform.position.x + collisionWidth) && System.Math.Abs(contact.point.z - (transform.position.z + 0.5)) <= error) {
-							//print ((System.Math.Abs (contact.point.z - (transform.position.z + 0.5)) <= error)? 1: 0);
-							//Debug.Log ("can push");
+						bool canPushForward = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z + 0.5)) <= error;
+						bool canPushBack = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z - 0.5)) <= error;
+						bool canPushLeft = System.Math.Abs (contact.point.z - transform.position.z) <= collisionWidth && System.Math.Abs (contact.point.x - (transform.position.x - 0.5)) <= error;
+						bool canPushRight = System.Math.Abs (contact.point.z - transform.position.z) <= collisionWidth && System.Math.Abs (contact.point.x - (transform.position.x + 0.5)) <= error;
 
-							// TODO: change unity-chan's pose
+						col.gameObject.GetComponent<Animator> ().SetBool ("isPushing", true);
+					
+						if (canPushForward) {		
+								transform.Translate (0, 0, -1 * Time.deltaTime);
+						} else if (canPushBack) {
+								transform.Translate (0, 0, 1 * Time.deltaTime);
+						} else if (canPushLeft) {
+								transform.Translate (1 * Time.deltaTime, 0, 0);
+						} else if (canPushRight) {
+								transform.Translate (-1 * Time.deltaTime, 0, 0);
+						}
 
-							transform.Translate (0, 0, -1 * Time.deltaTime);
-
-					} else if (canPushBack) {
-
-							transform.Translate (0, 0, 1 * Time.deltaTime);
-
-					} else if (canPushLeft) {
-
-							transform.Translate (1 * Time.deltaTime, 0, 0);
-
-					} else if (canPushRight) {
-
-							transform.Translate (-1 * Time.deltaTime, 0, 0);
-
-					}
-					if (!(Input.GetKey ("up") || Input.GetKey ("down") || Input.GetKey ("right") || Input.GetKey ("left"))) {
-								col.gameObject.GetComponent<Animator>().SetBool("isPushing", false);
-					}
-			
+						if (!(Input.GetKey ("up") || Input.GetKey ("down") || Input.GetKey ("right") || Input.GetKey ("left"))) {
+									col.gameObject.GetComponent<Animator>().SetBool("isPushing", false);
+						}	
 			}
 		}
 		
