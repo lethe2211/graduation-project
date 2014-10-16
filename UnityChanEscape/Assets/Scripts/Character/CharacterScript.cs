@@ -44,9 +44,10 @@ public class CharacterScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	protected void Move () {
 
-		if (Input.GetKeyDown(KeyCode.X)){
+	protected void Move ()
+	{	
+		if (Input.GetKeyDown(KeyInputManager.subKeyCode)){
 			// パテマしてる場合はパテマ解除  
 			 if(patema > 0){
 				print("patema kaijo");
@@ -83,6 +84,15 @@ public class CharacterScript : MonoBehaviour {
 			}
 		}
 
+<<<<<<< HEAD
+=======
+		// Zボタンでジャンプ
+		if (Input.GetKeyDown(KeyInputManager.jumpKeyCode) && jumpFrame == 0){
+			print ("JUMP!");
+			jumpFrame = 2;
+			animator.SetBool("Jump", true);
+		}
+>>>>>>> backcamera
 		if (jumpFrame >= 2) {
 			jumpFrame++;
 			if(jumpFrame >= 5){ 
