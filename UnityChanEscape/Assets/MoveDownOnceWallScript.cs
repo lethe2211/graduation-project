@@ -14,8 +14,7 @@ public class MoveDownOnceWallScript : MonoBehaviour {
 				buttonFlag = false;
 
 		}
-
-		// Update is called once per frame
+				
 		void FixedUpdate () {
 
 				pos = transform.position;
@@ -27,9 +26,7 @@ public class MoveDownOnceWallScript : MonoBehaviour {
 				}
 		}
 
-		void ButtonOn() {
-				Debug.Log ("hogehoge");
+		void TriggerOn() {
 				buttonFlag = true;
-
 		}
 }
