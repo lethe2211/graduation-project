@@ -17,9 +17,6 @@ public class CameraObjectScript : MonoBehaviour {
 		bool isRotateToBack;
 		Quaternion characterRotation;
 
-//		Quaternion from;
-//		Quaternion to;
-
 		// Use this for initialization
 		void Start () {
 				horizontalObject = GameObject.Find (horizontalObjectName);
@@ -31,8 +28,6 @@ public class CameraObjectScript : MonoBehaviour {
 				unityChan = GameObject.Find ("unitychan");
 				boxUnityChan = GameObject.Find ("BoxUnityChan");
 				isRotateToBack = false;
-//				from = Quaternion.Euler(0, 0, 0);
-//				to = Quaternion.Euler(0, 0, 0);
 		}
 		
 		// Update is called once per frame
@@ -87,8 +82,6 @@ public class CameraObjectScript : MonoBehaviour {
 						if (subCamera.enabled) from = subCamera.transform.rotation;
 						Quaternion to = characterRotation;
 
-
-						Debug.Log (Quaternion.Dot (from, to));
 						if (Quaternion.Dot (from, to) > 0.999f) {
 								Debug.Log ("finished");
 								isRotateToBack = false;
