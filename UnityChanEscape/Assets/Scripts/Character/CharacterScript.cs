@@ -83,16 +83,7 @@ public class CharacterScript : MonoBehaviour {
 				boxUnityChan.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 			}
 		}
-
-<<<<<<< HEAD
-=======
-		// Zボタンでジャンプ
-		if (Input.GetKeyDown(KeyInputManager.jumpKeyCode) && jumpFrame == 0){
-			print ("JUMP!");
-			jumpFrame = 2;
-			animator.SetBool("Jump", true);
-		}
->>>>>>> backcamera
+						
 		if (jumpFrame >= 2) {
 			jumpFrame++;
 			if(jumpFrame >= 5){ 
