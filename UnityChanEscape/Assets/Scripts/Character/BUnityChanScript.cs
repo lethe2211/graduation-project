@@ -25,18 +25,19 @@ public class BUnityChanScript : CharacterScript {
 	// Update is called once per frame
 	protected void FixedUpdate () {
 		// gravity
-		if(rigidbody.mass > 0.1)rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * 7); 
+		if(gravityEnabled)rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * 7); 
 		
 		animator.SetBool("isRunning", false);
 		if(!subCamera.enabled) return;
 		if(!moveEnabled) return;
 
+		// TODO: move this block to "Update()" not in FixedUpdate()
 		if (Input.GetKeyDown(KeyCode.X)){ 
 			if(patema == 0){
 				if(weightAround != null){
 					// パテマしてなくてかつ重りが近くにある場合
 					MonoBehaviour weight = weightAround.GetComponent<MonoBehaviour>();
-					rigidbody.mass += weight.rigidbody.mass;
+					rigidbody.mass += 2.0f;
 					weight.rigidbody.mass = 0.01f;
 					weightAround.collider.enabled = false;
 					GameObject ref_object = transform.FindChild("Character1_Reference").gameObject;
