@@ -4762,7 +4762,7 @@ Transform:
   - {fileID: 1953136151}
   - {fileID: 1323598300}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
 --- !u!114 &705949832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8444,6 +8444,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 122440599}
   m_RootOrder: 0
+--- !u!1001 &1162044513
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 8.14907253e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.0999717712
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_RootMapOrder
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerConditions.Array.data[0].buttons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1404630874}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerConditions.Array.data[0].target
+      value: 
+      objectReference: {fileID: 1327785367}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+  m_RootGameObject: {fileID: 1688401459}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1162902181
 GameObject:
   m_ObjectHideFlags: 0
@@ -9944,6 +10000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onColor: {r: .5, g: 1, b: .5, a: 1}
   offColor: {r: 1, g: .5, b: .5, a: 1}
+  stageFlagManager: {fileID: 0}
   targetObject:
   - {fileID: 1327785367}
 --- !u!1 &1407619236
@@ -11808,6 +11865,50 @@ Transform:
   - {fileID: 1588523691}
   m_Father: {fileID: 1692864134}
   m_RootOrder: 0
+--- !u!1 &1688401459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+  m_PrefabInternal: {fileID: 1162044513}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1688401461}
+  - 114: {fileID: 1688401460}
+  m_Layer: 0
+  m_Name: StageFlagManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1688401460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35,
+    type: 2}
+  m_PrefabInternal: {fileID: 1162044513}
+  m_GameObject: {fileID: 1688401459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f7d93be41084b449c912b4887cc509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerConditions:
+  - buttons:
+    - {fileID: 1404630874}
+    target: {fileID: 1327785367}
+--- !u!4 &1688401461
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+  m_PrefabInternal: {fileID: 1162044513}
+  m_GameObject: {fileID: 1688401459}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.14907253e-10, y: -.0999717712, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
 --- !u!1 &1692864133
 GameObject:
   m_ObjectHideFlags: 0

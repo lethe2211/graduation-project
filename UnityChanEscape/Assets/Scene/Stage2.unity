@@ -10094,6 +10094,55 @@ Transform:
   - {fileID: 1128085098}
   m_Father: {fileID: 263395619}
   m_RootOrder: 2
+--- !u!1 &1408035861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+  m_PrefabInternal: {fileID: 1856600296}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1408035863}
+  - 114: {fileID: 1408035862}
+  m_Layer: 0
+  m_Name: StageFlagManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1408035862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35,
+    type: 2}
+  m_PrefabInternal: {fileID: 1856600296}
+  m_GameObject: {fileID: 1408035861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f7d93be41084b449c912b4887cc509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerTargets:
+  - triggers:
+    - button: {fileID: 1410459606}
+      flag: 1
+    target: {fileID: 1465253750}
+  - triggers:
+    - button: {fileID: 1410459606}
+      flag: 0
+    target: {fileID: 1465253750}
+--- !u!4 &1408035863
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+  m_PrefabInternal: {fileID: 1856600296}
+  m_GameObject: {fileID: 1408035861}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
 --- !u!1 &1410459606
 GameObject:
   m_ObjectHideFlags: 0
@@ -10175,6 +10224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7036ac5fce4d44260a1cc0527b2bb5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageFlagManager: {fileID: 0}
 --- !u!64 &1410459613
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10430,6 +10480,7 @@ GameObject:
   - 33: {fileID: 1465253753}
   - 65: {fileID: 1465253752}
   - 23: {fileID: 1465253751}
+  - 114: {fileID: 1465253755}
   m_Layer: 0
   m_Name: RedWall
   m_TagString: Untagged
@@ -10488,6 +10539,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!114 &1465253755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1465253750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2719e91499c84dd0b309ba4b8be11e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1469383480
 GameObject:
   m_ObjectHideFlags: 0
@@ -12737,6 +12799,102 @@ Transform:
   - {fileID: 1606782008}
   m_Father: {fileID: 997765125}
   m_RootOrder: 0
+--- !u!1001 &1856600296
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[1].triggers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_RootMapOrder
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerConditions.Array.data[0].target
+      value: 
+      objectReference: {fileID: 1465253750}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerConditions.Array.data[0].buttons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1410459606}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].target
+      value: 
+      objectReference: {fileID: 1465253750}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.data[0].button
+      value: 
+      objectReference: {fileID: 1410459606}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.data[0].flag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.data[1].button
+      value: 
+      objectReference: {fileID: 1410459606}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[1].triggers.Array.data[0].button
+      value: 
+      objectReference: {fileID: 1410459606}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[1].triggers.Array.data[0].flag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[1].target
+      value: 
+      objectReference: {fileID: 1465253750}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+  m_RootGameObject: {fileID: 1408035861}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1861738270
 GameObject:
   m_ObjectHideFlags: 0

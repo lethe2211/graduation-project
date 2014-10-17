@@ -9,14 +9,11 @@ public class MoveDownOnceWallScript : MonoBehaviour {
 
 		// Use this for initialization
 		void Start () {
-
 				initPosition = transform.position;
 				buttonFlag = false;
-
 		}
 				
 		void FixedUpdate () {
-
 				pos = transform.position;
 
 				if (buttonFlag) {
