@@ -8451,6 +8451,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: m_LocalPosition.x
       value: 8.14907253e-10
@@ -8495,6 +8503,18 @@ Prefab:
       propertyPath: triggerConditions.Array.data[0].target
       value: 
       objectReference: {fileID: 1327785367}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].target
+      value: 
+      objectReference: {fileID: 1327785367}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.data[0].button
+      value: 
+      objectReference: {fileID: 1404630874}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.data[0].flag
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
   m_RootGameObject: {fileID: 1688401459}
@@ -11893,9 +11913,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f7d93be41084b449c912b4887cc509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerConditions:
-  - buttons:
-    - {fileID: 1404630874}
+  triggerTargets:
+  - triggers:
+    - button: {fileID: 1404630874}
+      flag: 1
     target: {fileID: 1327785367}
 --- !u!4 &1688401461
 Transform:
