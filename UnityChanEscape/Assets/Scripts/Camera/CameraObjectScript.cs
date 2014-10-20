@@ -15,9 +15,7 @@ public class CameraObjectScript : MonoBehaviour {
 		GameObject unityChan;
 		GameObject boxUnityChan;
 		bool isRotateToBack;
-
-//		Quaternion from;
-//		Quaternion to;
+		Quaternion characterRotation;
 
 		// Use this for initialization
 		void Start () {
@@ -30,35 +28,40 @@ public class CameraObjectScript : MonoBehaviour {
 				unityChan = GameObject.Find ("unitychan");
 				boxUnityChan = GameObject.Find ("BoxUnityChan");
 				isRotateToBack = false;
-//				from = Quaternion.Euler(0, 0, 0);
-//				to = Quaternion.Euler(0, 0, 0);
 		}
 		
 		// Update is called once per frame
-		void FixedUpdate () {
+		void FixedUpdate ()
+		{
 				Vector3 cameraPosition;
 				Vector3 characterPosition;
-				Vector3 characterRotation;
-			
 
-				if(isMainCamera && !mainCamera.enabled) return;
-				if(!isMainCamera && !subCamera.enabled) return;
+				if (isMainCamera && !mainCamera.enabled)
+						return;
+				if (!isMainCamera && !subCamera.enabled)
+						return;
 
 				// up-down
-		//		if(Input.GetKey ("q")) verticalObject.transform.Rotate(3, 0, 0);
-		//		if(Input.GetKey ("a")) verticalObject.transform.Rotate (-3, 0, 0);
+				//		if(Input.GetKey ("q")) verticalObject.transform.Rotate(3, 0, 0);
+				//		if(Input.GetKey ("a")) verticalObject.transform.Rotate (-3, 0, 0);
 
 				// right-left
-				if(Input.GetKey (KeyInputManager.cameraLeftRotateKeyCode)) horizontalObject.transform.Rotate (0, -3, 0);
-				if(Input.GetKey (KeyInputManager.cameraRightRotateKeyCode)) horizontalObject.transform.Rotate (0, 3, 0);
+				if (Input.GetKey (KeyInputManager.cameraLeftRotateKeyCode))
+						horizontalObject.transform.Rotate (0, -3, 0);
+				if (Input.GetKey (KeyInputManager.cameraRightRotateKeyCode))
+						horizontalObject.transform.Rotate (0, 3, 0);
 
-		//		if(Input.GetKey ("g")) {
-		//			//Physics.gravity  *= -1;
-		//		}
-
+				//		if(Input.GetKey ("g")) {
+				//			//Physics.gravity  *= -1;
+				//		}
+				
 				// 背面カメラ
-				if (Input.GetKeyDown (KeyInputManager.cameraBackKeyCode)) {
+				if (Input.GetKeyDown (KeyInputManager.cameraBackKeyCode) && !isRotateToBack) {
 						isRotateToBack = true;
+						if (mainCamera.enabled)
+								characterRotation = unityChan.transform.rotation;
+						else if (subCamera.enabled)
+								characterRotation = boxUnityChan.transform.rotation;
 				}
 
 				// TODO: キーを押しっぱなしにすると回転し続けてしまうので直す
@@ -72,13 +75,14 @@ public class CameraObjectScript : MonoBehaviour {
 								characterPosition = boxUnityChan.transform.position + boxUnityChan.transform.up.normalized;
 						} else
 								return;
-
+						
+						// カメラの角度を背面に来るように変更
 						cameraPosition = characterPosition;
-						Vector3 r = unityChan.transform.eulerAngles;
 						Quaternion from = mainCamera.transform.rotation;
-						Quaternion to = Quaternion.Euler(r.x, r.y, r.z);
+						if (subCamera.enabled) from = subCamera.transform.rotation;
+						Quaternion to = characterRotation;
 
-						if (Quaternion.Dot (from, to) > 0.99f) {
+						if (Quaternion.Dot (from, to) > 0.999f) {
 								Debug.Log ("finished");
 								isRotateToBack = false;
 						} 
@@ -87,5 +91,5 @@ public class CameraObjectScript : MonoBehaviour {
 						horizontalObject.transform.rotation = Quaternion.Slerp (from, to, 0.1f);
 						horizontalObject.transform.Rotate (0f, 180f, 0f);
 				}
-	}
+		}
 }

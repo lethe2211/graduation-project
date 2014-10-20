@@ -20,6 +20,8 @@ public class SignboardScript : MonoBehaviour {
 		textback.enabled = false;
 		flame = 0;
 		isReadable = false;
+		text.transform.position = new Vector3(0.5f, 0.1f, 2f);
+		textback.transform.position = new Vector3(0.5f, 0.1f, 0f);
 	}
 	
 	// Update is called once per frame
@@ -30,7 +32,7 @@ public class SignboardScript : MonoBehaviour {
 		cone.transform.Rotate (0, 0, 3);
 		cone.transform.position = new Vector3 (cone.transform.position.x, 1.5f + pos / 5, cone.transform.position.z);
 		
-		if (isReadable && Input.GetKeyDown ("z")) {
+		if (isReadable && Input.GetKeyDown (KeyInputManager.subKeyCode)) {
 			text.enabled = !text.enabled;
 			textback.enabled = !textback.enabled;
 		}

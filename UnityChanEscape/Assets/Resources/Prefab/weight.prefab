@@ -83,10 +83,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daa41b4a3811c4f8a9227675773b89b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 246abb6f36d6243ac83e887790f125ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g: -1
+  g: 9.80000019
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -8,9 +8,10 @@ public class GameOver : MonoBehaviour {
 	public AudioSource gameOverVoice;
 	private int selectedText;
 	private int maxTextNum;
-	private bool is_over = false;
+	private bool isOver = false;
 	string loadedLevelName; // 現在のシーン名
 	int currentStageNo; // 現在のステージID
+	public bool isDebug = false; // デバッグモードかどうか
 
 	GameObject TimerObject;
 	SaveDataAnalyzer saveDataAnalyzer;
@@ -25,56 +26,62 @@ public class GameOver : MonoBehaviour {
 			selectedText = 0;
 			maxTextNum = 1;
 			loadedLevelName = Application.loadedLevelName;
-			currentStageNo = int.Parse (loadedLevelName.Substring (5));
+			try {
+				currentStageNo = int.Parse (loadedLevelName.Substring (5));
+			} catch {
+				isDebug = true;		
+			}
 			saveDataAnalyzer = SaveDataAnalyzer.GetInstance ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
-	{
-			//ゲームオーバー時の処理
-			if (is_over) {
+		{
+				//ゲームオーバー時の処理
+				if (isOver) {
 						
-					// 上キー
-					if (Input.GetKeyDown ("up")) {
-							if (selectedText > 0) {
-									selectedText -= 1;
-							} else {
-									selectedText = maxTextNum;
-							}
+						// 上キー
+						if (Input.GetKeyDown ("up")) {
+								if (selectedText > 0) {
+										selectedText -= 1;
+								} else {
+										selectedText = maxTextNum;
+								}
 
-					}
+						}
 	
-					// 下キー
-					if (Input.GetKeyDown ("down")) {
-							if (selectedText < maxTextNum) {
-									selectedText += 1;
-							} else {
-									selectedText = 0;
-							}
+						// 下キー
+						if (Input.GetKeyDown ("down")) {
+								if (selectedText < maxTextNum) {
+										selectedText += 1;
+								} else {
+										selectedText = 0;
+								}
 
-					}
+						}
 					
-					// 矢印の位置を変更
-					arrow.transform.position = new Vector3 (0.25f, 0.5f - 0.1f * selectedText, 0f);
+						// 矢印の位置を変更
+						arrow.transform.position = new Vector3 (0.25f, 0.5f - 0.1f * selectedText, 0f);
 					
-					// zキー
-					if (Input.GetKeyDown ("z")) {
-							StageInfo stageInfo = saveDataAnalyzer.GetStageInfo (currentStageNo);
-							stageInfo.deathCount += 1; // 死亡カウントを1増やす
-							saveDataAnalyzer.UpdateStageInfo (currentStageNo, stageInfo);
-							saveDataAnalyzer.WriteStageInfo ();
-
-							switch (selectedText) {
-							case 0:
-									Application.LoadLevel (Application.loadedLevel);
-									Time.timeScale = 1f;
-									break;
-							case 1:
-									Application.LoadLevel ("StageSelect");
-									Time.timeScale = 1f;
-									break;
-							}
+						// zキー
+						if (Input.GetKeyDown ("z")) {
+								if (!isDebug) { // デバッグモードでなければセーブデータを更新
+										StageInfo stageInfo = saveDataAnalyzer.GetStageInfo (currentStageNo);
+										stageInfo.deathCount += 1; // 死亡カウントを1増やす
+										saveDataAnalyzer.UpdateStageInfo (currentStageNo, stageInfo);
+										saveDataAnalyzer.WriteStageInfo ();
+								}
+	
+								switch (selectedText) {
+								case 0:
+										Application.LoadLevel (Application.loadedLevel);
+										Time.timeScale = 1f;
+										break;
+								case 1:
+										Application.LoadLevel ("StageSelect");
+										Time.timeScale = 1f;
+										break;
+								}
 					}
 			}
 	}
@@ -86,6 +93,6 @@ public class GameOver : MonoBehaviour {
 						gt.enabled = true;
 			}
 			gameOverVoice.Play();
-			is_over = true;
+			isOver = true;
 	}
 }
