@@ -3,4 +3,4 @@ stageNo,world,isAppeared,isCleared,deathCount,score,clearTime,stageTitle
 2,1,1,1,23,0,0,stage2
 3,2,1,1,25,0,0,stage3
 4,2,0,1,13,0,0,stage4
-5,2,0,0,2,0,0,stage5
+5,2,0,0,3,0,0,stage5
