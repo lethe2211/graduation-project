@@ -4,20 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 
 // ステージごとのフラグを管理し，必要に応じてフラグの値の変更，変更の通知を行うクラス
+// シングルトンパターンのクラス
+// インスタンスの生成は，"new StageFlagManager();"ではなく，"StageFlagManager.GetInstance();"で行う
 [System.Serializable]
 public class StageFlagManager : MonoBehaviour {
-		Dictionary<GameObject, bool> currentFlags = new Dictionary<GameObject, bool>(); // 現在のGameObjectとフラグの組．FlagChangedが呼ばれないとaddされないことに注意
-		public List<TriggerTarget> triggerTargets; // 
+		private static StageFlagManager _singleInstance = new StageFlagManager ();
 
-		// Use this for initialization
-		void Start () {
-				
+		// コンストラクタ
+		private StageFlagManager() {
+
 		}
+
+		// インスタンスの生成用関数
+		public static StageFlagManager GetInstance() {
+				return _singleInstance;
+		}
+				
+		Dictionary<GameObject, bool> currentFlags = new Dictionary<GameObject, bool>(); // 現在のGameObjectとフラグの組．FlagChangedが呼ばれないとaddされないことに注意
+		public List<TriggerTarget> triggerTargets; // トリガーとターゲットの組のリスト
 
 		// ステージ中の仕掛けのフラグの値が変わる度に呼ばれる
 		void FlagChanged(GameObject sender) {
 				// Debug.Log ("FlagChanged");
-				// string name = sender.name; // 呼び出し元GameObjectの名前
 
 				// フラグ変更
 				if (currentFlags.ContainsKey (sender)) {
