@@ -11,10 +11,10 @@ GameObject:
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
   - 122: {fileID: 12200000}
-  - 64: {fileID: 6400000}
   - 114: {fileID: 11400000}
+  - 64: {fileID: 6400000}
   m_Layer: 0
-  m_Name: Button2
+  m_Name: OnOffButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.8499999, z: -20}
+  m_LocalPosition: {x: 0, y: 4.89878511, z: -12}
   m_LocalScale: {x: 1, y: .00999999978, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,7 +66,7 @@ MeshCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
@@ -80,13 +80,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c80707ee0ada42d09e9259247397db2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7036ac5fce4d44260a1cc0527b2bb5d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnColor: {r: .5, g: 1, b: .5, a: 1}
-  OffColor: {r: 1, g: .5, b: .5, a: 1}
-  targetObj:
-  - {fileID: 0}
 --- !u!122 &12200000
 Halo:
   m_ObjectHideFlags: 1

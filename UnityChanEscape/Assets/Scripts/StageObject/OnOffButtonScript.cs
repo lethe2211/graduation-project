@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RedButtonScript : MonoBehaviour {
+public class OnOffButtonScript : MonoBehaviour {
 		private Color lightRedColor = new Color(1.0f, 0.5f, 0.5f);
 		private Color lightGreenColor = new Color(0.5f, 1.0f, 0.5f);
 		private Behaviour halo;
 		private GameObject redWall;
 		private bool buttonFlag = false;
-		public GameObject stageFlagManager;
+		GameObject stageFlagManager;
 
 		// Use this for initialization
 		void Start () {
@@ -28,7 +28,7 @@ public class RedButtonScript : MonoBehaviour {
 
 		void OnCollisionEnter(Collision collision){
 				// オブジェクトが接触した時
-				print("OnCollisionEnter");
+				// print("OnCollisionEnter");
 				renderer.material.color = lightGreenColor;
 				halo.renderer.material.color = lightGreenColor;
 				stageFlagManager.SendMessage ("FlagChanged", this.gameObject);
@@ -37,7 +37,7 @@ public class RedButtonScript : MonoBehaviour {
 		
 		void OnCollisionExit(Collision collision){
 				// オブジェクトが離れた時
-				print("OnCollisionExit");
+				// print("OnCollisionExit");
 				renderer.material.color = lightRedColor;
 				stageFlagManager.SendMessage ("FlagChanged", this.gameObject);
 				buttonFlag = false;
