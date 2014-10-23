@@ -90,7 +90,7 @@ public class TetrisManager : MonoBehaviour {
 				mainCamera.transform.position = new Vector3(0, HEIGHT/2, -30);
 				
 				// ステージサイズに従って枠を配置
-				// 下辺
+				// 上辺
 				for (int i = 0; i < WIDTH + 2; i++) {
 						Instantiate(Resources.Load("Prefab/Tetris/Flame"), new Vector3(i - WIDTH / 2, HEIGHT + 1, posZ), Quaternion.identity);
 						cubePoints.Add(new Vector3(i - WIDTH / 2, HEIGHT + 1, posZ));
@@ -139,12 +139,10 @@ public class TetrisManager : MonoBehaviour {
 						
 						// cubeが重ならなければ以下の処理を行う
 						if (cubePoints.IndexOf (pos) > -1) {
-								for (int j = 0; j < 4; j++) {
-										Debug.Log (operatedMino.transform.FindChild ("Cube" + j.ToString ()).transform.position);
-								}
 						
-								// ミノを固定し、新しいミノを操作可能にする
+								// ミノを固定し、列がそろっていたら消し、新しいミノを操作可能にする
 								FixMino ();
+								DeleteLines();
 								createMino ();
 								return;
 						}
@@ -221,5 +219,109 @@ public class TetrisManager : MonoBehaviour {
 				
 				// ミノの列の残り数が少なくなっていたら新しくミノの列を加える
 				if(minoSequence.Count - minoCount < 3) AddSequence();
+		}
+		
+		// 揃っているcubeを消す
+		void DeleteLines ()
+		{
+				bool cubesExist = true; // 見ている列にcubeがあるかどうか
+				int currentLine = 0; // 何段目を見ているか
+				bool lineExists = true; // 見ている列が揃っているか
+				// cubeが存在しない列がくるまで繰り返す
+				while (cubesExist) {
+						cubesExist = false;
+						lineExists = true;
+						for (int i = -WIDTH / 2 + 1; i < WIDTH / 2 + 1; i++) {
+								Vector3 nowPos = new Vector3 (i, HEIGHT - currentLine, posZ);
+								if (cubePoints.IndexOf (nowPos) > -1)
+										cubesExist = true;
+								else
+										lineExists = false;
+						}
+						if (lineExists) {
+								DeleteLine (currentLine);
+						} else {
+								currentLine++;
+						}
+				}
+		}
+		
+		// 揃っている1列を消す
+		void DeleteLine (int curLine)
+		{
+//				// cubeの存在する座標リストを更新
+//				for (int i = 0; i < cubePoints.Count; i++) {
+//						if (cubePoints [i].x <= -WIDTH / 2 || cubePoints [i].x > WIDTH / 2)
+//								continue; // 側面の壁は排除
+//						
+//						if (cubePoints [i].y == HEIGHT - curLine)
+//								cubePoints.Remove (cubePoints [i]);
+//						else if (cubePoints [i].y < HEIGHT - curLine) {
+//								Vector3 pos = cubePoints [i];
+//								pos.y++;
+//								cubePoints [i] = pos;
+//						}
+//				}
+//				
+				// ブロックの位置を動かす
+				GameObject[] tetriminos = GameObject.FindGameObjectsWithTag ("Tetrimino");
+				int childCount = 0;				
+				GameObject cube;
+				foreach (GameObject go in tetriminos) {
+						childCount = 0;
+						for (int i = 0; i < 4; i++) {
+								try {
+										cube = go.transform.FindChild ("Cube" + i.ToString ()).gameObject;
+								} catch {
+										continue;
+								}
+								childCount += 1;
+								Vector3 pos = cube.transform.position;
+								if (pos.y == HEIGHT - curLine) {
+										Destroy (cube);
+										childCount -= 1;
+								}
+								if (pos.y < HEIGHT - curLine) {
+										pos.y++;
+										cube.transform.position = pos;
+								}
+								if (childCount==0)
+										Destroy (go);
+						}
+				}
+				
+				// 移動されたブロックの位置を元にcubesPointsを更新
+				UpdatePoints();
+		}
+		
+		// ブロックの存在する位置を示すリストを更新
+		void UpdatePoints ()
+		{
+				List<Vector3> results = new List<Vector3>();
+				
+				// 上辺
+				for (int i = 0; i < WIDTH + 2; i++) {
+						results.Add(new Vector3(i - WIDTH / 2, HEIGHT + 1, posZ));
+				}
+				// 側面
+				for (int i = 0; i < HEIGHT + 4; i++) {
+						results.Add(new Vector3(WIDTH / 2 + 1, HEIGHT - i, posZ));
+						results.Add(new Vector3(- WIDTH / 2, HEIGHT - i, posZ));
+				}
+				
+				// ステージ上のテトリミノの位置をすべて取得
+				GameObject[] tetriminos = GameObject.FindGameObjectsWithTag("Tetrimino");
+				GameObject cube;
+				foreach (GameObject go in tetriminos) {
+						for (int i = 0; i < 4; i++) {
+								try {
+										cube = go.transform.FindChild ("Cube" + i.ToString ()).gameObject;
+								} catch {
+										continue;
+								}
+								results.Add(cube.transform.position);
+						}
+				}
+				cubePoints = results;
 		}
 }
