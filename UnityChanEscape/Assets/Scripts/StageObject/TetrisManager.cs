@@ -250,13 +250,12 @@ public class TetrisManager : MonoBehaviour {
 		void DeleteLine (int curLine)
 		{
 				// cubeの存在する座標リストを更新
-				for (int i = 0; i < cubePoints.Count; i++) {
+				for (int i = cubePoints.Count - 1; i > -1; i--) {
 						if (cubePoints [i].x <= -WIDTH / 2 || cubePoints [i].x > WIDTH / 2)
 								continue; // 側面の壁は排除
 						
 						if (cubePoints [i].y == HEIGHT - curLine) {
 								cubePoints.Remove (cubePoints [i]);
-								i--;
 						} else if (cubePoints [i].y < HEIGHT - curLine) {
 								Vector3 pos = cubePoints [i];
 								pos.y++;
@@ -268,7 +267,7 @@ public class TetrisManager : MonoBehaviour {
 				GameObject[] tetriminos = GameObject.FindGameObjectsWithTag ("Tetrimino");
 				int childCount = 0;				
 				GameObject cube;
-				for (int j=0; j<tetriminos.Length; j++) {
+				for (int j = 0; j < tetriminos.Length; j++) {
 						childCount = 0;
 						for (int i = 0; i < 4; i++) {
 								try {
@@ -286,11 +285,9 @@ public class TetrisManager : MonoBehaviour {
 										pos.y++;
 										cube.transform.position = pos;
 								}
-								Debug.Log (childCount);
-//								if (childCount == 0) {
-//										Destroy (tetriminos[j]);
-//										j--;
-//								}
+						}
+						if (childCount == 0) {
+										Destroy (tetriminos[j]);
 						}
 				}
 		}
