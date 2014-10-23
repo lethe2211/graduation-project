@@ -22,11 +22,15 @@ public class TetrisManager : MonoBehaviour {
 		GameObject boxUnityChan;
 		Camera mainCamera;
 		
+		GUIText scoreText;
+		int score = 0;
+		
 		void Start () 
 		{
 				unityChan = GameObject.Find("unitychan");
 				boxUnityChan = GameObject.Find("BoxUnityChan");
 				mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
+				scoreText = GameObject.Find("ScoreText").guiText;
 				InitializeStage();
 		}
 		
@@ -91,14 +95,18 @@ public class TetrisManager : MonoBehaviour {
 				
 				// ステージサイズに従って枠を配置
 				// 上辺
+				GameObject frame;
 				for (int i = 0; i < WIDTH + 2; i++) {
-						Instantiate(Resources.Load("Prefab/Tetris/Flame"), new Vector3(i - WIDTH / 2, HEIGHT + 1, posZ), Quaternion.identity);
+						frame = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/Frame"), new Vector3(i - WIDTH / 2, HEIGHT + 1, posZ), Quaternion.identity);
+						frame.transform.parent = transform;
 						cubePoints.Add(new Vector3(i - WIDTH / 2, HEIGHT + 1, posZ));
 				}
 				// 側面
 				for (int i = 0; i < HEIGHT + 4; i++) {
-						Instantiate(Resources.Load("Prefab/Tetris/Flame"), new Vector3(WIDTH / 2 + 1, HEIGHT - i, posZ), Quaternion.identity);
-						Instantiate(Resources.Load("Prefab/Tetris/Flame"), new Vector3(- WIDTH / 2, HEIGHT - i, posZ), Quaternion.identity);
+						frame = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/Frame"), new Vector3(WIDTH / 2 + 1, HEIGHT - i, posZ), Quaternion.identity);
+						frame.transform.parent = transform;
+						frame = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/Frame"), new Vector3(- WIDTH / 2, HEIGHT - i, posZ), Quaternion.identity);
+						frame.transform.parent = transform;
 						cubePoints.Add(new Vector3(WIDTH / 2 + 1, HEIGHT - i, posZ));
 						cubePoints.Add(new Vector3(- WIDTH / 2, HEIGHT - i, posZ));
 				}
@@ -206,6 +214,7 @@ public class TetrisManager : MonoBehaviour {
 		void createMino ()
 		{
 				operatedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/Tetrimino" + minoSequence[minoCount]), new Vector3(0, -2, posZ), Quaternion.identity);
+				operatedMino.transform.parent = transform;
 		}
 		
 		// 操作中のミノを固定する
@@ -227,6 +236,7 @@ public class TetrisManager : MonoBehaviour {
 				bool cubesExist = true; // 見ている列にcubeがあるかどうか
 				int currentLine = 0; // 何段目を見ているか
 				bool lineExists = true; // 見ている列が揃っているか
+				int deletedLineNum = 0; // 消えたライン数
 				// cubeが存在しない列がくるまで繰り返す
 				while (cubesExist) {
 						cubesExist = false;
@@ -240,11 +250,13 @@ public class TetrisManager : MonoBehaviour {
 						}
 						if (lineExists) {
 								DeleteLine (currentLine);
+								deletedLineNum++;
 						} else {
 								currentLine++;
 						}
 				}
-		}
+				if(deletedLineNum > 0) AddScore(deletedLineNum);
+		} 
 		
 		// 揃っている1列を消す
 		void DeleteLine (int curLine)
@@ -290,6 +302,18 @@ public class TetrisManager : MonoBehaviour {
 										Destroy (tetriminos[j]);
 						}
 				}
+		}
+		
+		// 消したライン数だけスコアを加算
+		void AddScore (int n)
+		{
+				int scoreDelta = 50;
+				while (n > 0) {
+						scoreDelta *= n--;
+				}
+				score += scoreDelta;
+				scoreText.text = score.ToString();
+
 		}
 		
 		// ブロックの存在する位置を示すリストを更新
