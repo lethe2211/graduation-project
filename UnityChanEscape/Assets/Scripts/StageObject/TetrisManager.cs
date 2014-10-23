@@ -249,29 +249,30 @@ public class TetrisManager : MonoBehaviour {
 		// 揃っている1列を消す
 		void DeleteLine (int curLine)
 		{
-//				// cubeの存在する座標リストを更新
-//				for (int i = 0; i < cubePoints.Count; i++) {
-//						if (cubePoints [i].x <= -WIDTH / 2 || cubePoints [i].x > WIDTH / 2)
-//								continue; // 側面の壁は排除
-//						
-//						if (cubePoints [i].y == HEIGHT - curLine)
-//								cubePoints.Remove (cubePoints [i]);
-//						else if (cubePoints [i].y < HEIGHT - curLine) {
-//								Vector3 pos = cubePoints [i];
-//								pos.y++;
-//								cubePoints [i] = pos;
-//						}
-//				}
-//				
+				// cubeの存在する座標リストを更新
+				for (int i = 0; i < cubePoints.Count; i++) {
+						if (cubePoints [i].x <= -WIDTH / 2 || cubePoints [i].x > WIDTH / 2)
+								continue; // 側面の壁は排除
+						
+						if (cubePoints [i].y == HEIGHT - curLine) {
+								cubePoints.Remove (cubePoints [i]);
+								i--;
+						} else if (cubePoints [i].y < HEIGHT - curLine) {
+								Vector3 pos = cubePoints [i];
+								pos.y++;
+								cubePoints [i] = pos;
+						}
+				}
+
 				// ブロックの位置を動かす
 				GameObject[] tetriminos = GameObject.FindGameObjectsWithTag ("Tetrimino");
 				int childCount = 0;				
 				GameObject cube;
-				foreach (GameObject go in tetriminos) {
+				for (int j=0; j<tetriminos.Length; j++) {
 						childCount = 0;
 						for (int i = 0; i < 4; i++) {
 								try {
-										cube = go.transform.FindChild ("Cube" + i.ToString ()).gameObject;
+										cube = tetriminos[j].transform.FindChild ("Cube" + i.ToString ()).gameObject;
 								} catch {
 										continue;
 								}
@@ -285,43 +286,42 @@ public class TetrisManager : MonoBehaviour {
 										pos.y++;
 										cube.transform.position = pos;
 								}
-								if (childCount==0)
-										Destroy (go);
+								Debug.Log (childCount);
+//								if (childCount == 0) {
+//										Destroy (tetriminos[j]);
+//										j--;
+//								}
 						}
 				}
-				
-				// 移動されたブロックの位置を元にcubesPointsを更新
-				UpdatePoints();
 		}
 		
 		// ブロックの存在する位置を示すリストを更新
-		void UpdatePoints ()
-		{
-				List<Vector3> results = new List<Vector3>();
-				
-				// 上辺
-				for (int i = 0; i < WIDTH + 2; i++) {
-						results.Add(new Vector3(i - WIDTH / 2, HEIGHT + 1, posZ));
-				}
-				// 側面
-				for (int i = 0; i < HEIGHT + 4; i++) {
-						results.Add(new Vector3(WIDTH / 2 + 1, HEIGHT - i, posZ));
-						results.Add(new Vector3(- WIDTH / 2, HEIGHT - i, posZ));
-				}
-				
-				// ステージ上のテトリミノの位置をすべて取得
-				GameObject[] tetriminos = GameObject.FindGameObjectsWithTag("Tetrimino");
-				GameObject cube;
-				foreach (GameObject go in tetriminos) {
-						for (int i = 0; i < 4; i++) {
-								try {
-										cube = go.transform.FindChild ("Cube" + i.ToString ()).gameObject;
-								} catch {
-										continue;
-								}
-								results.Add(cube.transform.position);
-						}
-				}
-				cubePoints = results;
-		}
+//		void UpdatePoints ()
+//		{
+//				cubePoints = new List<Vector3>(); // 初期化
+//				
+//				// 上辺
+//				for (int i = 0; i < WIDTH + 2; i++) {
+//						cubePoints.Add(new Vector3(i - WIDTH / 2, HEIGHT + 1, posZ));
+//				}
+//				// 側面
+//				for (int i = 0; i < HEIGHT + 4; i++) {
+//						cubePoints.Add(new Vector3(WIDTH / 2 + 1, HEIGHT - i, posZ));
+//						cubePoints.Add(new Vector3(- WIDTH / 2, HEIGHT - i, posZ));
+//				}
+//				
+//				// ステージ上のテトリミノの位置をすべて取得
+//				GameObject[] tetriminos = GameObject.FindGameObjectsWithTag("Tetrimino");
+//				GameObject cube;
+//				foreach (GameObject go in tetriminos) {
+//						for (int i = 0; i < 4; i++) {
+//								try {
+//										cube = go.transform.FindChild ("Cube" + i.ToString ()).gameObject;
+//								} catch {
+//										continue;
+//								}
+//								cubePoints.Add(cube.transform.position);
+//						}
+//				}
+//		}
 }
