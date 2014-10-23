@@ -2,15 +2,16 @@
 using System.Collections;
 
 public class MoveDownOnceWallScript : MonoBehaviour {
-		private Vector3 initPosition;
-		private Vector3 pos;
-
-		private bool buttonFlag;
+		Vector3 initPosition;
+		Vector3 pos;
+		bool buttonFlag;
+		public AudioSource audioSource;
 
 		// Use this for initialization
 		void Start () {
 				initPosition = transform.position;
 				buttonFlag = false;
+				audioSource = gameObject.GetComponent<AudioSource> ();
 		}
 				
 		void FixedUpdate () {
@@ -24,6 +25,7 @@ public class MoveDownOnceWallScript : MonoBehaviour {
 		}
 
 		void TriggerOn() {
+				audioSource.PlayOneShot (audioSource.clip);
 				buttonFlag = true;
 		}
 }
