@@ -11,16 +11,22 @@ public class TetrisManager : MonoBehaviour {
 		const int posZ = -50;
 		List<Vector3> cubePoints = new List<Vector3>(); // キューブの存在する座標を保持
 		GameObject operatedMino; // 操作中のテトリミノ
+		GameObject nextMino; // 次のテトリミノ
+		GameObject holdedMino; // ホールド中のテトリミノ
 		int minoCount = 0; // 現在操作中のミノの番号
 		int frame = 0;
 		
 		bool pushedDownKey = false;
 		bool pushedZKey = false;
 		bool pushedXKey = false;
+		bool pushedCKey = false;
+		bool holdEnable = true;
 		
 		GameObject unityChan;
 		GameObject boxUnityChan;
 		Camera mainCamera;
+		Camera subCamera;
+		Camera tetrisCamera;
 		
 		GUIText scoreText;
 		int score = 0;
@@ -30,15 +36,18 @@ public class TetrisManager : MonoBehaviour {
 				unityChan = GameObject.Find("unitychan");
 				boxUnityChan = GameObject.Find("BoxUnityChan");
 				mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
+				subCamera = GameObject.Find("SubCamera").GetComponent<Camera>();
+				tetrisCamera = GameObject.Find("TetrisCamera").GetComponent<Camera>();
 				scoreText = GameObject.Find("ScoreText").guiText;
 				InitializeStage();
 		}
 		
-		// 回転、落下キーはKeyDownで動作するように
+		// 回転、落下、ホールドキーはKeyDownで動作するように
 		void Update(){
 				if(Input.GetKeyDown("down")) pushedDownKey = true;
 				if(Input.GetKeyDown("z")) pushedZKey = true;
 				if(Input.GetKeyDown("x")) pushedXKey = true;
+				if(Input.GetKeyDown("c")) pushedCKey = true;
 		}
 		
 		void FixedUpdate ()
@@ -55,12 +64,12 @@ public class TetrisManager : MonoBehaviour {
 						MoveMino (1);
 				}
 				
-				//Z, Xキーでミノの回転
+				// Z, Xキーでミノの回転
 				if (pushedZKey) {
-						RotateMino (1);
+						RotateMino (-1);
 						pushedZKey = false;
 				} else if (pushedXKey) {
-						RotateMino (-1);
+						RotateMino (1);
 						pushedXKey = false;
 				}
 				
@@ -74,6 +83,11 @@ public class TetrisManager : MonoBehaviour {
 								RaiseMino ();
 						}
 						pushedDownKey = false;
+				}
+				
+				// Cキーでホールド
+				if (pushedCKey) {
+						holdMino();
 				}
 				
 				if (frame % 30 == 0) {
@@ -90,8 +104,12 @@ public class TetrisManager : MonoBehaviour {
 				unityChan.SendMessage("SetMoveEnabled", false);
 				boxUnityChan.SendMessage("SetMoveEnabled", false);
 				
-				// メインカメラの位置を固定
-				mainCamera.transform.position = new Vector3(0, HEIGHT/2, -30);
+				// メイン、サブカメラを使用不能に
+				mainCamera.enabled = false;
+				subCamera.enabled = false;
+				
+				// テトリスカメラの位置を固定
+				tetrisCamera.transform.position = new Vector3(0, HEIGHT/2, -30);
 				
 				// ステージサイズに従って枠を配置
 				// 上辺
@@ -213,8 +231,16 @@ public class TetrisManager : MonoBehaviour {
 		// 新しくミノを生成する
 		void createMino ()
 		{
+				if(nextMino) Destroy(nextMino);
+				
 				operatedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/Tetrimino" + minoSequence[minoCount]), new Vector3(0, -2, posZ), Quaternion.identity);
 				operatedMino.transform.parent = transform;
+				
+				nextMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/Tetrimino" + minoSequence[minoCount+1]), new Vector3(- WIDTH / 2 - 7, 0, posZ), Quaternion.identity);
+				nextMino.transform.parent = transform;
+				
+				holdEnable = true;
+				pushedCKey = false;
 		}
 		
 		// 操作中のミノを固定する
@@ -280,6 +306,10 @@ public class TetrisManager : MonoBehaviour {
 				int childCount = 0;				
 				GameObject cube;
 				for (int j = 0; j < tetriminos.Length; j++) {
+						
+						if (tetriminos[j].transform.position.x <= -WIDTH / 2 || tetriminos [j].transform.position.x > WIDTH / 2)
+								continue; // ホールド、ネクストは対象外
+
 						childCount = 0;
 						for (int i = 0; i < 4; i++) {
 								try {
@@ -314,6 +344,27 @@ public class TetrisManager : MonoBehaviour {
 				score += scoreDelta;
 				scoreText.text = score.ToString();
 
+		}
+		
+		// ミノをホールド
+		void holdMino ()
+		{
+				if(!holdEnable) return;
+				
+				if (!holdedMino) {
+						holdedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/" + operatedMino.name.Split("("[0])[0]), new Vector3(WIDTH / 2 + 7, 0, posZ), Quaternion.identity);
+						Destroy(operatedMino);
+						minoCount++;
+						createMino ();
+				} else {
+						GameObject tmp = holdedMino;
+						holdedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/" + operatedMino.name.Split("("[0])[0]), new Vector3(WIDTH / 2 + 7, 0, posZ), Quaternion.identity);
+						Destroy(operatedMino);
+						operatedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/" + tmp.name.Split("("[0])[0]), new Vector3(0, -2, posZ), Quaternion.identity);
+						Destroy(tmp);
+				}
+				pushedCKey = false;
+				holdEnable = false;
 		}
 		
 		// ブロックの存在する位置を示すリストを更新

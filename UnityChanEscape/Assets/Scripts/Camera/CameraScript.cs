@@ -24,6 +24,7 @@ public class CameraScript : MonoBehaviour {
 		// Update is called once per frame
 		void FixedUpdate ()
 		{
+				if(!mainCamera.enabled && !subCamera.enabled) return;
 
 				float h = Input.GetAxis ("Horizontal"); // 入力デバイスの水平軸をhで定義
 				float v = Input.GetAxis ("Vertical"); // 入力デバイスの垂直軸をvで定義
