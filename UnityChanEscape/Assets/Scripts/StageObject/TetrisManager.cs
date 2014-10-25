@@ -209,16 +209,22 @@ public class TetrisManager : MonoBehaviour {
 						return;
 				
 				int srsIndex = 0;
+				
+				string srsType;
+				if(operatedMino.name.IndexOf("TetriminoI") > -1) srsType = "I";
+				else srsType = "T";
+				
 				while (srsIndex < 5) {
 						bool rotateEnable = true;
 						float tmpx;
 						for (int i = 0; i < 4; i++) {
 								// すべてのcubeについて、移動可能かを調べる
 								Vector3 pos = RotateCube (operatedMino.transform.FindChild ("Cube" + i.ToString ()).transform.localPosition, delta);
-								tmpx = SRS[operatedMino.name][minoState][srsIndex].x;
-								if(minoState % 2 == 0) tmpx *= delta;
+								tmpx = SRS[srsType][minoState][srsIndex].x;
+								if(srsType == "I" || minoState % 2 == 0) tmpx *= delta;
 								pos.x += tmpx;
-								pos.y += SRS[operatedMino.name][minoState][srsIndex].y;
+								pos.y += SRS[srsType][minoState][srsIndex].y;
+								if(srsType == "I") pos += rotateForI(delta);
 								pos += operatedMino.transform.position;
 
 								// cubeが重なったら回転させない
@@ -236,10 +242,11 @@ public class TetrisManager : MonoBehaviour {
 								
 								// SRSの分だけミノを移動させる
 								Vector3 mpos = operatedMino.transform.position;
-								tmpx = SRS[operatedMino.name][minoState][srsIndex].x;
-								if(minoState % 2 == 0) tmpx *= delta;
+								tmpx = SRS[srsType][minoState][srsIndex].x;
+								if(srsType == "I" || minoState % 2 == 0) tmpx *= delta;
 								mpos.x += tmpx;
-								mpos.y += SRS[operatedMino.name][minoState][srsIndex].y;
+								mpos.y += SRS[srsType][minoState][srsIndex].y;
+								if(srsType == "I") mpos += rotateForI(delta);
 								operatedMino.transform.position = mpos;
 								
 								// ミノの状態を更新
@@ -259,10 +266,26 @@ public class TetrisManager : MonoBehaviour {
 		// cubeをZ軸中心で回転させる
 		Vector3 RotateCube (Vector3 pos, int delta)
 		{
-				Vector3 result = new Vector3();
-				result.x = - pos.y * delta;
+				Vector3 result = new Vector3 ();
+				result.x = -pos.y * delta;
 				result.y = pos.x * delta;
 				return result;
+		}
+		
+		// Iミノのみ回転の仕様が異なるため、その修正
+		Vector3 rotateForI (int delta)
+		{
+				int[] patterns = new int[]{0,2,0,1,1,0,2,0};
+				switch (patterns[(delta+1)*2 + minoState]) {
+				case 0:
+						return new Vector3(0, 0, 0);
+				case 1:
+						return new Vector3(-1, 1, 0);
+				case 2:
+						return new Vector3(1, -1, 0);
+				default:
+						return new Vector3(0, 0, 0);
+				}
 		}
 		
 		// 新しくミノを生成する
@@ -439,13 +462,13 @@ public class TetrisManager : MonoBehaviour {
 		// SRSでの移動位置を登録
 		void registerSRS ()
 		{
-				string[] minos = new string[]{ "I", "T", "J", "L", "S", "Z" };
+				string[] minos = new string[]{"I", "T"};
 				// 各ミノの回転ごとのSRSの移動先
 				// 第一要素がミノ名、第二要素がミノ状態、第三要素が移動先の座標 
-				// 1->4->3->2->1の順に登録する
+				// 1->4->3->2->1の順で登録
 				// 回転キーによる移動先の差はない
 				// 登録されているのはZキーによる回転の際のSRS
-				// Iミノだけ特殊、あとはすべて同じ
+				// Iミノは逆回転の際にx座標をマイナスに、あとのミノは状態0,2のときの逆回転はマイナス
 				int[][,] moves = new int[][,] {
 						new int[,]{                                   // Iミノ
 								{0, 0, -2, 0, 1, 0, 1, -2, -2, 1},
@@ -453,31 +476,7 @@ public class TetrisManager : MonoBehaviour {
 								{0, 0, 2, 0, -1, 0, 2, -1, -1, 1},
 								{0, 0, -2, 0, 1, 0, -2, -1, 1, 2}
 						},
-						new int[,]{                                   // Tミノ
-								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
-								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
-								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
-								{0, 0, -1, 0, -1, 1, 0, -2, -1, -2}
-						},
-						new int[,]{                                   // Jミノ
-								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
-								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
-								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
-								{0, 0, -1, 0, -1, 1, 0, -2, -1, -2}
-						},
-						new int[,]{                                   // Lミノ
-								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
-								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
-								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
-								{0, 0, -1, 0, -1, 1, 0, -2, -1, -2}
-						},
-						new int[,]{                                   // Sミノ
-								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
-								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
-								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
-								{0, 0, -1, 0, -1, 1, 0, -2, -1, -2}
-						},
-						new int[,]{                                   // Zミノ
+						new int[,]{                                   // Iミノ以外
 								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
 								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
 								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
@@ -485,7 +484,7 @@ public class TetrisManager : MonoBehaviour {
 						}
 				};
 				for (int i = 0; i < minos.Length; i++) {
-						setSRS("Tetrimino" + minos[i] + "(Clone)", moves[i]);
+						setSRS(minos[i], moves[i]);
 				}
 		}
 		
