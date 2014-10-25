@@ -233,7 +233,7 @@ public class TetrisManager : MonoBehaviour {
 		{
 				if(nextMino) Destroy(nextMino);
 				
-				operatedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/Tetrimino" + minoSequence[minoCount]), new Vector3(0, -2, posZ), Quaternion.identity);
+				operatedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/Tetrimino" + minoSequence[minoCount]), new Vector3(1, -2, posZ), Quaternion.identity);
 				operatedMino.transform.parent = transform;
 				
 				nextMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/Tetrimino" + minoSequence[minoCount+1]), new Vector3(- WIDTH / 2 - 7, 0, posZ), Quaternion.identity);
@@ -360,7 +360,7 @@ public class TetrisManager : MonoBehaviour {
 						GameObject tmp = holdedMino;
 						holdedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/" + operatedMino.name.Split("("[0])[0]), new Vector3(WIDTH / 2 + 7, 0, posZ), Quaternion.identity);
 						Destroy(operatedMino);
-						operatedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/" + tmp.name.Split("("[0])[0]), new Vector3(0, -2, posZ), Quaternion.identity);
+						operatedMino = (GameObject)Instantiate(Resources.Load("Prefab/Tetris/" + tmp.name.Split("("[0])[0]), new Vector3(1, -2, posZ), Quaternion.identity);
 						Destroy(tmp);
 				}
 				pushedCKey = false;
