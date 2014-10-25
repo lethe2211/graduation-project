@@ -170,7 +170,7 @@ public class TetrisManager : MonoBehaviour {
 						
 						// cubeが重ならなければ以下の処理を行う
 						if (cubePoints.IndexOf (pos) > -1) {
-						
+								
 								// ミノを固定し、列がそろっていたら消し、新しいミノを操作可能にする
 								FixMino ();
 								DeleteLines();
@@ -209,12 +209,15 @@ public class TetrisManager : MonoBehaviour {
 						return;
 				
 				int srsIndex = 0;
-				while (srsIndex < 4) {
+				while (srsIndex < 5) {
 						bool rotateEnable = true;
+						float tmpx;
 						for (int i = 0; i < 4; i++) {
 								// すべてのcubeについて、移動可能かを調べる
 								Vector3 pos = RotateCube (operatedMino.transform.FindChild ("Cube" + i.ToString ()).transform.localPosition, delta);
-								pos.x += SRS[operatedMino.name][minoState][srsIndex].x;
+								tmpx = SRS[operatedMino.name][minoState][srsIndex].x;
+								if(minoState % 2 == 0) tmpx *= delta;
+								pos.x += tmpx;
 								pos.y += SRS[operatedMino.name][minoState][srsIndex].y;
 								pos += operatedMino.transform.position;
 
@@ -233,7 +236,9 @@ public class TetrisManager : MonoBehaviour {
 								
 								// SRSの分だけミノを移動させる
 								Vector3 mpos = operatedMino.transform.position;
-								mpos.x += SRS[operatedMino.name][minoState][srsIndex].x;
+								tmpx = SRS[operatedMino.name][minoState][srsIndex].x;
+								if(minoState % 2 == 0) tmpx *= delta;
+								mpos.x += tmpx;
 								mpos.y += SRS[operatedMino.name][minoState][srsIndex].y;
 								operatedMino.transform.position = mpos;
 								
@@ -248,8 +253,7 @@ public class TetrisManager : MonoBehaviour {
 								srsIndex += 1;
 						}
 				}
-				Debug.Log(minoState);				
-				Debug.Log(delta);
+				Debug.Log("State:" + minoState.ToString() + ",key:" + delta.ToString());				
 		}
 		
 		// cubeをZ軸中心で回転させる
