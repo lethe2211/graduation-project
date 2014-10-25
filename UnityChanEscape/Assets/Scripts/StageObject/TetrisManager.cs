@@ -16,6 +16,7 @@ public class TetrisManager : MonoBehaviour {
 		int minoCount = 0; // 現在操作中のミノの番号
 		int minoState = 0; // ミノの回転状態
 		int frame = 0;
+		bool isPlayingTetris = true;
 		
 		bool pushedDownKey = false;
 		bool pushedZKey = false;
@@ -28,6 +29,7 @@ public class TetrisManager : MonoBehaviour {
 		Camera mainCamera;
 		Camera subCamera;
 		Camera tetrisCamera;
+		GameObject gameOverObject;
 		
 		// スーパーローテーション用の辞書
 		Dictionary<string, List<List<Vector2>>> SRS = new Dictionary<string, List<List<Vector2>>>();
@@ -43,12 +45,16 @@ public class TetrisManager : MonoBehaviour {
 				subCamera = GameObject.Find("SubCamera").GetComponent<Camera>();
 				tetrisCamera = GameObject.Find("TetrisCamera").GetComponent<Camera>();
 				scoreText = GameObject.Find("ScoreText").guiText;
+				gameOverObject = GameObject.Find("GameOverObject");
 				registerSRS();
 				InitializeStage();
 		}
 		
 		// 回転、落下、ホールドキーはKeyDownで動作するように
 		void Update(){
+				
+				if(!isPlayingTetris) return;
+				
 				if(Input.GetKeyDown("down")) pushedDownKey = true;
 				if(Input.GetKeyDown("z")) pushedZKey = true;
 				if(Input.GetKeyDown("x")) pushedXKey = true;
@@ -57,6 +63,8 @@ public class TetrisManager : MonoBehaviour {
 		
 		void FixedUpdate ()
 		{
+				if(!isPlayingTetris) return;
+				
 				frame++;
 
 				if (frame % 5 != 0)
@@ -134,11 +142,24 @@ public class TetrisManager : MonoBehaviour {
 						cubePoints.Add(new Vector3(- WIDTH / 2, HEIGHT - i, posZ));
 				}
 				
+				// ゲームオーバーになるラインを描画
+				DrawGameOverLine();
+				
 				// ミノの並びを登録
 				AddSequence();
 				
 				// 最初のテトリミノを生成
 				createMino();
+		}
+		
+		//ゲームオーバーラインの描画
+		void DrawGameOverLine ()
+		{
+				LineRenderer line = this.gameObject.AddComponent<LineRenderer>();
+				line.SetPosition(0, new Vector3(- WIDTH / 2, 0.5f, posZ));
+				line.SetPosition(1, new Vector3(WIDTH / 2 + 1, 0.5f, posZ));
+				line.SetWidth(0.1f, 0.1f);
+				line.material.color = Color.red;
 		}
 		
 		// テトリミノの並びを追加
@@ -173,7 +194,7 @@ public class TetrisManager : MonoBehaviour {
 								
 								// ミノを固定し、列がそろっていたら消し、新しいミノを操作可能にする
 								FixMino ();
-								DeleteLines();
+								DeleteLines ();
 								createMino ();
 								return;
 						}
@@ -342,7 +363,13 @@ public class TetrisManager : MonoBehaviour {
 								currentLine++;
 						}
 				}
-				if(deletedLineNum > 0) AddScore(deletedLineNum);
+				if (deletedLineNum > 0)
+						AddScore (deletedLineNum);
+				// cubeがラインを超えるとゲームを終了
+				if (currentLine - deletedLineNum - 1 > HEIGHT) {
+						isPlayingTetris = false;
+						gameOverObject.SendMessage("Over");
+				}
 		} 
 		
 		// 揃っている1列を消す
@@ -428,36 +455,6 @@ public class TetrisManager : MonoBehaviour {
 				holdEnable = false;
 				minoState = 0;
 		}
-		
-		// ブロックの存在する位置を示すリストを更新
-//		void UpdatePoints ()
-//		{
-//				cubePoints = new List<Vector3>(); // 初期化
-//				
-//				// 上辺
-//				for (int i = 0; i < WIDTH + 2; i++) {
-//						cubePoints.Add(new Vector3(i - WIDTH / 2, HEIGHT + 1, posZ));
-//				}
-//				// 側面
-//				for (int i = 0; i < HEIGHT + 4; i++) {
-//						cubePoints.Add(new Vector3(WIDTH / 2 + 1, HEIGHT - i, posZ));
-//						cubePoints.Add(new Vector3(- WIDTH / 2, HEIGHT - i, posZ));
-//				}
-//				
-//				// ステージ上のテトリミノの位置をすべて取得
-//				GameObject[] tetriminos = GameObject.FindGameObjectsWithTag("Tetrimino");
-//				GameObject cube;
-//				foreach (GameObject go in tetriminos) {
-//						for (int i = 0; i < 4; i++) {
-//								try {
-//										cube = go.transform.FindChild ("Cube" + i.ToString ()).gameObject;
-//								} catch {
-//										continue;
-//								}
-//								cubePoints.Add(cube.transform.position);
-//						}
-//				}
-//		}
 		
 		// SRSでの移動位置を登録
 		void registerSRS ()
