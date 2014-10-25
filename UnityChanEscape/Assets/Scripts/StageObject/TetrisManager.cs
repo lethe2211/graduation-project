@@ -211,7 +211,7 @@ public class TetrisManager : MonoBehaviour {
 				int srsIndex = 0;
 				
 				string srsType;
-				if(operatedMino.name.IndexOf("TetriminoI") > -1) srsType = "I";
+				if (operatedMino.name.IndexOf ("TetriminoI") > -1) srsType = "I" + delta.ToString();
 				else srsType = "T";
 				
 				while (srsIndex < 5) {
@@ -221,10 +221,10 @@ public class TetrisManager : MonoBehaviour {
 								// すべてのcubeについて、移動可能かを調べる
 								Vector3 pos = RotateCube (operatedMino.transform.FindChild ("Cube" + i.ToString ()).transform.localPosition, delta);
 								tmpx = SRS[srsType][minoState][srsIndex].x;
-								if(srsType == "I" || minoState % 2 == 0) tmpx *= delta;
+								if(minoState % 2 == 0) tmpx *= delta;
 								pos.x += tmpx;
 								pos.y += SRS[srsType][minoState][srsIndex].y;
-								if(srsType == "I") pos += rotateForI(delta);
+								if(srsType == "I1" || srsType == "I-1") pos += rotateForI(delta);
 								pos += operatedMino.transform.position;
 
 								// cubeが重なったら回転させない
@@ -243,10 +243,10 @@ public class TetrisManager : MonoBehaviour {
 								// SRSの分だけミノを移動させる
 								Vector3 mpos = operatedMino.transform.position;
 								tmpx = SRS[srsType][minoState][srsIndex].x;
-								if(srsType == "I" || minoState % 2 == 0) tmpx *= delta;
+								if(minoState % 2 == 0) tmpx *= delta;
 								mpos.x += tmpx;
 								mpos.y += SRS[srsType][minoState][srsIndex].y;
-								if(srsType == "I") mpos += rotateForI(delta);
+								if(srsType == "I1" || srsType == "I-1") mpos += rotateForI(delta);
 								operatedMino.transform.position = mpos;
 								
 								// ミノの状態を更新
@@ -462,19 +462,26 @@ public class TetrisManager : MonoBehaviour {
 		// SRSでの移動位置を登録
 		void registerSRS ()
 		{
-				string[] minos = new string[]{"I", "T"};
+				string[] minos = new string[]{"I1", "I-1", "T"};
 				// 各ミノの回転ごとのSRSの移動先
 				// 第一要素がミノ名、第二要素がミノ状態、第三要素が移動先の座標 
-				// 1->4->3->2->1の順で登録
+				// 1->4->3->2->1の順
 				// 回転キーによる移動先の差はない
 				// 登録されているのはZキーによる回転の際のSRS
-				// Iミノは逆回転の際にx座標をマイナスに、あとのミノは状態0,2のときの逆回転はマイナス
+				// Iミノは回転方向ごとに登録
+				// あとのミノは状態0,2のときの逆回転はマイナス
 				int[][,] moves = new int[][,] {
-						new int[,]{                                   // Iミノ
-								{0, 0, -2, 0, 1, 0, 1, -2, -2, 1},
-								{0, 0, -1, 0, 2, 0, -1, -2, 2, 1},
-								{0, 0, 2, 0, -1, 0, 2, -1, -1, 1},
-								{0, 0, -2, 0, 1, 0, -2, -1, 1, 2}
+						new int[,]{                                   // Iミノ(z回転)
+								{0, 0, 2, 0, -1, 0, -1, -2, 2, 1},								
+								{0, 0, 2, 0, -1, 0, 2, -1, -1, 2},
+								{0, 0, -2, 0, 1, 0, -2, -1, 1, 1},
+								{0, 0, -1, 0, 2, 0, -1, -2, 2, 1}
+						},
+						new int[,]{                                   // Iミノ(x回転)
+								{0, 0, 2, 0, -1, 0, -1, -2, 2, 1},								
+								{0, 0, 1, 0, -2, 0, 1, -2, -2, 1},
+								{0, 0, -2, 0, 1, 0, -2, -1, 1, 1},
+								{0, 0, 2, 0, -1, 0, 2, -2, -1, 2}
 						},
 						new int[,]{                                   // Iミノ以外
 								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
