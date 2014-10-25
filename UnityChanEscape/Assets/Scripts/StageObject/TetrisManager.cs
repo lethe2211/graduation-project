@@ -17,6 +17,7 @@ public class TetrisManager : MonoBehaviour {
 		int minoState = 0; // ミノの回転状態
 		int frame = 0;
 		bool isPlayingTetris = true;
+		bool tspinDone = false;
 		
 		bool pushedDownKey = false;
 		bool pushedZKey = false;
@@ -189,13 +190,14 @@ public class TetrisManager : MonoBehaviour {
 						Vector3 pos = operatedMino.transform.FindChild ("Cube" + i.ToString ()).transform.position;
 						pos.y++;
 						
-						// cubeが重ならなければ以下の処理を行う
+						// cubeが重なれば以下の処理を行う
 						if (cubePoints.IndexOf (pos) > -1) {
 								
 								// ミノを固定し、列がそろっていたら消し、新しいミノを操作可能にする
 								FixMino ();
 								DeleteLines ();
 								createMino ();
+								tspinDone = false;
 								return;
 						}
 				}
@@ -255,7 +257,7 @@ public class TetrisManager : MonoBehaviour {
 								}
 						}
 						if (rotateEnable) {
-								//ミノを回転させる
+								// ミノを回転させる
 								for (int i = 0; i < 4; i++) {
 										Vector3 pos = RotateCube(operatedMino.transform.FindChild ("Cube" + i.ToString ()).transform.localPosition, delta);
 										operatedMino.transform.FindChild("Cube" + i.ToString()).transform.localPosition = pos;
@@ -274,6 +276,10 @@ public class TetrisManager : MonoBehaviour {
 								if(minoState == 3 && delta == 1) minoState = 0;
 								else if(minoState == 0 && delta == -1) minoState = 3;
 								else minoState += delta;
+								
+								// Tスピンが行われた場合にはフラグをtrueに
+								if(operatedMino.name.IndexOf("TetriminoT") > -1 && CheckTspin()) tspinDone = true;
+								if(tspinDone) Debug.Log("TSpin!");
 								
 								return;
 
@@ -307,6 +313,19 @@ public class TetrisManager : MonoBehaviour {
 				default:
 						return new Vector3(0, 0, 0);
 				}
+		}
+		
+		// Tspin判定
+		bool CheckTspin ()
+		{
+				int cubeNum = 0;
+				Vector3 pos = operatedMino.transform.position;
+				for (int i = -1; i < 2; i += 2) {
+						for (int j = -1; j < 2; j += 2) {
+								if(cubePoints.IndexOf(new Vector3(pos.x + j, pos.y + i, posZ)) > -1) cubeNum++;
+						}
+				}
+				return cubeNum > 2;
 		}
 		
 		// 新しくミノを生成する
@@ -425,13 +444,14 @@ public class TetrisManager : MonoBehaviour {
 		// 消したライン数だけスコアを加算
 		void AddScore (int n)
 		{
+				if(tspinDone) n *= 2;
 				int scoreDelta = 50;
 				while (n > 0) {
 						scoreDelta *= n--;
 				}
 				score += scoreDelta;
-				scoreText.text = score.ToString();
-
+				scoreText.text = score.ToString();			
+				tspinDone = false;
 		}
 		
 		// ミノをホールド
