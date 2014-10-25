@@ -14,6 +14,7 @@ public class TetrisManager : MonoBehaviour {
 		GameObject nextMino; // 次のテトリミノ
 		GameObject holdedMino; // ホールド中のテトリミノ
 		int minoCount = 0; // 現在操作中のミノの番号
+		int minoState = 0; // ミノの回転状態
 		int frame = 0;
 		
 		bool pushedDownKey = false;
@@ -28,6 +29,9 @@ public class TetrisManager : MonoBehaviour {
 		Camera subCamera;
 		Camera tetrisCamera;
 		
+		// スーパーローテーション用の辞書
+		Dictionary<string, List<List<Vector2>>> SRS = new Dictionary<string, List<List<Vector2>>>();
+		
 		GUIText scoreText;
 		int score = 0;
 		
@@ -39,6 +43,7 @@ public class TetrisManager : MonoBehaviour {
 				subCamera = GameObject.Find("SubCamera").GetComponent<Camera>();
 				tetrisCamera = GameObject.Find("TetrisCamera").GetComponent<Camera>();
 				scoreText = GameObject.Find("ScoreText").guiText;
+				registerSRS();
 				InitializeStage();
 		}
 		
@@ -200,23 +205,51 @@ public class TetrisManager : MonoBehaviour {
 		void RotateMino (int delta)
 		{
 				//Oミノは回さない
-				if(operatedMino.name.IndexOf("TetriminoO") > -1) return;
+				if (operatedMino.name.IndexOf ("TetriminoO") > -1)
+						return;
 				
-				for (int i = 0; i < 4; i++) {
-						// すべてのcubeについて、移動可能かを調べる
-						Vector3 pos = RotateCube(operatedMino.transform.FindChild ("Cube" + i.ToString ()).transform.localPosition, delta);
-						pos += operatedMino.transform.position;
+				int srsIndex = 0;
+				while (srsIndex < 4) {
+						bool rotateEnable = true;
+						for (int i = 0; i < 4; i++) {
+								// すべてのcubeについて、移動可能かを調べる
+								Vector3 pos = RotateCube (operatedMino.transform.FindChild ("Cube" + i.ToString ()).transform.localPosition, delta);
+								pos.x += SRS[operatedMino.name][minoState][srsIndex].x;
+								pos.y += SRS[operatedMino.name][minoState][srsIndex].y;
+								pos += operatedMino.transform.position;
 
-						// cubeが重なったら回転させない
-						if (cubePoints.IndexOf (pos) > -1) return;
+								// cubeが重なったら回転させない
+								if (cubePoints.IndexOf (pos) > -1) {
+										rotateEnable = false;
+										break;
+								}
+						}
+						if (rotateEnable) {
+								//ミノを回転させる
+								for (int i = 0; i < 4; i++) {
+										Vector3 pos = RotateCube(operatedMino.transform.FindChild ("Cube" + i.ToString ()).transform.localPosition, delta);
+										operatedMino.transform.FindChild("Cube" + i.ToString()).transform.localPosition = pos;
+								}
+								
+								// SRSの分だけミノを移動させる
+								Vector3 mpos = operatedMino.transform.position;
+								mpos.x += SRS[operatedMino.name][minoState][srsIndex].x;
+								mpos.y += SRS[operatedMino.name][minoState][srsIndex].y;
+								operatedMino.transform.position = mpos;
+								
+								// ミノの状態を更新
+								if(minoState == 3 && delta == 1) minoState = 0;
+								else if(minoState == 0 && delta == -1) minoState = 3;
+								else minoState += delta;
+								
+								return;
+
+						} else {
+								srsIndex += 1;
+						}
 				}
-				
-				//ミノを回転させる
-				for (int i = 0; i < 4; i++) {
-						// すべてのcubeについて、移動可能かを調べる
-						Vector3 pos = RotateCube(operatedMino.transform.FindChild ("Cube" + i.ToString ()).transform.localPosition, delta);
-						operatedMino.transform.FindChild("Cube" + i.ToString()).transform.localPosition = pos;
-				}
+				Debug.Log(minoState);				
+				Debug.Log(delta);
 		}
 		
 		// cubeをZ軸中心で回転させる
@@ -241,6 +274,7 @@ public class TetrisManager : MonoBehaviour {
 				
 				holdEnable = true;
 				pushedCKey = false;
+				minoState = 0;
 		}
 		
 		// 操作中のミノを固定する
@@ -365,6 +399,7 @@ public class TetrisManager : MonoBehaviour {
 				}
 				pushedCKey = false;
 				holdEnable = false;
+				minoState = 0;
 		}
 		
 		// ブロックの存在する位置を示すリストを更新
@@ -396,4 +431,71 @@ public class TetrisManager : MonoBehaviour {
 //						}
 //				}
 //		}
+		
+		// SRSでの移動位置を登録
+		void registerSRS ()
+		{
+				string[] minos = new string[]{ "I", "T", "J", "L", "S", "Z" };
+				// 各ミノの回転ごとのSRSの移動先
+				// 第一要素がミノ名、第二要素がミノ状態、第三要素が移動先の座標 
+				// 1->4->3->2->1の順に登録する
+				// 回転キーによる移動先の差はない
+				// 登録されているのはZキーによる回転の際のSRS
+				// Iミノだけ特殊、あとはすべて同じ
+				int[][,] moves = new int[][,] {
+						new int[,]{                                   // Iミノ
+								{0, 0, -2, 0, 1, 0, 1, -2, -2, 1},
+								{0, 0, -1, 0, 2, 0, -1, -2, 2, 1},
+								{0, 0, 2, 0, -1, 0, 2, -1, -1, 1},
+								{0, 0, -2, 0, 1, 0, -2, -1, 1, 2}
+						},
+						new int[,]{                                   // Tミノ
+								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
+								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
+								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
+								{0, 0, -1, 0, -1, 1, 0, -2, -1, -2}
+						},
+						new int[,]{                                   // Jミノ
+								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
+								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
+								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
+								{0, 0, -1, 0, -1, 1, 0, -2, -1, -2}
+						},
+						new int[,]{                                   // Lミノ
+								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
+								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
+								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
+								{0, 0, -1, 0, -1, 1, 0, -2, -1, -2}
+						},
+						new int[,]{                                   // Sミノ
+								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
+								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
+								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
+								{0, 0, -1, 0, -1, 1, 0, -2, -1, -2}
+						},
+						new int[,]{                                   // Zミノ
+								{0, 0, -1, 0, -1, -1, 0, 2, -1, 2},
+								{0, 0, 1, 0, 1, 1, 0, -2, 1, -2},
+								{0, 0, 1, 0, 1, -1, 0, 2, 1, 2},
+								{0, 0, -1, 0, -1, 1, 0, -2, -1, -2}
+						}
+				};
+				for (int i = 0; i < minos.Length; i++) {
+						setSRS("Tetrimino" + minos[i] + "(Clone)", moves[i]);
+				}
+		}
+		
+		// 入力されたミノのSRS異動先を登録
+		void setSRS (string mino, int[,] moves)
+		{
+				SRS [mino] = new List<List<Vector2>> ();
+				for (int i = 0; i < 4; i++) {
+						List<Vector2> tmp = new List<Vector2>();
+						for(int j=0; j<5; j++){
+								Vector2 tmpvec = new Vector2(moves[i,j*2], moves[i,j*2+1]);
+								tmp.Add(tmpvec);
+						}
+						SRS[mino].Add(tmp);
+				}
+		}
 }
