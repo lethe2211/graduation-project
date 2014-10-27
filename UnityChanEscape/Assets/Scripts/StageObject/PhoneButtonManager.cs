@@ -65,7 +65,7 @@ public class PhoneButtonManager : MonoBehaviour {
 				string state; // 現在の状態
 
 				currentSequence.Add (senderId);
-
+				Debugger.List<int> (currentSequence);
 				// 配列の値のチェック
 				state = "midstream";
 				for (int i = 0; i < currentSequence.Count; i++) {
