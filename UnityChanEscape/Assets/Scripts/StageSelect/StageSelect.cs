@@ -45,6 +45,6 @@ public class StageSelect : MonoBehaviour {
 
 				worldTitle.text = StageNoManager.worldTitleList [StageNoManager.selectedWorld - 1];
 				stageTitle.text = StageNoManager.stageInfoList [StageNoManager.stageNo() - 1].stageTitle;
-				mainCamera.transform.position = new Vector3 (0f, -20f * (StageNoManager.selectedWorld - 1), -10f);
+				mainCamera.transform.position = new Vector3 (0f, -30f * (StageNoManager.selectedWorld - 1), -10f);
 		}
 }
