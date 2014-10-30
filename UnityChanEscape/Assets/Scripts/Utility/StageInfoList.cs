@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 // セーブデータ中のステージ情報を扱うクラス
+// StageInfoList[0]でステージ1の情報を得られる
 public class StageInfoList {
 
 		List<StageInfo> stageInfoList; // ステージ情報のリスト
@@ -47,6 +48,9 @@ public class StageInfoList {
 				return stageInfoList.Count;
 		}
 
+		
+		// ワールドごとのステージ数　
+		// CountStageNumPerWorld()[1]でワールド1のステージ数が得られる
 		public List<int> CountStageNumPerWorld() {
 		List<int> stageNumPerWorld = new List<int> {0, 0, 0, 0, 0, 0};
 		for (int i = 0; i < this.Count(); i++) {
