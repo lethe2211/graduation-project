@@ -75,6 +75,7 @@ public class PenetrationController : MonoBehaviour {
 		bool canBePenetrated (GameObject go)
 		{
 				return go.name.IndexOf("Plate") > -1 || go.name.IndexOf("Wall") > -1;
+				// return go.name.IndexOf ("Plate") > -1;
 		}
 		
 		// gameObjectのcolorのアルファ値を変更する
