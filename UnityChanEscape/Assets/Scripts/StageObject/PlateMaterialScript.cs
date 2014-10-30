@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// プレートにテクスチャを均一にはるためのスクリプト
+// プレートオブジェクトをひとまとめにしたPlatesオブジェクトを作成し、そのオブジェクトに取り付ける
+// Plateタグがついているオブジェクトが対象
+// はりつけるマテリアルはinspectorで設定する必要がある
 public class PlateMaterialScript : MonoBehaviour {
 
 	public Material mat;
