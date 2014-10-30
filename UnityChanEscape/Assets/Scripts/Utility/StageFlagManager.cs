@@ -35,7 +35,7 @@ public class StageFlagManager : MonoBehaviour {
 				}
 //				Debug.Log (sender.name);
 //				Debug.Log (currentFlags[sender]);
-
+				// Debugger.Dictionary (currentFlags);
 				// トリガーの発火
 				// TargetとなるGameObjectにTriggerOnメッセージを送る
 				foreach (TriggerTarget item in triggerTargets) {
