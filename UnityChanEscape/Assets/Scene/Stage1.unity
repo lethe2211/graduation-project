@@ -367,6 +367,7 @@ MonoBehaviour:
   - {fileID: 1918788659}
   arrow: {fileID: 1918788659}
   gameOverVoice: {fileID: 30265444}
+  isDebug: 0
 --- !u!4 &30265446
 Transform:
   m_ObjectHideFlags: 0
@@ -7777,6 +7778,7 @@ MonoBehaviour:
   - {fileID: 2122493840}
   arrow: {fileID: 2122493840}
   clearVoice: {fileID: 1078462906}
+  isDebug: 0
 --- !u!1 &1079087495
 GameObject:
   m_ObjectHideFlags: 0
@@ -9637,6 +9639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de02ec5b148914b29a5db9e6fef3c6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!1 &1335284783
 GameObject:
   m_ObjectHideFlags: 0
