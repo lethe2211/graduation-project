@@ -502,7 +502,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &70820316
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +741,7 @@ Transform:
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 7
 --- !u!135 &91159652
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2010,7 +2010,7 @@ Transform:
   - {fileID: 910504568}
   - {fileID: 1615363798}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 15
 --- !u!114 &301449054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2713,8 +2713,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children:
   - {fileID: 1267509328}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1456439703}
+  m_RootOrder: 2
 --- !u!65 &376002687
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3911,8 +3911,8 @@ Transform:
   m_LocalPosition: {x: -.100000001, y: 2.5, z: -27.4620724}
   m_LocalScale: {x: 5, y: .200000003, z: 5}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_Father: {fileID: 1456439703}
+  m_RootOrder: 3
 --- !u!114 &539631293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5870,7 +5870,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 11
 --- !u!1 &777241765
 GameObject:
   m_ObjectHideFlags: 0
@@ -8187,7 +8187,7 @@ Transform:
   m_Children:
   - {fileID: 1558396299}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 13
 --- !u!82 &1089996634
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9841,7 +9841,7 @@ GameObject:
   - 23: {fileID: 1357433377}
   m_Layer: 0
   m_Name: PlateT
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9895,8 +9895,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 10, y: .200000003, z: 30}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 1456439703}
+  m_RootOrder: 0
 --- !u!1 &1360533485
 GameObject:
   m_ObjectHideFlags: 0
@@ -10174,7 +10174,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 17
 --- !u!1 &1410459606
 GameObject:
   m_ObjectHideFlags: 0
@@ -10235,7 +10235,7 @@ Transform:
   m_LocalScale: {x: 1, y: .00999999978, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!122 &1410459611
 Halo:
   m_ObjectHideFlags: 0
@@ -10553,6 +10553,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1327315163}
   m_RootOrder: 0
+--- !u!1 &1456439702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1456439703}
+  - 114: {fileID: 1456439704}
+  m_Layer: 0
+  m_Name: Plates
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1456439703
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1456439702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1357433380}
+  - {fileID: 1969511377}
+  - {fileID: 376002686}
+  - {fileID: 539631292}
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+--- !u!114 &1456439704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1456439702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c3d9940eeeff4f32b316f51798e9798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: 899315b80da112f44aa671ea46c4f62d, type: 2}
 --- !u!1 &1465253750
 GameObject:
   m_ObjectHideFlags: 0
@@ -11429,7 +11473,7 @@ Transform:
   - {fileID: 2083422622}
   - {fileID: 647041349}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 16
 --- !u!82 &1634721004
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11508,6 +11552,7 @@ MonoBehaviour:
   - {fileID: 647041350}
   arrow: {fileID: 647041350}
   gameOverVoice: {fileID: 1634721004}
+  isDebug: 0
 --- !u!1 &1635026912
 GameObject:
   m_ObjectHideFlags: 0
@@ -11983,7 +12028,7 @@ Transform:
   m_LocalScale: {x: 10.0651979, y: 2.5, z: .300000012}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 9
 --- !u!65 &1694411889
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15439,7 +15484,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 10
 --- !u!45 &1961845108
 Skybox:
   m_ObjectHideFlags: 0
@@ -15515,7 +15560,7 @@ GameObject:
   - 23: {fileID: 1969511374}
   m_Layer: 0
   m_Name: PlateT
-  m_TagString: Untagged
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15569,8 +15614,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 5, z: -10}
   m_LocalScale: {x: 10, y: .200000003, z: 30}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 1456439703}
+  m_RootOrder: 1
 --- !u!1 &1987085437
 GameObject:
   m_ObjectHideFlags: 0
@@ -15689,7 +15734,7 @@ Transform:
   - {fileID: 1092814232}
   - {fileID: 1014473700}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 14
 --- !u!82 &1989730208
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15768,6 +15813,7 @@ MonoBehaviour:
   - {fileID: 1014473701}
   arrow: {fileID: 1014473701}
   clearVoice: {fileID: 1989730208}
+  isDebug: 0
 --- !u!1 &1995095076
 GameObject:
   m_ObjectHideFlags: 0

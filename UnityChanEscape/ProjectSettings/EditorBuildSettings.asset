@@ -5,5 +5,31 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Done/DoneScenes/DoneStealth.unity
+  - enabled: 1
+    path: Assets/Scene/License.unity
+  - enabled: 1
+    path: Assets/Scene/Title.unity
+  - enabled: 1
+    path: Assets/Scene/StageSelect.unity
+  - enabled: 1
+    path: Assets/Scene/Stage1.unity
+  - enabled: 1
+    path: Assets/Scene/Stage2.unity
+  - enabled: 1
+    path: Assets/Scene/stage3.unity
+  - enabled: 1
+    path: Assets/Scene/Stage4.unity
+  - enabled: 1
+    path: Assets/Scene/Debug.unity
+  - enabled: 1
+    path: Assets/Scene/Debug2.unity
+  - enabled: 1
+    path: Assets/Scene/stageKitaguchi1.unity
+  - enabled: 1
+    path: Assets/Scene/stageKitaguchi2.unity
+  - enabled: 1
+    path: Assets/Scene/StageSakamoto1.unity
+  - enabled: 1
+    path: Assets/Scene/StageShogen1.unity
