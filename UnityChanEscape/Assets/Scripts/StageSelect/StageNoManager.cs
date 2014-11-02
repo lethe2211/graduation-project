@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+// ステージセレクトの具体的なロジックを記述したクラス
 public static class StageNoManager{
 
 		public static int selectedStage = 1;
@@ -13,35 +14,43 @@ public static class StageNoManager{
 		
 		// ステージリストの最後のステージのワールド数を最大ワールド数とする
 		public static int maxWorldNum = StageNoManager.stageInfoList[StageNoManager.stageInfoList.Count() - 1].world;
-		
-		public static void selectedStageInc () {
+
+		public static int selectedStageInc () {
 				if (StageNoManager.selectedStage < StageNoManager.stageNumPerWorld[StageNoManager.selectedWorld]) {
 						if(StageNoManager.stageInfoList[StageNoManager.stageNo()].isAppeared){
-							StageNoManager.selectedStage += 1;	
+								StageNoManager.selectedStage += 1;	
+								return 1;
 						}
 				}
+				return 0;
 		}
 
-		public static void selectedStageDec () {
+		public static int selectedStageDec () {
 				if (StageNoManager.selectedStage > 1) {
 						StageNoManager.selectedStage -= 1;
+						return 1;
 				}
+				return 0;
 		}
 
-		public static void selectedWorldInc () {
+		public static int selectedWorldInc () {
 				if (StageNoManager.selectedWorld < StageNoManager.maxWorldNum) {
 						if(StageNoManager.stageInfoList[StageNoManager.stageNo() - StageNoManager.selectedStage + StageNoManager.stageNumPerWorld[StageNoManager.selectedWorld]].isAppeared){
-							StageNoManager.selectedWorld += 1;
-							StageNoManager.selectedStage = 1;
+								StageNoManager.selectedWorld += 1;
+								StageNoManager.selectedStage = 1;
+								return 1;
 						}
 				}
+				return 0;
 		}
 
-		public static void selectedWorldDec () {
+		public static int selectedWorldDec () {
 				if (StageNoManager.selectedWorld > 1) {
 						StageNoManager.selectedWorld -= 1;
 						StageNoManager.selectedStage = 1;
+						return 1;
 				}
+				return 0;
 		}
 		
 		public static int stageNo() {
