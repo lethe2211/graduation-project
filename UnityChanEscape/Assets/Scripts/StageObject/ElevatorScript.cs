@@ -6,23 +6,28 @@ public class ElevatorScript : MonoBehaviour {
 	private float frame = 0;
 	private float stopFrame = 0;
 
+	public float upperY;
+	public float downerY;
+	public float relativelySpeed;
+
 	private float centerPositionY;
 	private float moveRangeHalf; 
 
 	// Use this for initialization
 	void Start () {
-		centerPositionY = transform.position.y;
-		moveRangeHalf = 2.7f;
+		centerPositionY = (upperY + downerY) / 2;
+		moveRangeHalf = upperY - centerPositionY;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		frame += 0.01f;
+		frame += relativelySpeed + 0.01f;
 		float sin = Mathf.Sin(frame);
 
 		if(sin == 0) frame = 0.0f;
 
 		if (sin == 1 || sin == -1) {
+			 // 一番上と一番下ではちょっと止まる
 			stopFrame++;
 			if(stopFrame <= 50) return;
 		}else{
