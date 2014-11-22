@@ -1,14 +1,7 @@
 stageNo,world,isAppeared,isCleared,deathCount,score,clearTime,stageTitle
-<<<<<<< Updated upstream
 1,1,1,1,47,0,0,stage1
 2,1,1,1,25,0,0,stage2
 3,2,1,1,33,0,0,stage3
 4,3,1,1,13,0,0,stage4
 5,3,0,0,3,0,0,stage5
-=======
-1,1,1,1,37,0,0,stage1
-2,1,1,1,24,0,0,stage2
-3,2,1,1,33,0,0,stage3
-4,2,1,1,13,0,0,stage4
-5,2,0,0,3,0,0,stage5
->>>>>>> Stashed changes
+
