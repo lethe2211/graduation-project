@@ -5,13 +5,13 @@ public class MoveDownOnceWallScript : MonoBehaviour {
 		Vector3 initPosition;
 		Vector3 pos;
 		bool buttonFlag;
-		public AudioSource audioSource;
+		AudioSource audioSource;
 
 		// Use this for initialization
 		void Start () {
 				initPosition = transform.position;
 				buttonFlag = false;
-				audioSource = gameObject.GetComponent<AudioSource> ();
+				audioSource = this.gameObject.GetComponent<AudioSource> ();
 		}
 				
 		void FixedUpdate () {
