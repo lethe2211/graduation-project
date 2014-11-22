@@ -19,6 +19,10 @@ public class CharacterScript : MonoBehaviour {
 	protected float prevMass;
 	
 	public static int patema = 0;
+	public static bool whichPatema = 0;
+
+	// around key
+	protected bool subKeyFlag = false;
 
 
 	// Use this for initialization
@@ -41,6 +45,8 @@ public class CharacterScript : MonoBehaviour {
 			jumpFrame = 2;
 			animator.SetBool("Jump", true);
 		}
+
+		if(Input.GetKeyDown(KeyInputManager.subKeyCode))subKeyFlag = true;
 	}
 	
 	// Update is called once per frame

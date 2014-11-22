@@ -3,8 +3,8 @@ using System.Collections;
 
 public class CameraScript : MonoBehaviour {
 
-		Camera mainCamera; // メインカメラ
-		Camera subCamera; // サブのカメラです
+		static Camera mainCamera; // メインカメラ
+		static Camera subCamera; // サブのカメラです
 		GameObject unityChan;
 		GameObject boxUnityChan;
 		bool isFirstPersonCamera; // 主観カメラを使用中かどうか
@@ -19,6 +19,19 @@ public class CameraScript : MonoBehaviour {
 				subCamera.enabled = false;
 				isFirstPersonCamera = false;
 				defaultEulerAngles = transform.eulerAngles;
+		}
+
+	void Update(){
+		// change camera 切り替え
+		if (Input.GetKeyDown(KeyInputManager.changeCharacterKeyCode) && CharacterScript.patema == 0) {
+			if(mainCamera.enabled){
+				mainCamera.enabled = false;
+				subCamera.enabled = true;
+			}else{
+				mainCamera.enabled = true;
+				subCamera.enabled = false;
+			}
+		} 
 		}
 	
 		// Update is called once per frame
@@ -52,16 +65,7 @@ public class CameraScript : MonoBehaviour {
 						}
 		}
 				
-				// change camera 切り替え
-				if (Input.GetKeyDown(KeyInputManager.changeCharacterKeyCode)) {
-						if(mainCamera.enabled){
-								mainCamera.enabled = false;
-								subCamera.enabled = true;
-						}else{
-								mainCamera.enabled = true;
-								subCamera.enabled = false;
-						}
-				} 
+				
 			
 				// 主観カメラに切り替える
 				// 移動中でない場合にのみ使用可能
