@@ -12585,7 +12585,7 @@ GameObject:
   - 114: {fileID: 1779051945}
   m_Layer: 0
   m_Name: PlateSeesaw
-  m_TagString: Plate
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12758,6 +12758,7 @@ MonoBehaviour:
   - {fileID: 38039749}
   arrow: {fileID: 38039749}
   clearVoice: {fileID: 1783175658}
+  isDebug: 0
 --- !u!82 &1783175658
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13845,6 +13846,7 @@ MonoBehaviour:
   - {fileID: 1782349003}
   arrow: {fileID: 1782349003}
   gameOverVoice: {fileID: 1934320917}
+  isDebug: 0
 --- !u!1 &1949830127
 GameObject:
   m_ObjectHideFlags: 0

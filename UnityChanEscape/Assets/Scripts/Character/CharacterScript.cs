@@ -46,14 +46,14 @@ public class CharacterScript : MonoBehaviour {
 			animator.SetBool("Jump", true);
 		}
 
-		if(Input.GetKeyDown(KeyInputManager.subKeyCode))subKeyFlag = true;
+		if(Input.GetKeyDown(KeyInputManager.subKeyCode) || Input.GetButtonDown("subButton"))subKeyFlag = true;
 	}
 	
 	// Update is called once per frame
 
 	protected void Move ()
 	{	
-		if (Input.GetKeyDown(KeyInputManager.subKeyCode)){
+		if (subKeyFlag){
 			// パテマしてる場合はパテマ解除  
 			 if(patema > 0){
 				print("patema kaijo");
