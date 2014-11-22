@@ -24,6 +24,8 @@ public class TetrisManager : MonoBehaviour {
 		bool pushedXKey = false;
 		bool pushedCKey = false;
 		bool holdEnable = true;
+		bool downKeyPressed = false;
+		int dv = 0; // 上下の変位
 		
 		GameObject unityChan;
 		GameObject boxUnityChan;
@@ -56,10 +58,11 @@ public class TetrisManager : MonoBehaviour {
 				
 				if(!isPlayingTetris) return;
 				
-				if(Input.GetKeyDown("down")) pushedDownKey = true;
-				if(Input.GetKeyDown("z")) pushedZKey = true;
-				if(Input.GetKeyDown("x")) pushedXKey = true;
-				if(Input.GetKeyDown("c")) pushedCKey = true;
+				DownPressed();
+//				if(Input.GetKeyDown("down") || downKeyPressed) pushedDownKey = true;
+				if(Input.GetKeyDown(KeyInputManager.jumpKeyCode) || Input.GetButtonDown("subButton")) pushedZKey = true;
+				if(Input.GetKeyDown(KeyInputManager.subKeyCode) || Input.GetButtonDown("jumpButton")) pushedXKey = true;
+				if(Input.GetKeyDown(KeyInputManager.changeCharacterKeyCode) || Input.GetButtonDown("changeCharacterButton")) pushedCKey = true;
 		}
 		
 		void FixedUpdate ()
@@ -72,9 +75,9 @@ public class TetrisManager : MonoBehaviour {
 						return; // 10フレームごとに動作
 				
 				// 左右キーでのミノの移動
-				if (Input.GetKey ("right")) {
+				if (Input.GetAxis("Horizontal") > 0) {
 						MoveMino (-1);
-				} else if (Input.GetKey ("left")) {
+				} else if (Input.GetAxis("Horizontal") < 0) {
 						MoveMino (1);
 				}
 				
@@ -88,7 +91,7 @@ public class TetrisManager : MonoBehaviour {
 				}
 				
 				// 上キーで加速、下キーで真上に落とす
-				if (Input.GetKey ("up")) {
+				if (Input.GetAxis("Vertical") > 0) {
 						RaiseMino ();
 				}
 				if (pushedDownKey) {
@@ -525,4 +528,15 @@ public class TetrisManager : MonoBehaviour {
 						SRS[mino].Add(tmp);
 				}
 		}
+		
+	// ゲームパッドでの下キーのKeyDown時にフラグをtrue
+	void DownPressed ()
+	{
+			float v = Input.GetAxisRaw ("Vertical");
+			if ((v < 0 & !downKeyPressed)) {
+						downKeyPressed = true;
+						pushedDownKey = true;
+			}
+			if(v == 0 & downKeyPressed) downKeyPressed = false;
+	}
 }
