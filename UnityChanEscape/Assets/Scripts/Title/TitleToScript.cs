@@ -11,7 +11,7 @@ public class TitleToScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		if (Input.GetKeyDown ("z")) {
+		if (Input.GetKeyDown (KeyInputManager.jumpKeyCode) || Input.GetButtonDown("jumpButton")) {
 
 			Application.LoadLevel("StageSelect");
 

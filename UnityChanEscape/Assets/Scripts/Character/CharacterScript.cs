@@ -53,7 +53,8 @@ public class CharacterScript : MonoBehaviour {
 
 	protected void Move ()
 	{	
-		if (subKeyFlag){
+		// ここの判定をsubKeyFlagにすると重りを持っていてパテマ状態のときにパテマを解除できなくなる
+		if (Input.GetKeyDown(KeyInputManager.subKeyCode) || Input.GetButtonDown("subButton")){
 			// パテマしてる場合はパテマ解除  
 			 if(patema > 0){
 				print("patema kaijo");
