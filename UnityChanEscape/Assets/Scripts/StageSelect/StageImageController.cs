@@ -15,7 +15,6 @@ public class StageImageController : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-
 				spriteRenderer = GetComponent<SpriteRenderer> ();
 				stageSelect = GameObject.Find ("GameManager").GetComponent<StageSelect> ();
 				saveDataAnalyzer = SaveDataAnalyzer.GetInstance ();

@@ -2,5 +2,5 @@ stageNo,world,isAppeared,isCleared,deathCount,score,clearTime,stageTitle
 1,1,1,1,33,0,0,stage1
 2,1,1,1,23,0,0,stage2
 3,2,1,1,26,0,0,stage3
-4,2,0,1,13,0,0,stage4
-5,2,0,0,3,0,0,stage5
+4,3,1,1,13,0,0,stage4
+5,3,1,0,3,0,0,StageKitaguchi1

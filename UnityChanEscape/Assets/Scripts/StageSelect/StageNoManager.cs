@@ -16,6 +16,8 @@ public static class StageNoManager{
 		public static int maxWorldNum = StageNoManager.stageInfoList[StageNoManager.stageInfoList.Count() - 1].world;
 
 		public static int selectedStageInc () {
+//				Debugger.QuickLog (selectedStage);
+//				Debugger.QuickLog (selectedWorld);
 				if (StageNoManager.selectedStage < StageNoManager.stageNumPerWorld[StageNoManager.selectedWorld]) {
 						if(StageNoManager.stageInfoList[StageNoManager.stageNo()].isAppeared){
 								StageNoManager.selectedStage += 1;	
@@ -58,6 +60,7 @@ public static class StageNoManager{
 				for (int i = 1; i < StageNoManager.selectedWorld; i++) {
 						c += stageNumPerWorld[i];
 				}
+				// Debug.Log (c + StageNoManager.selectedStage);
 				return c + StageNoManager.selectedStage;
 		}	
 }

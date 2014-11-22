@@ -52,10 +52,10 @@ public class StageInfoList {
 		// ワールドごとのステージ数　
 		// CountStageNumPerWorld()[1]でワールド1のステージ数が得られる
 		public List<int> CountStageNumPerWorld() {
-		List<int> stageNumPerWorld = new List<int> {0, 0, 0, 0, 0, 0};
-		for (int i = 0; i < this.Count(); i++) {
-			stageNumPerWorld[this[i].world] += 1;
-		}
-		return stageNumPerWorld;
+				List<int> stageNumPerWorld = new List<int> {0, 0, 0, 0, 0, 0};
+				for (int i = 0; i < this.Count(); i++) {
+					stageNumPerWorld[this[i].world] += 1;
+				}
+				return stageNumPerWorld;
 		}
 }

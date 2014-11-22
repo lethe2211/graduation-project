@@ -46,9 +46,10 @@ public class StageSelect : MonoBehaviour {
 						}
 				}
 						
-				if (Input.GetKeyDown ("z")) {
+				if (Input.GetKeyDown (KeyInputManager.jumpKeyCode)) {
 						soundManager.SendMessage ("Play", "stage_decide");
-						string stageName = "Stage" + StageNoManager.stageNo(); // 選択したステージの名前
+						// string stageName = "Stage" + StageNoManager.stageNo(); // 選択したステージの名前
+						string stageName = StageNoManager.stageInfoList [StageNoManager.stageNo() - 1].stageTitle;
 						Application.LoadLevel(stageName);
 				}
 
