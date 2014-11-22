@@ -9,6 +9,7 @@ public class SignboardScript : MonoBehaviour {
 	public GUIText text;
 	public GUITexture textback;
 	private bool isReadable;
+	bool subKeyPressed = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -24,6 +25,13 @@ public class SignboardScript : MonoBehaviour {
 		textback.transform.position = new Vector3(0.5f, 0.1f, 0f);
 	}
 	
+	void Update ()
+	{
+			if (Input.GetKeyDown (KeyInputManager.subKeyCode) || Input.GetButtonDown ("subButton")) {
+					subKeyPressed = true;
+			}
+	}
+	
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
@@ -32,10 +40,11 @@ public class SignboardScript : MonoBehaviour {
 		cone.transform.Rotate (0, 0, 3);
 		cone.transform.position = new Vector3 (cone.transform.position.x, 1.5f + pos / 5, cone.transform.position.z);
 		
-		if (isReadable && Input.GetKeyDown (KeyInputManager.subKeyCode)) {
+		if (isReadable && subKeyPressed) {
 			text.enabled = !text.enabled;
 			textback.enabled = !textback.enabled;
 		}
+		subKeyPressed = false;
 	}
 		
 	void OnTriggerEnter (Collider c)
