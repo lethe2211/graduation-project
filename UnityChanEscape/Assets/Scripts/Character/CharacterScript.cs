@@ -19,7 +19,7 @@ public class CharacterScript : MonoBehaviour {
 	protected float prevMass;
 	
 	public static int patema = 0;
-	public static bool whichPatema = 0;
+	public static int whichPatema = 0;
 
 	// around key
 	protected bool subKeyFlag = false;
@@ -88,6 +88,7 @@ public class CharacterScript : MonoBehaviour {
 
 				unityChan.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 				boxUnityChan.rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+				whichPatema = 0;
 			}
 		}
 						
@@ -156,12 +157,14 @@ public class CharacterScript : MonoBehaviour {
 		CharacterScript sbj_component, obj_component;
 		if(unity_mass >= bunity_mass){
 			print ("unity-chanの方が重い");
+			whichPatema = 1;
 			sbj = unityChan;
 			sbj_component = unityChanComponent;
 			obj = boxUnityChan;
 			obj_component = boxUnityChanComponent;
 		}else{
 			print ("box-unity-chanの方が重い");
+			whichPatema = 2;
 			sbj = boxUnityChan;
 			sbj_component = boxUnityChanComponent;
 			obj = unityChan;

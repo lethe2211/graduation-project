@@ -23,16 +23,21 @@ public class CameraScript : MonoBehaviour {
 
 	void Update(){
 		// change camera 切り替え
-		if (Input.GetKeyDown(KeyInputManager.changeCharacterKeyCode) && CharacterScript.patema == 0) {
+		print (CharacterScript.whichPatema);
+		if (Input.GetKeyDown(KeyInputManager.changeCharacterKeyCode)) {
 			if(mainCamera.enabled){
-				mainCamera.enabled = false;
-				subCamera.enabled = true;
-			}else{
-				mainCamera.enabled = true;
-				subCamera.enabled = false;
+				if(!(CharacterScript.whichPatema == 1)){
+					mainCamera.enabled = false;
+					subCamera.enabled = true;
+				}
+			}else if(subCamera.enabled){
+				if(!(CharacterScript.whichPatema == 2)){
+					mainCamera.enabled = true;
+					subCamera.enabled = false;
+				}
 			}
 		} 
-		}
+	}
 	
 		// Update is called once per frame
 		void FixedUpdate ()
