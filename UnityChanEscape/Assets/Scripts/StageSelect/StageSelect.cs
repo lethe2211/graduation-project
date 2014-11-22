@@ -66,11 +66,12 @@ public class StageSelect : MonoBehaviour {
 				}
 
 				worldTitle.text = StageNoManager.worldTitleList [StageNoManager.selectedWorld - 1];
-				stageTitle.text = StageNoManager.stageInfoList [StageNoManager.stageNo() - 1].stageTitle;
+//				stageTitle.text = StageNoManager.stageInfoList [StageNoManager.stageNo() - 1].stageTitle;
+				stageTitle.text = "ステージ" + StageNoManager.stageNo().ToString();
 				mainCamera.transform.position = new Vector3 (0f, -30f * (StageNoManager.selectedWorld - 1), -10f);
 		}
 		
-		// ゲームパッドでの十字キーのKeyDown時にフラグをtrueにする
+		// ゲームパッドでの十字キーのKeyDown時にフラグをtrue
 		void checkAxis ()
 		{
 				float h = Input.GetAxisRaw ("Horizontal");

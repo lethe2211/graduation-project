@@ -11,6 +11,8 @@ public class PauseManager: MonoBehaviour {
 		public GUITexture manual; // 操作マニュアル
 		private int maxTextNum; // ステージIDの最大値
 		protected bool isPaused; // ポーズ中かどうかを表すフラグ
+		bool verticalPressed = false; // 上下キーが押されたか
+		int dv = 0; // 上下キーの変位
 
 		// Use this for initialization
 		void Start ()
@@ -29,7 +31,7 @@ public class PauseManager: MonoBehaviour {
 		{
 				// ポーズ中でなければPボタンでポーズ
 				if (!isPaused) {
-						if (Input.GetKeyDown ("p")) {
+						if (Input.GetKeyDown (KeyInputManager.pauseKeyCode) || Input.GetButtonDown("pauseButton")) {
 								Time.timeScale = 0f;
 								isPaused = true;
 								foreach (GUIText gt in allTexts) {
@@ -40,34 +42,36 @@ public class PauseManager: MonoBehaviour {
 
 				} else {
 						// Pボタンでポーズ解除
-						if (Input.GetKeyDown ("p")) {
+						if (Input.GetKeyDown (KeyInputManager.pauseKeyCode) || Input.GetButtonDown("pauseButton")) {
 								Unpause();
 						}
+						
+						checkYAxis ();
 			
 						// 上キー
-						if (Input.GetKeyDown ("up")) {
+						if (Input.GetKeyDown ("up") || dv == 1) {
 								if (selectedText > 0) {
 										selectedText -= 1;
 								} else {
 										selectedText = maxTextNum;
 								}
-
+								dv = 0;
 						}
 		
 						// 下キー
-						if (Input.GetKeyDown ("down")) {
+						if (Input.GetKeyDown ("down") || dv == -1) {
 								if (selectedText < maxTextNum) {
 										selectedText += 1;
 								} else {
 										selectedText = 0;
 								}
-
+								dv = 0;
 						}
 						
 						arrow.transform.position = new Vector3 (0.25f, 0.5f - 0.1f * selectedText, 0f);
 						
 						// zキー
-						if (Input.GetKeyDown ("z")) {
+						if (Input.GetKeyDown (KeyInputManager.jumpKeyCode) || Input.GetButtonDown("jumpButton")) {
 								switch (selectedText) {
 									case 0:
 										Unpause();
@@ -92,5 +96,16 @@ public class PauseManager: MonoBehaviour {
 				manual.enabled = false;
 				Time.timeScale = 1f;
 				isPaused = false;
+		}
+		
+		// ゲームパッドでの十字キーのKeyDown時にフラグをtrue
+		void checkYAxis ()
+		{
+				float v = Input.GetAxisRaw ("Vertical");
+				if (v != 0 & !verticalPressed) {
+						verticalPressed = true;
+						dv = (int)Mathf.Sign(v);
+				}
+				if(v == 0 & verticalPressed) verticalPressed = false;
 		}
 }

@@ -14,7 +14,10 @@ public class GameClear : MonoBehaviour {
 	public bool isDebug = false; // デバッグモードかどうか
 
 	GameObject TimerObject;
-	SaveDataAnalyzer saveDataAnalyzer; 
+	SaveDataAnalyzer saveDataAnalyzer;
+		
+	bool verticalPressed = false; // 上下キーが押されたか
+	int dv = 0; // 上下キーの変位
 
 	// Use this for initialization
 	void Start ()
@@ -40,31 +43,33 @@ public class GameClear : MonoBehaviour {
 				//クリア時の処理
 				if (isCleared) {
 						
+						checkYAxis ();
+						
 						// 上キー
-						if (Input.GetKeyDown ("up")) {
+						if (Input.GetKeyDown ("up") || dv == 1) {
 								if (selectedText > 0) {
 										selectedText -= 1;
 								} else {
 										selectedText = maxTextNum;
 								}
-
+								dv = 0;
 						}
 	
 						// 下キー
-						if (Input.GetKeyDown ("down")) {
+						if (Input.GetKeyDown ("down") || dv == -1) {
 								if (selectedText < maxTextNum) {
 										selectedText += 1;
 								} else {
 										selectedText = 0;
 								}
-
+								dv = 0;
 						}
 					
 						// 矢印の位置を変更
 						arrow.transform.position = new Vector3 (0.25f, 0.5f - 0.1f * selectedText, 0f);
 					
 						// zキー
-						if (Input.GetKeyDown ("z")) {
+						if (Input.GetKeyDown (KeyInputManager.jumpKeyCode) || Input.GetButtonDown("jumpButton")) {
 							if (!isDebug) { //デバッグモードでなければセーブデータを更新
 									StageInfo stageInfo = saveDataAnalyzer.GetStageInfo (currentStageNo);
 									stageInfo.isCleared = true; // クリアした
@@ -96,5 +101,16 @@ public class GameClear : MonoBehaviour {
 			}
 			clearVoice.Play();
 			isCleared = true;
+	}
+		
+	// ゲームパッドでの十字キーのKeyDown時にフラグをtrue
+	void checkYAxis ()
+	{
+			float v = Input.GetAxisRaw ("Vertical");
+			if (v != 0 & !verticalPressed) {
+					verticalPressed = true;
+					dv = (int)Mathf.Sign(v);
+			}
+			if(v == 0 & verticalPressed) verticalPressed = false;
 	}
 }

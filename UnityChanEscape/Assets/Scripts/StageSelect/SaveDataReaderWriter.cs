@@ -16,8 +16,8 @@ public class SaveDataReaderWriter {
 		public SaveDataReaderWriter(string fileName) {
 				header = new List<string> ();
 				data = new List<List<string>> ();
-//				filePath = @"";
-				filePath = @"Assets/CSVFile/";
+				filePath = @"";
+//				filePath = @"Assets/CSVFile/";
 
 				LoadFile (fileName);
 		}
