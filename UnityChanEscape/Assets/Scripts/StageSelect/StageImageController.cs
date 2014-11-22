@@ -11,6 +11,8 @@ public class StageImageController : MonoBehaviour
 
 		SaveDataAnalyzer saveDataAnalyzer; // セーブデータを扱うクラス
 		StageInfo stageInfo; // このステージに関する情報
+		
+		GameObject cone; // スプライトが効かない場合に使う
 
 		// Use this for initialization
 		void Start ()
@@ -22,6 +24,8 @@ public class StageImageController : MonoBehaviour
 				imageNum = int.Parse (this.name.Substring (this.name.Length - 1)); // アタッチされているゲームオブジェクトの名前から番号を取得
 
 				stageInfo = saveDataAnalyzer.GetStageInfo (imageNum);
+				
+				cone = GameObject.Find("Cone");
 		}
 
 		// Update is called once per frame
@@ -31,7 +35,9 @@ public class StageImageController : MonoBehaviour
 				if (stageInfo.isAppeared) {
 						if (imageNum == StageNoManager.stageNo()) {
 								color = new Color (1.0f, 1.0f, 1.0f, 1.0f); // なぜか元の画像に色が加算される
-
+								Vector3 iPos = this.transform.position;
+								iPos.y += 2;
+								cone.transform.position = iPos;
 						} else {
 								color = new Color (0.2f, 0.3f, 0.6f, 0.5f);
 						}
