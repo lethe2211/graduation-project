@@ -70,6 +70,7 @@ public class StageSelect : MonoBehaviour {
 				mainCamera.transform.position = new Vector3 (0f, -30f * (StageNoManager.selectedWorld - 1), -10f);
 		}
 		
+		// ゲームパッドでの十字キーのKeyDown時にフラグをtrueにする
 		void checkAxis ()
 		{
 				float h = Input.GetAxisRaw ("Horizontal");

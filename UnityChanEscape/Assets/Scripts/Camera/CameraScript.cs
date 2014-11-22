@@ -8,6 +8,7 @@ public class CameraScript : MonoBehaviour {
 		GameObject unityChan;
 		GameObject boxUnityChan;
 		bool isFirstPersonCamera; // 主観カメラを使用中かどうか
+		bool cameraFirstPersonKeyPressed = false; // 主観カメラキーが押されたか
 		private Vector3 defaultEulerAngles;
 
 		// Use this for initialization
@@ -21,22 +22,26 @@ public class CameraScript : MonoBehaviour {
 				defaultEulerAngles = transform.eulerAngles;
 		}
 
-	void Update(){
-		// change camera 切り替え
-		print (CharacterScript.whichPatema);
-		if (Input.GetKeyDown(KeyInputManager.changeCharacterKeyCode)) {
-			if(mainCamera.enabled){
-				if(!(CharacterScript.whichPatema == 1)){
-					mainCamera.enabled = false;
-					subCamera.enabled = true;
-				}
-			}else if(subCamera.enabled){
-				if(!(CharacterScript.whichPatema == 2)){
-					mainCamera.enabled = true;
-					subCamera.enabled = false;
-				}
+	void Update ()
+	{
+			// change camera 切り替え
+			print (CharacterScript.whichPatema);
+			if (Input.GetKeyDown (KeyInputManager.changeCharacterKeyCode) || Input.GetButtonDown ("changeCharacterButton")) {
+					if (mainCamera.enabled) {
+							if (!(CharacterScript.whichPatema == 1)) {
+									mainCamera.enabled = false;
+									subCamera.enabled = true;
+							}
+					} else if (subCamera.enabled) {
+							if (!(CharacterScript.whichPatema == 2)) {
+									mainCamera.enabled = true;
+									subCamera.enabled = false;
+							}
+					}
 			}
-		} 
+			if (Input.GetKeyDown (KeyInputManager.cameraFirstPersonKeyCode) || Input.GetButtonDown ("cameraFirstPersonButton")) {
+					cameraFirstPersonKeyPressed = true;
+			}
 	}
 	
 		// Update is called once per frame
@@ -50,7 +55,7 @@ public class CameraScript : MonoBehaviour {
 				if (isFirstPersonCamera) {
 						
 						// Wキーの入力がなくなったら元のカメラに戻す
-						if (!Input.GetKey (KeyInputManager.cameraFirstPersonKeyCode)) {
+						if (!(Input.GetKey (KeyInputManager.cameraFirstPersonKeyCode) || Input.GetButton("cameraFirstPersonButton"))) {
 								EnabledCamera ().transform.eulerAngles = defaultEulerAngles; // 保存しておいた向きにカメラを戻す
 								EnabledCamera ().transform.localPosition = new Vector3 (0.0f, 0.0f, 3.0f);
 								isFirstPersonCamera = false;
@@ -74,7 +79,7 @@ public class CameraScript : MonoBehaviour {
 			
 				// 主観カメラに切り替える
 				// 移動中でない場合にのみ使用可能
-				if(Input.GetKeyDown (KeyInputManager.cameraFirstPersonKeyCode) && h == 0 && v == 0) {
+				if(cameraFirstPersonKeyPressed && h == 0 && v == 0) {
 						EnabledCamera().transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 						defaultEulerAngles = EnabledCamera().transform.eulerAngles; // 元々のカメラの向きを保存しておく
 						isFirstPersonCamera = true;
@@ -82,7 +87,7 @@ public class CameraScript : MonoBehaviour {
 						unityChan.SendMessage("SetMoveEnabled", false);
 						boxUnityChan.SendMessage("SetMoveEnabled", false);
 				}
-						
+				cameraFirstPersonKeyPressed = false;			
 		}
 		
 		// 使用中のカメラを取得

@@ -40,13 +40,13 @@ public class CharacterScript : MonoBehaviour {
 		if(!moveEnabled) return;
 		
 		// Zボタンでジャンプ
-		if (Input.GetKeyDown(KeyCode.Z) && jumpFrame == 0){
+			if ((Input.GetKeyDown(KeyCode.Z) || Input.GetButtonDown("jumpButton")) && jumpFrame == 0){
 			print ("JUMP!");
 			jumpFrame = 2;
 			animator.SetBool("Jump", true);
 		}
 
-		if(Input.GetKeyDown(KeyInputManager.subKeyCode) || Input.GetButtonDown("subButton"))subKeyFlag = true;
+		if(Input.GetKeyDown(KeyInputManager.subKeyCode) || Input.GetButtonDown("subButton")) subKeyFlag = true;
 	}
 	
 	// Update is called once per frame
@@ -91,6 +91,7 @@ public class CharacterScript : MonoBehaviour {
 				whichPatema = 0;
 			}
 		}
+		subKeyFlag = false; // subKeyFlagをもどす
 						
 		if (jumpFrame >= 2) {
 			jumpFrame++;
@@ -204,12 +205,10 @@ public class CharacterScript : MonoBehaviour {
 		
 	}
 
-
 	protected void OnCollisionEnter(Collision collision){
 		string name = collision.gameObject.name;
 		GameObject obj = collision.gameObject; // object of collision
 
-		
 		print ("CharacterScript.OnColisionEnter");
 		if(collision.gameObject.name.IndexOf("Plate") >= 0){
 			print ("着地");
