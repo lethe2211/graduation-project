@@ -12,9 +12,10 @@ public class StageInfo {
 		public int deathCount;
 		public int score;
 		public int clearTime;
+		public string stageFileName;
 		public string stageTitle;
 		
-		public StageInfo(int stageNo, int world, bool isAppeared, bool isCleared, int deathCount, int score, int clearTime, string stageTitle) {
+		public StageInfo(int stageNo, int world, bool isAppeared, bool isCleared, int deathCount, int score, int clearTime, string stageFileName, string stageTitle) {
 				this.stageNo = stageNo;
 				this.world = world;
 				this.isAppeared = isAppeared;
@@ -22,6 +23,7 @@ public class StageInfo {
 				this.deathCount = deathCount;
 				this.score = score;
 				this.clearTime = clearTime;
+				this.stageFileName = stageFileName;
 				this.stageTitle = stageTitle;
 		}
 		
@@ -34,7 +36,8 @@ public class StageInfo {
 				this.deathCount = int.Parse (row [4]);
 				this.score = int.Parse (row [5]);
 				this.clearTime = int.Parse (row [6]);
-				this.stageTitle = row [7];
+				this.stageFileName = row [7];
+				this.stageTitle = row [8];
 		}
 
 		public List<string> ToList() {
@@ -45,9 +48,10 @@ public class StageInfo {
 				string s_deathCount = deathCount.ToString();
 				string s_score = score.ToString();
 				string s_clearTime = clearTime.ToString();
+				string s_stageFileName = stageFileName;
 				string s_stageTitle = stageTitle;
 
-				return new List<string> {s_stageNo, s_world, s_isAppeared, s_isCleared, s_deathCount, s_score, s_clearTime, s_stageTitle};
+				return new List<string> {s_stageNo, s_world, s_isAppeared, s_isCleared, s_deathCount, s_score, s_clearTime, s_stageFileName, s_stageTitle};
 		}
 
 }

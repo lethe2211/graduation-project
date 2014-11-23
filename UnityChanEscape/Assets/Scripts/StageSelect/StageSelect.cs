@@ -61,13 +61,14 @@ public class StageSelect : MonoBehaviour {
 				if (Input.GetKeyDown (KeyInputManager.jumpKeyCode) || Input.GetButtonDown ("jumpButton")) {
 						soundManager.SendMessage ("Play", "stage_decide");
 						// string stageName = "Stage" + StageNoManager.stageNo(); // 選択したステージの名前
-						string stageName = StageNoManager.stageInfoList [StageNoManager.stageNo() - 1].stageTitle;
+						string stageName = StageNoManager.stageInfoList [StageNoManager.stageNo () - 1].stageFileName;
 						Application.LoadLevel(stageName);
 				}
 
 				worldTitle.text = StageNoManager.worldTitleList [StageNoManager.selectedWorld - 1];
 //				stageTitle.text = StageNoManager.stageInfoList [StageNoManager.stageNo() - 1].stageTitle;
-				stageTitle.text = "ステージ" + StageNoManager.stageNo().ToString();
+				// stageTitle.text = "ステージ" + StageNoManager.stageNo().ToString();
+				stageTitle.text = StageNoManager.stageInfoList [StageNoManager.stageNo () - 1].stageTitle;
 				mainCamera.transform.position = new Vector3 (0f, -30f * (StageNoManager.selectedWorld - 1), -10f);
 		}
 		
