@@ -78,7 +78,7 @@ public class PenetrationController : MonoBehaviour {
 		// 現状はPlateとWallを透過可能に設定している
 		bool canBePenetrated (GameObject go)
 		{
-				return go.name.IndexOf("Plate") > -1 || go.name.IndexOf("Wall") > -1;
+				return go.name.IndexOf("Wall") > -1;
 				// return go.name.IndexOf ("Plate") > -1;
 		}
 		
