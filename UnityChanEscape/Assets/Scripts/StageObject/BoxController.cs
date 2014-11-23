@@ -13,13 +13,14 @@ public class BoxController : MonoBehaviour
 		private float minHeight = -5.0f;
 		private float maxHeight = 25.0f;
 
-		private float collisionError = 0.2f;
-		private float collisionWidth = 0.3f;
+		private float collisionError = 1.0f;
+		private float collisionWidth = 1.0f;
 
 		// Use this for initialization
 		void Start ()
 		{
 			init_position = transform.position;
+			width = transform.localScale.x / 2;
 		}
 	
 		// Update is called once per frame
@@ -46,10 +47,10 @@ public class BoxController : MonoBehaviour
 				if (col.gameObject.tag == "Player") {
 						ContactPoint contact = col.contacts [0];
 					
-						bool canPushForward = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z + 0.5)) <= error;
-						bool canPushBack = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z - 0.5)) <= error;
-						bool canPushLeft = System.Math.Abs (contact.point.z - transform.position.z) <= collisionWidth && System.Math.Abs (contact.point.x - (transform.position.x - 0.5)) <= error;
-						bool canPushRight = System.Math.Abs (contact.point.z - transform.position.z) <= collisionWidth && System.Math.Abs (contact.point.x - (transform.position.x + 0.5)) <= error;
+						bool canPushForward = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z + width)) <= error;
+						bool canPushBack = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z - width)) <= error;
+						bool canPushLeft = System.Math.Abs (contact.point.z - transform.position.z) <= collisionWidth && System.Math.Abs (contact.point.x - (transform.position.x - width)) <= error;
+						bool canPushRight = System.Math.Abs (contact.point.z - transform.position.z) <= collisionWidth && System.Math.Abs (contact.point.x - (transform.position.x + width)) <= error;
 
 						col.gameObject.GetComponent<Animator> ().SetBool ("isPushing", true);
 					
@@ -63,7 +64,7 @@ public class BoxController : MonoBehaviour
 								transform.Translate (-1 * Time.deltaTime, 0, 0);
 						}
 
-						if (!(Input.GetKey ("up") || Input.GetKey ("down") || Input.GetKey ("right") || Input.GetKey ("left"))) {
+						if (!(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)) {
 									col.gameObject.GetComponent<Animator>().SetBool("isPushing", false);
 						}	
 			}

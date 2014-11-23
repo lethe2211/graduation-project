@@ -1728,7 +1728,7 @@ Transform:
   m_LocalScale: {x: 12, y: 2.5, z: .5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!114 &210257885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4734,6 +4734,22 @@ Prefab:
     - target: {fileID: 100000, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
       propertyPath: m_Name
       value: Cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
+      propertyPath: m_ReceiveShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
@@ -11323,8 +11339,8 @@ Renderer:
   m_PrefabInternal: {fileID: 625899244}
   m_GameObject: {fileID: 1405687531}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -15686,7 +15702,7 @@ Transform:
   - {fileID: 1969511377}
   - {fileID: 1357433380}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!114 &2032750122
 MonoBehaviour:
   m_ObjectHideFlags: 0
