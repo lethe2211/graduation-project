@@ -11,7 +11,7 @@ public class PenetrationController : MonoBehaviour {
 		GameObject unityChan;
 		GameObject boxUnityChan;
 		List<GameObject> disabledObjects;
-		private Shader nShader;
+		Dictionary<string, Shader> nShaders;
 		private Shader pShader;
 
 		void Start ()
@@ -21,8 +21,8 @@ public class PenetrationController : MonoBehaviour {
 				unityChan = GameObject.Find ("unitychan");
 				boxUnityChan = GameObject.Find ("BoxUnityChan");
 				disabledObjects = new List<GameObject> ();
-				nShader = Shader.Find("Bumped Specular"); // 通常時のシェーダー
-				pShader = Shader.Find("Transparent/Bumped Specular"); // 透過時のシェーダー
+				nShaders = new Dictionary<string, Shader> (); // 通常時のシェーダー
+				pShader = Shader.Find("Transparent/Diffuse"); // 透過時のシェーダー
 		}
 	
 		void FixedUpdate ()
@@ -34,7 +34,7 @@ public class PenetrationController : MonoBehaviour {
 				
 				// 非表示にしていたオブジェクトを元に戻す
 				for (int i = 0; i < disabledObjects.Count; i++) {
-						disabledObjects [i].renderer.material.shader = nShader;
+						disabledObjects [i].renderer.material.shader = nShaders [disabledObjects [i].name];
 				}
 				
 				// 操作中のキャラクターと利用中のカメラの位置を取得
@@ -61,10 +61,14 @@ public class PenetrationController : MonoBehaviour {
 				hits = hits.OrderBy (h => h.distance).ToArray (); // 距離順にソート
 				foreach (RaycastHit hit in hits) {
 						// レンダラーを非表示に
-						if (hit.collider.gameObject.renderer && canBePenetrated(hit.collider.gameObject)) {
+						if (hit.collider.gameObject.renderer && canBePenetrated (hit.collider.gameObject)) {
+								Shader tmp = hit.collider.renderer.material.shader;
 								hit.collider.gameObject.renderer.material.shader = pShader;
 								if (disabledObjects.IndexOf (hit.collider.gameObject) == -1) {
 										disabledObjects.Add (hit.collider.gameObject); // 非表示済みオブジェクトに登録
+										if (!nShaders.ContainsKey (hit.collider.gameObject.name)) {
+												nShaders[hit.collider.gameObject.name] = tmp;
+										}
 								}
 						}
 				}
