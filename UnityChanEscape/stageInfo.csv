@@ -3,7 +3,7 @@ stageNo,world,isAppeared,isCleared,deathCount,score,clearTime,stageFileName,stag
 2,1,1,1,28,0,0,stage2,動く床のステージ
 3,2,1,1,33,0,0,stage4,カラフルな壁のステージ
 4,2,1,1,13,0,0,stageShogen1,電話的なボタンのステージ
-5,2,1,0,3,0,0,stageSakamoto1,パテマのステージ
+5,2,1,0,3,0,0,stageSakamoto1,ユニゾンのステージ
 6,3,1,0,3,0,0,stage3,回転床のステージ
 7,3,1,0,3,0,0,stageKitaguchi1,シーソーのステージ
 8,3,1,0,3,0,0,stageKitaguchi2,テトリスのステージ
