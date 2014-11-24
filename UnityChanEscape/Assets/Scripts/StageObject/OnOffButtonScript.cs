@@ -34,8 +34,25 @@ public class OnOffButtonScript : MonoBehaviour {
 				stageFlagManager.SendMessage ("FlagChanged", this.gameObject);
 				buttonFlag = true;
 		}
+
+		void OnTriggerEnter(Collider col){
+				// オブジェクトが接触した時
+				// print("OnCollisionEnter");
+				renderer.material.color = lightGreenColor;
+				halo.renderer.material.color = lightGreenColor;
+				stageFlagManager.SendMessage ("FlagChanged", this.gameObject);
+				buttonFlag = true;
+		}
 		
 		void OnCollisionExit(Collision collision){
+				// オブジェクトが離れた時
+				// print("OnCollisionExit");
+				renderer.material.color = lightRedColor;
+				stageFlagManager.SendMessage ("FlagChanged", this.gameObject);
+				buttonFlag = false;
+		}
+
+		void OnTriggerExit(Collider col){
 				// オブジェクトが離れた時
 				// print("OnCollisionExit");
 				renderer.material.color = lightRedColor;

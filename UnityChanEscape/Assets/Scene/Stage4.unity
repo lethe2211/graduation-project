@@ -4751,6 +4751,28 @@ Prefab:
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6500002, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500002, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 19f0cdfc754d14c348c2512028521b72,
+        type: 2}
+    - target: {fileID: 6500000, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 19f0cdfc754d14c348c2512028521b72,
+        type: 2}
+    - target: {fileID: 6500002, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
+      propertyPath: m_Size.x
+      value: 1.29999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500002, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
+      propertyPath: m_Size.z
+      value: 1.29999995
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a12adbb855a1344daaa08b18b10f488c, type: 2}
   m_RootGameObject: {fileID: 1405687531}
@@ -6202,6 +6224,10 @@ Prefab:
     - target: {fileID: 100000, guid: 2cfb1b15b92124ba3a55cdf9118b6f76, type: 2}
       propertyPath: m_Name
       value: OnOffButton2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400000, guid: 2cfb1b15b92124ba3a55cdf9118b6f76, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2cfb1b15b92124ba3a55cdf9118b6f76, type: 2}
@@ -11182,7 +11208,7 @@ MeshCollider:
   m_PrefabInternal: {fileID: 701702039}
   m_GameObject: {fileID: 1402736821}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
@@ -11359,11 +11385,11 @@ BoxCollider:
     type: 2}
   m_PrefabInternal: {fileID: 625899244}
   m_GameObject: {fileID: 1405687531}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 19f0cdfc754d14c348c2512028521b72, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.60000002, y: .300000012, z: 1.60000002}
+  m_Size: {x: 1.29999995, y: .300000012, z: 1.29999995}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1405687536
 MeshFilter:
@@ -11392,7 +11418,7 @@ BoxCollider:
     type: 2}
   m_PrefabInternal: {fileID: 625899244}
   m_GameObject: {fileID: 1405687531}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 19f0cdfc754d14c348c2512028521b72, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

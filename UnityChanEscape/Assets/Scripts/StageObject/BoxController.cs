@@ -55,16 +55,16 @@ public class BoxController : MonoBehaviour
 						float xMinusBorder = transform.position.x - collisionWidth;
 						float zPlusBorder = transform.position.z + collisionWidth;
 						float zMinusBorder = transform.position.z - collisionWidth;
-
-						float xMove = 0, zMove = 0;
+						
+						float xMove = 0, zMove = 0, velocity = 0.3f	;
 						if (xPlusBorder <= contact.point.x)
-								xMove = -1;
+							xMove = -velocity;
 						if (xMinusBorder >= contact.point.x)
-								xMove = 1;
+							xMove = velocity;
 						if (zPlusBorder <= contact.point.z)
-								zMove = -1;
+							zMove = -velocity;
 						if (zMinusBorder >= contact.point.z)
-								zMove = 1;
+							zMove = velocity;
 
 						transform.Translate(xMove * Time.deltaTime, 0, zMove * Time.deltaTime); 
 					
