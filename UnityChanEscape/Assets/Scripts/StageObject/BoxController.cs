@@ -46,6 +46,27 @@ public class BoxController : MonoBehaviour
 		
 				if (col.gameObject.tag == "Player") {
 						ContactPoint contact = col.contacts [0];
+
+						BoxCollider myCol = (BoxCollider)(rigidbody.collider);
+						collisionWidth = myCol.size.x;
+
+
+						float xPlusBorder = transform.position.x + collisionWidth;
+						float xMinusBorder = transform.position.x - collisionWidth;
+						float zPlusBorder = transform.position.z + collisionWidth;
+						float zMinusBorder = transform.position.z - collisionWidth;
+						
+						float xMove = 0, zMove = 0, velocity = 0.3f	;
+						if (xPlusBorder <= contact.point.x)
+							xMove = -velocity;
+						if (xMinusBorder >= contact.point.x)
+							xMove = velocity;
+						if (zPlusBorder <= contact.point.z)
+							zMove = -velocity;
+						if (zMinusBorder >= contact.point.z)
+							zMove = velocity;
+
+						transform.Translate(xMove * Time.deltaTime, 0, zMove * Time.deltaTime); 
 					
 						bool canPushForward = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z + width)) <= error;
 						bool canPushBack = System.Math.Abs (contact.point.x - transform.position.x) <= collisionWidth && System.Math.Abs (contact.point.z - (transform.position.z - width)) <= error;
