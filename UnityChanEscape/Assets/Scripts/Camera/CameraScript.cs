@@ -3,24 +3,25 @@ using System.Collections;
 
 public class CameraScript : MonoBehaviour {
 
-		static Camera mainCamera; // メインカメラ
-		static Camera subCamera; // サブのカメラです
-		GameObject unityChan;
-		GameObject boxUnityChan;
-		bool isFirstPersonCamera; // 主観カメラを使用中かどうか
-		bool cameraFirstPersonKeyPressed = false; // 主観カメラキーが押されたか
-		private Vector3 defaultEulerAngles;
+	static Camera mainCamera; // メインカメラ
+	static Camera subCamera; // サブのカメラです
+	GameObject unityChan;
+	GameObject boxUnityChan;
+	bool isFirstPersonCamera; // 主観カメラを使用中かどうか
+	bool cameraFirstPersonKeyPressed; // 主観カメラキーが押されたか
+	private Vector3 defaultEulerAngles;
 
-		// Use this for initialization
-		void Start () {
-				mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
-				subCamera = GameObject.Find("SubCamera").GetComponent<Camera>();
-				unityChan = GameObject.Find("unitychan");
-				boxUnityChan = GameObject.Find("BoxUnityChan");
-				subCamera.enabled = false;
-				isFirstPersonCamera = false;
-				defaultEulerAngles = transform.eulerAngles;
-		}
+	// Use this for initialization
+	void Start () {
+			mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
+			subCamera = GameObject.Find("SubCamera").GetComponent<Camera>();
+			unityChan = GameObject.Find("unitychan");
+			boxUnityChan = GameObject.Find("BoxUnityChan");
+			subCamera.enabled = false;
+			isFirstPersonCamera = false;
+			cameraFirstPersonKeyPressed = false;
+			defaultEulerAngles = transform.eulerAngles;
+	}
 
 	void Update ()
 	{

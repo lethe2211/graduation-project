@@ -16,8 +16,9 @@ public class CameraObjectScript : MonoBehaviour {
 		GameObject boxUnityChan;
 		bool isRotateToBack;
 		Quaternion characterRotation;
+		int rotateFlame;
 		
-		bool cameraBackKeyPressed = false;
+		bool cameraBackKeyPressed;
 
 		// Use this for initialization
 		void Start () {
@@ -30,6 +31,9 @@ public class CameraObjectScript : MonoBehaviour {
 				unityChan = GameObject.Find ("unitychan");
 				boxUnityChan = GameObject.Find ("BoxUnityChan");
 				isRotateToBack = false;
+				
+				cameraBackKeyPressed = false;
+				rotateFlame = 0;
 		}
 		
 		void Update ()
@@ -54,16 +58,22 @@ public class CameraObjectScript : MonoBehaviour {
 				//		if(Input.GetKey ("q")) verticalObject.transform.Rotate(3, 0, 0);
 				//		if(Input.GetKey ("a")) verticalObject.transform.Rotate (-3, 0, 0);
 
+				// 主観カメラでなければカメラ操作ができる
+				if (Input.GetKey (KeyInputManager.cameraFirstPersonKeyCode) || Input.GetButton ("cameraFirstPersonButton")) {
+						isRotateToBack = false;
+						cameraBackKeyPressed = false;
+						return;
+				}
 				// right-left
-				if (Input.GetKey (KeyInputManager.cameraLeftRotateKeyCode) || Input.GetButton("cameraLeftRotationButton"))
+				if (Input.GetKey (KeyInputManager.cameraLeftRotateKeyCode) || Input.GetButton ("cameraLeftRotationButton"))
 						horizontalObject.transform.Rotate (0, -3, 0);
-				if (Input.GetKey (KeyInputManager.cameraRightRotateKeyCode) || Input.GetButton("cameraRightRotationButton"))
+				if (Input.GetKey (KeyInputManager.cameraRightRotateKeyCode) || Input.GetButton ("cameraRightRotationButton"))
 						horizontalObject.transform.Rotate (0, 3, 0);
 
 				//		if(Input.GetKey ("g")) {
 				//			//Physics.gravity  *= -1;
 				//		}
-				
+		
 				// 背面カメラ
 				if (cameraBackKeyPressed && !isRotateToBack) {
 						isRotateToBack = true;
@@ -76,6 +86,7 @@ public class CameraObjectScript : MonoBehaviour {
 
 				// TODO: キーを押しっぱなしにすると回転し続けてしまうので直す
 				if (isRotateToBack) {
+						rotateFlame++;
 						// 操作中のキャラクターと利用中のカメラの位置を取得
 						if (mainCamera.enabled) {
 								cameraPosition = mainCamera.transform.position;
@@ -85,19 +96,20 @@ public class CameraObjectScript : MonoBehaviour {
 								characterPosition = boxUnityChan.transform.position + boxUnityChan.transform.up.normalized;
 						} else
 								return;
-						
+				
 						// カメラの角度を背面に来るように変更
 						cameraPosition = characterPosition;
 						Quaternion from = mainCamera.transform.rotation;
-						if (subCamera.enabled) from = subCamera.transform.rotation;
+						if (subCamera.enabled)
+								from = subCamera.transform.rotation;
 						Quaternion to = characterRotation;
 
-						if (Quaternion.Dot (from, to) > 0.999f) {
+						if (Quaternion.Dot (from, to) > 0.999f || rotateFlame > 300) {
 								Debug.Log ("finished");
 								isRotateToBack = false;
+								rotateFlame = 0;
 						} 
 
-						Debug.Log ("isRotateBack is true");
 						horizontalObject.transform.rotation = Quaternion.Slerp (from, to, 0.1f);
 						horizontalObject.transform.Rotate (0f, 180f, 0f);
 				}
