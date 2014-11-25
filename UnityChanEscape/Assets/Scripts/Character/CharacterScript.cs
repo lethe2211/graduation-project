@@ -34,6 +34,13 @@ public class CharacterScript : MonoBehaviour {
 		boxUnityChan = GameObject.Find ("BoxUnityChan");
 		unityChanComponent = unityChan.GetComponent<UnityChanScript>();
 		boxUnityChanComponent = boxUnityChan.GetComponent<BUnityChanScript>();
+
+		moveEnabled = true;
+		gravityEnabled = true;
+		jumpFrame = 0;
+		patema = 0;
+		whichPatema = 0;
+		subKeyFlag = false;
 	}
 
 	protected void Update(){
