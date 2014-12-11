@@ -10159,12 +10159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerTargets:
   - triggers:
-    - button: {fileID: 1410459606}
-      flag: 1
-    target: {fileID: 1465253750}
-  - triggers:
-    - button: {fileID: 1410459606}
-      flag: 0
+    - {fileID: 1410459606}
     target: {fileID: 1465253750}
 --- !u!4 &1408035863
 Transform:
@@ -12940,7 +12935,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.data[0].triggers.Array.size
@@ -13022,6 +13017,10 @@ Prefab:
       propertyPath: triggerTargets.Array.data[1].target
       value: 
       objectReference: {fileID: 1465253750}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1410459606}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
   m_RootGameObject: {fileID: 1408035861}

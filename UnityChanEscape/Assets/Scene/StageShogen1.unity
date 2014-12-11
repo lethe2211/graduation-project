@@ -14214,6 +14214,10 @@ Prefab:
       propertyPath: triggerTargets.Array.data[0].target
       value: 
       objectReference: {fileID: 646404750}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 2098239914}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
   m_RootGameObject: {fileID: 2079398034}
@@ -15679,8 +15683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerTargets:
   - triggers:
-    - button: {fileID: 2098239914}
-      flag: 1
+    - {fileID: 2098239914}
     target: {fileID: 646404750}
 --- !u!4 &2079398036
 Transform:

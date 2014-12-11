@@ -8873,6 +8873,10 @@ Prefab:
       propertyPath: triggerTargets.Array.data[0].triggers.Array.data[0].flag
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1404630874}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
   m_RootGameObject: {fileID: 1688401459}
@@ -10529,7 +10533,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onColor: {r: .5, g: 1, b: .5, a: 1}
   offColor: {r: 1, g: .5, b: .5, a: 1}
-  stageFlagManager: {fileID: 0}
   targetObject:
   - {fileID: 1327785367}
 --- !u!1 &1407619236
@@ -12587,8 +12590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerTargets:
   - triggers:
-    - button: {fileID: 1404630874}
-      flag: 1
+    - {fileID: 1404630874}
     target: {fileID: 1327785367}
 --- !u!4 &1688401461
 Transform:

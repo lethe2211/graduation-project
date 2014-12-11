@@ -1013,37 +1013,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerTargets:
   - triggers:
-    - button: {fileID: 118640565}
-      flag: 1
+    - {fileID: 118640565}
     target: {fileID: 210257880}
   - triggers:
-    - button: {fileID: 118640565}
-      flag: 0
-    target: {fileID: 210257880}
-  - triggers:
-    - button: {fileID: 118640565}
-      flag: 1
+    - {fileID: 118640565}
     target: {fileID: 1237072995}
   - triggers:
-    - button: {fileID: 118640565}
-      flag: 0
-    target: {fileID: 1237072995}
-  - triggers:
-    - button: {fileID: 1402736821}
-      flag: 1
-    target: {fileID: 229849756}
-  - triggers:
-    - button: {fileID: 1402736821}
-      flag: 0
-    target: {fileID: 229849756}
-  - triggers:
-    - button: {fileID: 847483375}
-      flag: 1
+    - {fileID: 847483375}
     target: {fileID: 1793927199}
   - triggers:
-    - button: {fileID: 847483375}
-      flag: 0
-    target: {fileID: 1793927199}
+    - {fileID: 1402736821}
+    target: {fileID: 229849756}
 --- !u!4 &128935080
 Transform:
   m_ObjectHideFlags: 0
@@ -1669,7 +1649,7 @@ GameObject:
   - 23: {fileID: 210257881}
   - 114: {fileID: 210257885}
   m_Layer: 0
-  m_Name: MoveWall1
+  m_Name: MoveWall1_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1843,7 +1823,7 @@ GameObject:
   - 23: {fileID: 229849757}
   - 114: {fileID: 229849761}
   m_Layer: 0
-  m_Name: MoveWall4
+  m_Name: MoveWall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1959,7 +1939,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2cfb1b15b92124ba3a55cdf9118b6f76, type: 2}
       propertyPath: m_Name
-      value: OnOffButton3
+      value: OnOffButton2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2cfb1b15b92124ba3a55cdf9118b6f76, type: 2}
@@ -3419,7 +3399,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
       propertyPath: m_Name
-      value: MoveWall2
+      value: MoveWall1_2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
       propertyPath: m_LocalScale.y
@@ -4787,7 +4767,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.size
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.data[0].triggers.Array.size
@@ -4940,7 +4920,7 @@ Prefab:
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.data[1].target
       value: 
-      objectReference: {fileID: 210257880}
+      objectReference: {fileID: 1237072995}
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.data[2].triggers.Array.data[0].button
       value: 
@@ -4948,7 +4928,7 @@ Prefab:
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.data[2].target
       value: 
-      objectReference: {fileID: 1237072995}
+      objectReference: {fileID: 1793927199}
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.data[3].triggers.Array.data[0].button
       value: 
@@ -4956,7 +4936,7 @@ Prefab:
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.data[3].target
       value: 
-      objectReference: {fileID: 1237072995}
+      objectReference: {fileID: 229849756}
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerTargets.Array.data[4].triggers.Array.data[0].button
       value: 
@@ -5141,6 +5121,22 @@ Prefab:
       propertyPath: triggerTargets.Array.data[6].triggers.Array.data[0].flag
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[0].triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 118640565}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[2].triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 847483375}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[3].triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1402736821}
+    - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
+      propertyPath: triggerTargets.Array.data[1].triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 118640565}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
   m_RootGameObject: {fileID: 128935078}
@@ -6223,7 +6219,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2cfb1b15b92124ba3a55cdf9118b6f76, type: 2}
       propertyPath: m_Name
-      value: OnOffButton2
+      value: OnOffButton3
       objectReference: {fileID: 0}
     - target: {fileID: 6400000, guid: 2cfb1b15b92124ba3a55cdf9118b6f76, type: 2}
       propertyPath: m_IsTrigger
@@ -6673,7 +6669,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
       propertyPath: m_Name
-      value: MoveWall4
+      value: MoveWall3
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -7050,7 +7046,7 @@ GameObject:
   - 114: {fileID: 847483377}
   - 64: {fileID: 847483376}
   m_Layer: 0
-  m_Name: OnOffButton3
+  m_Name: OnOffButton2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7953,7 +7949,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
       propertyPath: m_Name
-      value: MoveWall3
+      value: MoveWall2
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -10338,7 +10334,7 @@ GameObject:
   - 23: {fileID: 1237072996}
   - 114: {fileID: 1237073000}
   m_Layer: 0
-  m_Name: MoveWall2
+  m_Name: MoveWall1_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11194,7 +11190,7 @@ GameObject:
   - 114: {fileID: 1402736823}
   - 64: {fileID: 1402736822}
   m_Layer: 0
-  m_Name: OnOffButton2
+  m_Name: OnOffButton3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13539,7 +13535,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
       propertyPath: m_Name
-      value: MoveWall1
+      value: MoveWall1_1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 766e75e112b054cf4a80feba1d9bb443, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -13851,7 +13847,7 @@ GameObject:
   - 23: {fileID: 1793927200}
   - 114: {fileID: 1793927204}
   m_Layer: 0
-  m_Name: MoveWall3
+  m_Name: MoveWall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
