@@ -42,25 +42,24 @@ public class MazeScript : MonoBehaviour {
 						}
 				}
 				
-				// 簡単になりすぎないように最初に作る壁を決めておく
-				SetWall (new Vector2 (0, size/2), 0);
-				SetWall (new Vector2 (size/2-2, 0), 2);
-				SetWall (new Vector2 (size/2+2, size/2), 3);
-				SetWall (new Vector2 (size/2+2, size/2), 2);
-				SetWall (new Vector2 (size/2-2, size-1), 3);
+				// 簡単にならないように最初の壁の開始点は指定する
+				SetWall(new Vector2(0, (size-1)/2), 0);
 				
+				// 壁の生成
 				while (startpoints.Count > 0) {
 						Vector2 start = startpoints [Random.Range (0, startpoints.Count - 1)];
 						List<int> dirs = GetDirections (start);
 						if (dirs.Count > 0) {
 								int dir = dirs [Random.Range (0, dirs.Count - 1)];
 								SetWall (start, dir);
+						} else {
+								startpoints.Remove (start);
 						}
-						startpoints.Remove(start);
 				}
 		}
 		
 		// 座標(x,y)から壁を伸ばす
+		// 壁のばし法を採用
 		void SetWall (Vector2 start, int d)
 		{
 				Vector2[] delta = { new Vector2 (1, 0), new Vector2 (-1, 0), new Vector2 (0, 1), new Vector2 (0, -1) };
@@ -68,17 +67,26 @@ public class MazeScript : MonoBehaviour {
 
 				while (!isWall [(int)end.x, (int)end.y]) {
 						isWall [(int)end.x, (int)end.y] = true;
+						switch (d) {
+							case 0:
+								GenerateWall(start, end, true);
+								break;
+							case 1:
+								GenerateWall(end, start, true);
+								break;
+							case 2:
+								GenerateWall(start, end, false);
+								break;
+							case 3:
+								GenerateWall(end, start, false);
+								break;								
+						}
 						startpoints.Add(end);
+						List<int> candidates = new List<int>{0,1,2,3};
+						candidates.Remove((d%2==0) ? d+1 : d-1);
+						d = candidates[Random.Range(0,candidates.Count)];
+						start = end;
 						end += delta [d];
-				}
-				if (startpoints.Contains (end)) {
-						startpoints.Remove (end);
-				}
-				end -= delta [d];
-				if (d % 2 == 0) {
-						GenerateWall (start, end, d < 2);
-				} else {
-						GenerateWall (end, start, d < 2);
 				}
 		}
 		
