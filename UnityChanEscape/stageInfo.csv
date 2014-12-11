@@ -1,6 +1,6 @@
 stageNo,world,isAppeared,isCleared,deathCount,score,clearTime,stageFileName,stageTitle
 1,1,1,1,50,0,0,stage1,はじめての脱出
-2,1,1,1,28,0,0,stage2,さかさまの友達
+2,1,1,1,29,0,0,stage2,さかさまの友達
 3,2,1,1,36,0,0,stage4,アイ・キューブ
 4,2,1,1,13,0,0,stageShogen1,もしもしユニティちゃんですか
 5,2,1,0,3,0,0,stageSakamoto1,手をつなごう
