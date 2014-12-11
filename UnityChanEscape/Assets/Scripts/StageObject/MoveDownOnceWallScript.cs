@@ -25,7 +25,9 @@ public class MoveDownOnceWallScript : MonoBehaviour {
 		}
 
 		void TriggerOn() {
-				audioSource.PlayOneShot (audioSource.clip);
-				buttonFlag = true;
+				if (buttonFlag == false) {
+						audioSource.PlayOneShot (audioSource.clip);
+						buttonFlag = true;
+				}
 		}
 }
