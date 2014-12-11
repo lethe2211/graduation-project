@@ -8,12 +8,13 @@ public class MazeScript : MonoBehaviour {
 		int placedNum; // 壁が配置されている座標数
 		bool[,] isWall; // 壁が配置されているかどうかを示すbool
 		List<Vector2> startpoints; // 壁生成の開始点
-		int wayWidth = 5;
+		int wayWidth = 5; // 迷路の幅
+		int HEIGHT = 20; // 天井の高さ
 		
 		// Use this for initialization
 		void Start () {
-			int size = 11;
-			isWall = new bool[size, size];
+			int size = 10; // 迷路の1列のマス数(偶数)
+			isWall = new bool[size+1, size+1];
 			startpoints = new List<Vector2>();
 			GenerateMaze(size);
 		}
@@ -28,12 +29,14 @@ public class MazeScript : MonoBehaviour {
 		{
 				bool isVertical = false; // 縦横どちら向きの壁を配置するか
 				
+				InitializeOuter(size); // 外壁の場所や床の大きさを調整 
+				
 				// 壁の初期化
-				for (int i = 0; i < size; i++) {
-						for (int j = 0; j < size; j++) {
-								if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
+				for (int i = 0; i < size + 1; i++) {
+						for (int j = 0; j < size + 1; j++) {
+								if (i == 0 || i == size || j == 0 || j == size) {
 										isWall [j, i] = true; // 外壁のみtrue
-										if (i > 0 || i < size - 1 || j > 0 || j < size - 1) {
+										if (i > 0 || i < size || j > 0 || j < size) {
 												startpoints.Add (new Vector2 (j, i));
 										}
 								} else {
@@ -43,7 +46,7 @@ public class MazeScript : MonoBehaviour {
 				}
 				
 				// 簡単にならないように最初の壁の開始点は指定する
-				SetWall(new Vector2(0, (size-1)/2), 0);
+				SetWall(new Vector2(0, size/2), 0);
 				
 				// 壁の生成
 				while (startpoints.Count > 0) {
@@ -116,5 +119,32 @@ public class MazeScript : MonoBehaviour {
 						if(cur.x > -1 && cur.x < isWall.GetLength(1) && cur.y > -1 && cur.y < isWall.GetLength(0) && !isWall[(int)cur.x, (int)cur.y]) result.Add(i);
 				}
 				return result;
+		}
+		
+		void InitializeOuter (int size)
+		{
+				int stageSize = wayWidth * size; // ステージの大きさ
+				
+				// 床と天井の位置の調節
+				foreach (GameObject p in GameObject.Find("Plates").GetChildren()) {
+						Vector3 curPos = p.transform.position;
+						p.transform.position = new Vector3 (-stageSize / 2, curPos.y, -(stageSize) / 2);
+						p.transform.localScale = new Vector3 (stageSize, 0.2f, stageSize);
+				}
+				
+				// 外壁の生成
+				int[] owx = {0, -stageSize/2, -stageSize, -stageSize/2};
+				int[] owz = {-stageSize/2, 0, -stageSize/2, -stageSize};
+				for(int i=0; i<4; i++){
+						GameObject wall = Instantiate ((GameObject)Resources.Load ("Prefab/MazeWall")) as GameObject;
+						wall.gameObject.transform.parent = transform;
+						wall.gameObject.name = "OuterWall";
+						wall.transform.position = new Vector3(owx[i], HEIGHT/2, owz[i]);
+						if(i%2==0) wall.transform.rotation = Quaternion.Euler(0, 90, 0);
+						wall.transform.localScale = new Vector3(stageSize, HEIGHT, 0.2f);
+				}
+				
+				// ゴールオブジェクトの位置調整
+				GameObject.Find("Goal").transform.position = new Vector3(-wayWidth/2, 1, -(stageSize-wayWidth/2));
 		}
 }
