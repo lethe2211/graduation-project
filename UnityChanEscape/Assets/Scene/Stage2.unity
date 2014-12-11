@@ -2642,7 +2642,7 @@ Transform:
   - {fileID: 910504568}
   - {fileID: 1615363798}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
 --- !u!114 &301449054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7454,7 +7454,7 @@ Transform:
   - {fileID: 1321087236}
   - {fileID: 2045119475}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
 --- !u!136 &749312138
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13893,7 +13893,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 14
 --- !u!1 &1410459606
 GameObject:
   m_ObjectHideFlags: 0
@@ -15789,7 +15789,7 @@ Transform:
   - {fileID: 2083422622}
   - {fileID: 647041349}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
 --- !u!82 &1634721004
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17863,7 +17863,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: m_RootOrder
-      value: 20
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b0a867345701d4517b00e0320724bf35, type: 2}
       propertyPath: triggerConditions.Array.data[0].target
@@ -21122,7 +21122,7 @@ Transform:
   - {fileID: 1092814232}
   - {fileID: 1014473700}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
 --- !u!82 &1989730208
 AudioSource:
   m_ObjectHideFlags: 0
