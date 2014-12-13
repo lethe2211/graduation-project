@@ -10,6 +10,7 @@ public class MazeScript : MonoBehaviour {
 		List<Vector2> startpoints; // 壁生成の開始点
 		int wayWidth = 5; // 迷路の幅
 		int HEIGHT = 20; // 天井の高さ
+		int WALLHEIGHT = 10; // 壁の高さ
 		
 		// Use this for initialization
 		void Start () {
@@ -100,13 +101,14 @@ public class MazeScript : MonoBehaviour {
 				wall.gameObject.transform.parent = transform;
 				if (ish) {
 						// 横長の壁
-						wall.transform.position = new Vector3(-((e.x + s.x)/2)*wayWidth, 5, -s.y * wayWidth);
-						wall.transform.localScale = new Vector3((e.x - s.x)*wayWidth, 10, 0.2f);
+						wall.transform.position = new Vector3(-((e.x + s.x)/2)*wayWidth, WALLHEIGHT/2, -s.y * wayWidth);
+						wall.transform.localScale = new Vector3((e.x - s.x)*wayWidth, WALLHEIGHT, 0.2f);
 				} else {
 						// 縦長の壁
-						wall.transform.position = new Vector3(-s.x * wayWidth, 5, -((e.y + s.y)/2)*wayWidth);	
-						wall.transform.localScale = new Vector3(0.2f, 10, (e.y - s.y)*wayWidth);
+						wall.transform.position = new Vector3(-s.x * wayWidth, WALLHEIGHT/2, -((e.y + s.y)/2)*wayWidth);	
+						wall.transform.localScale = new Vector3(0.2f, WALLHEIGHT, (e.y - s.y)*wayWidth);
 				}
+				AddLine(wall, s, e);
 				wall.name = wall.name.Split("("[0])[0]; // GameObject名に(Clone)がつかないようにする
 		}
 		
@@ -146,5 +148,16 @@ public class MazeScript : MonoBehaviour {
 				
 				// ゴールオブジェクトの位置調整
 				GameObject.Find("Goal").transform.position = new Vector3(-wayWidth/2, 1, -(stageSize-wayWidth/2));
+		}
+		
+		// 壁の上部に線を追加する
+		void AddLine (GameObject wall, Vector2 s, Vector2 e)
+		{
+				LineRenderer line = wall.AddComponent<LineRenderer>();
+				line.material.color = Color.green;
+				line.SetWidth(0.2f, 0.2f);
+				line.SetVertexCount(2);
+				line.SetPosition(0, new Vector3(-s.x*wayWidth, WALLHEIGHT, -s.y*wayWidth));
+				line.SetPosition(1, new Vector3(-e.x*wayWidth, WALLHEIGHT, -e.y*wayWidth));
 		}
 }
