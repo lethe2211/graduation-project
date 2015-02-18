@@ -62,7 +62,7 @@ public class CameraScript : MonoBehaviour {
 								isFirstPersonCamera = false;
 								// キャラを移動可能に
 								unityChan.SendMessage ("SetMoveEnabled", true);
-								boxUnityChan.SendMessage ("SetMoveEnabled", true);
+								if(boxUnityChan) boxUnityChan.SendMessage ("SetMoveEnabled", true);
 						}
 						
 						// 上下左右キーの入力分だけカメラの向きを変える
@@ -86,7 +86,7 @@ public class CameraScript : MonoBehaviour {
 						isFirstPersonCamera = true;
 						// キャラを両方とも動けないようにする
 						unityChan.SendMessage("SetMoveEnabled", false);
-						boxUnityChan.SendMessage("SetMoveEnabled", false);
+						if(boxUnityChan) boxUnityChan.SendMessage("SetMoveEnabled", false);
 				}
 				cameraFirstPersonKeyPressed = false;			
 		}
