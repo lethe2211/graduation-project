@@ -33,7 +33,8 @@ public class CharacterScript : MonoBehaviour {
 		unityChan = GameObject.Find ("unitychan"); 
 		boxUnityChan = GameObject.Find ("BoxUnityChan");
 		unityChanComponent = unityChan.GetComponent<UnityChanScript>();
-		boxUnityChanComponent = boxUnityChan.GetComponent<BUnityChanScript>();
+		if(boxUnityChan != null)
+			boxUnityChanComponent = boxUnityChan.GetComponent<BUnityChanScript>();
 		moveEnabled = true;
 		gravityEnabled = true;
 		jumpFrame = 0;
@@ -62,7 +63,7 @@ public class CharacterScript : MonoBehaviour {
 		// ここの判定をsubKeyFlagにすると重りを持っていてパテマ状態のときにパテマを解除できなくなる
 		if (Input.GetKeyDown(KeyInputManager.subKeyCode) || Input.GetButtonDown("subButton")){
 			// パテマしてる場合はパテマ解除  
-			 if(patema > 0){
+			 if(boxUnityChan != null && patema > 0){
 				print("patema kaijo");
 				// 合体を解除
 				unityChan.transform.parent = null;
@@ -139,6 +140,8 @@ public class CharacterScript : MonoBehaviour {
 
 	protected void DoPatema(Collision collision){
 		print ("UnityChanScript.DoPatema");
+		if (boxUnityChan == null)
+						return;
 		
 		// パテマするのはジャンプ時のみ FIXME
 		if(unityChanComponent.GetAnimatorPatema() || boxUnityChanComponent.GetAnimatorPatema()) return;
