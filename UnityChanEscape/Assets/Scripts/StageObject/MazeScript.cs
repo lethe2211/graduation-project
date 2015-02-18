@@ -14,7 +14,7 @@ public class MazeScript : MonoBehaviour {
 		
 		// Use this for initialization
 		void Start () {
-			int size = 10; // 迷路の1列のマス数(偶数)
+			int size = 8; // 迷路の1列のマス数(偶数)
 			isWall = new bool[size+1, size+1];
 			startpoints = new List<Vector2>();
 			GenerateMaze(size);
