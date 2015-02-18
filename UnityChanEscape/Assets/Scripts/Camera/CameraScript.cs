@@ -28,7 +28,7 @@ public class CameraScript : MonoBehaviour {
 			// change camera 切り替え
 			print (CharacterScript.whichPatema);
 			if (Input.GetKeyDown (KeyInputManager.changeCharacterKeyCode) || Input.GetButtonDown ("changeCharacterButton")) {
-					if (mainCamera.enabled) {
+					if (mainCamera.enabled && boxUnityChan != null) {
 							if (!(CharacterScript.whichPatema == 1)) {
 									mainCamera.enabled = false;
 									subCamera.enabled = true;
