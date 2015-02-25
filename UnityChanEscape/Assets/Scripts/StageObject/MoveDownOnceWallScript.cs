@@ -7,6 +7,8 @@ public class MoveDownOnceWallScript : MonoBehaviour {
 		bool buttonFlag;
 		AudioSource audioSource;
 
+		public double downDistance = 2.0; // hotfix
+
 		// Use this for initialization
 		void Start () {
 				initPosition = transform.position;
@@ -18,7 +20,7 @@ public class MoveDownOnceWallScript : MonoBehaviour {
 				pos = transform.position;
 
 				if (buttonFlag) {
-						if (pos.y >= initPosition.y - 2.0) {
+						if (pos.y >= initPosition.y - downDistance) {
 								transform.Translate (0, -0.1f, 0);
 						}
 				}

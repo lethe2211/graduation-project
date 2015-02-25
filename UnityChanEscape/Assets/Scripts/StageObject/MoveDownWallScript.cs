@@ -32,18 +32,7 @@ public class MoveDownWallScript : MonoBehaviour {
 				}
 
 		}
-
-//		void ButtonOn() {
-//
-//				buttonFlag = true;
-//
-//		}
-//
-//		void ButtonOff() {
-//
-//				buttonFlag = false;
-//		}
-
+				
 		void TriggerOn() {
 				buttonFlag = !buttonFlag;
 		}
