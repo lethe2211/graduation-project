@@ -48,7 +48,8 @@ public class CameraScript : MonoBehaviour {
 		// Update is called once per frame
 		void FixedUpdate ()
 		{
-				if(!mainCamera.enabled && !subCamera.enabled) return;
+				if (!mainCamera.enabled && !subCamera.enabled)
+						return;
 
 				float h = Input.GetAxis ("Horizontal"); // 入力デバイスの水平軸をhで定義
 				float v = Input.GetAxis ("Vertical"); // 入力デバイスの垂直軸をvで定義
@@ -56,13 +57,18 @@ public class CameraScript : MonoBehaviour {
 				if (isFirstPersonCamera) {
 						
 						// Wキーの入力がなくなったら元のカメラに戻す
-						if (!(Input.GetKey (KeyInputManager.cameraFirstPersonKeyCode) || Input.GetButton("cameraFirstPersonButton"))) {
+						if (!(Input.GetKey (KeyInputManager.cameraFirstPersonKeyCode) || Input.GetButton ("cameraFirstPersonButton"))) {
 								EnabledCamera ().transform.eulerAngles = defaultEulerAngles; // 保存しておいた向きにカメラを戻す
 								EnabledCamera ().transform.localPosition = new Vector3 (0.0f, 0.0f, 3.0f);
 								isFirstPersonCamera = false;
 								// キャラを移動可能に
 								unityChan.SendMessage ("SetMoveEnabled", true);
-								if(boxUnityChan) boxUnityChan.SendMessage ("SetMoveEnabled", true);
+								if (boxUnityChan)
+										boxUnityChan.SendMessage ("SetMoveEnabled", true);
+								
+								// インジケーターを削除
+								if (GameObject.Find ("Indicater"))
+										Destroy (GameObject.Find ("Indicater"));
 						}
 						
 						// 上下左右キーの入力分だけカメラの向きを変える
@@ -74,6 +80,23 @@ public class CameraScript : MonoBehaviour {
 								EnabledCamera ().transform.eulerAngles = new Vector3 (nr.x + 3.0f * v, nr.y - 3.0f * h, nr.z);
 
 						}
+						
+						// ゴールの位置がわかるようにする
+						Vector3 goalDirection = (GameObject.Find ("Goal").transform.position - unityChan.transform.position).normalized;
+						GameObject indicater;
+						if (GameObject.Find ("Indicater")) {
+								indicater = GameObject.Find ("Indicater");
+						} else {
+								indicater = Instantiate ((GameObject)Resources.Load ("Prefab/Indicater")) as GameObject;
+								indicater.name = indicater.name.Split ("(" [0]) [0];
+						}
+						if (mainCamera.enabled) {
+								indicater.transform.position = unityChan.transform.position + goalDirection * 3;
+						} else {
+								indicater.transform.position = boxUnityChan.transform.position + boxUnityChan.transform.up + goalDirection * 3;
+
+						}
+						indicater.transform.forward = -goalDirection;
 		}
 				
 				
