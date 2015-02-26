@@ -33,11 +33,16 @@ public class UnityChanScript : CharacterScript {
 	}
 
 
-	void Update() {
-		// カメラが有効な時だけ動く 
-		if(!mainCamera.enabled) return;
-		// パテマとかで動きが制限されている場合
-		if(!moveEnabled) return;
+	void Update ()
+		{
+				// カメラが有効な時だけ動く 
+				if (!mainCamera.enabled)
+						return;
+				// パテマとかで動きが制限されている場合
+				if (!moveEnabled) {
+						cameraObject.transform.position = transform.position + transform.up;
+						return;
+				}
 
 		base.Update ();
 	}

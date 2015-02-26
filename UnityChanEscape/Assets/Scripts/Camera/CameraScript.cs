@@ -55,6 +55,7 @@ public class CameraScript : MonoBehaviour {
 				float v = Input.GetAxis ("Vertical"); // 入力デバイスの垂直軸をvで定義
 				
 				if (isFirstPersonCamera) {
+						EnabledCamera().transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 						
 						// Wキーの入力がなくなったら元のカメラに戻す
 						if (!(Input.GetKey (KeyInputManager.cameraFirstPersonKeyCode) || Input.GetButton ("cameraFirstPersonButton"))) {
