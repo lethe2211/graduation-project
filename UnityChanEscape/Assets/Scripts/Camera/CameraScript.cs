@@ -26,7 +26,7 @@ public class CameraScript : MonoBehaviour {
 	void Update ()
 	{
 			// change camera 切り替え
-			print (CharacterScript.whichPatema);
+			//print (CharacterScript.whichPatema);
 			if (Input.GetKeyDown (KeyInputManager.changeCharacterKeyCode) || Input.GetButtonDown ("changeCharacterButton")) {
 					if (mainCamera.enabled && boxUnityChan != null) {
 							if (!(CharacterScript.whichPatema == 1)) {

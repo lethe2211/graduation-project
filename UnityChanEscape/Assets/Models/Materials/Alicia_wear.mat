@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Alicia_wear
+  m_Shader: {fileID: 4800000, guid: 5821f8ba04829ae498ac586968d23e1e, type: 3}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 02cf609c3cf44e7419063a609b0db2e8, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DecalTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _CelTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 271a6f791a901714093d4bc1235dadf8, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _RimTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 23356febd367b4e428ed0e6d5e68e207, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ShadeTex
+        second:
+          m_Texture: {fileID: 2800000, guid: fede00b0593c71e43b9bfd972d8a460a, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Gross
+        second: .00999999978
+      data:
+        first:
+          name: _OutlineWidth
+        second: .109999999
+      data:
+        first:
+          name: _OutlineDepth
+        second: .00999999978
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _ShadowColor
+        second: {r: .678879321, g: .65625, b: .75, a: 1}
+      data:
+        first:
+          name: _SpColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _RimColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 1}
