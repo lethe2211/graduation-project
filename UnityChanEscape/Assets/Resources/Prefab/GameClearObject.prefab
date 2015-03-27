@@ -221,6 +221,7 @@ MonoBehaviour:
   - {fileID: 13200000}
   arrow: {fileID: 13200000}
   clearVoice: {fileID: 8200000}
+  isDebug: 0
 --- !u!132 &13200000
 GUIText:
   m_ObjectHideFlags: 1
@@ -258,7 +259,7 @@ GUIText:
   m_PixelOffset: {x: 0, y: 0}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: b9499de13c9114611a17b9815289ccd9, type: 3}
   m_Material: {fileID: 0}
   m_FontSize: 30
   m_FontStyle: 0
@@ -281,7 +282,7 @@ GUIText:
   m_PixelOffset: {x: 0, y: 0}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: b9499de13c9114611a17b9815289ccd9, type: 3}
   m_Material: {fileID: 0}
   m_FontSize: 30
   m_FontStyle: 0
@@ -304,7 +305,7 @@ GUIText:
   m_PixelOffset: {x: 0, y: 0}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: b9499de13c9114611a17b9815289ccd9, type: 3}
   m_Material: {fileID: 0}
   m_FontSize: 100
   m_FontStyle: 0

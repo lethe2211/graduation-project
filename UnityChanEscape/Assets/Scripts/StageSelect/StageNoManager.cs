@@ -7,7 +7,7 @@ public static class StageNoManager{
 
 		public static int selectedStage = 1;
 		public static int selectedWorld = 1;
-		public static List<string> worldTitleList = new List<string> {"escape 1", "escape 2", "escape 3", "escape 4", "escape 5"};
+	public static List<string> worldTitleList = new List<string> {"エスケープ１", "エスケープ２", "エスケープ３", "エスケープ４", "エスケープ５"};
 		
 		public static StageInfoList stageInfoList = SaveDataAnalyzer.GetInstance().stageInfoList;
 		public static List<int> stageNumPerWorld = stageInfoList.CountStageNumPerWorld();
@@ -16,8 +16,8 @@ public static class StageNoManager{
 		public static int maxWorldNum = StageNoManager.stageInfoList[StageNoManager.stageInfoList.Count() - 1].world;
 
 		public static int selectedStageInc () {
-				Debugger.QuickLog (selectedStage);
-				Debugger.QuickLog (selectedWorld);
+//				Debugger.QuickLog (selectedStage);
+//				Debugger.QuickLog (selectedWorld);
 				if (StageNoManager.selectedStage < StageNoManager.stageNumPerWorld[StageNoManager.selectedWorld]) {
 						if(StageNoManager.stageInfoList[StageNoManager.stageNo()].isAppeared){
 								StageNoManager.selectedStage += 1;	

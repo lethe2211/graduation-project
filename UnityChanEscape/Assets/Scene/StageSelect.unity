@@ -679,9 +679,9 @@ GUIText:
   m_PixelOffset: {x: 0, y: 0}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: b9499de13c9114611a17b9815289ccd9, type: 3}
   m_Material: {fileID: 0}
-  m_FontSize: 20
+  m_FontSize: 24
   m_FontStyle: 0
   m_Color:
     serializedVersion: 2
@@ -1066,9 +1066,9 @@ GUIText:
   m_PixelOffset: {x: 0, y: 0}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: b9499de13c9114611a17b9815289ccd9, type: 3}
   m_Material: {fileID: 0}
-  m_FontSize: 20
+  m_FontSize: 32
   m_FontStyle: 0
   m_Color:
     serializedVersion: 2
@@ -1174,15 +1174,15 @@ GUIText:
   m_GameObject: {fileID: 1205498523}
   m_Enabled: 1
   serializedVersion: 3
-  m_Text: Press z key to play selected stage
+  m_Text: "\u2191\u2193\u2192\u2190\uFF1A\u9078\u629E      Z\u30AD\u30FC\uFF1A\u6C7A\u5B9A"
   m_Anchor: 4
   m_Alignment: 0
   m_PixelOffset: {x: 0, y: 0}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: b9499de13c9114611a17b9815289ccd9, type: 3}
   m_Material: {fileID: 0}
-  m_FontSize: 0
+  m_FontSize: 20
   m_FontStyle: 0
   m_Color:
     serializedVersion: 2
