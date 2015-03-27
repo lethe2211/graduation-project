@@ -21,8 +21,7 @@ public class StageImageController : MonoBehaviour
 				stageSelect = GameObject.Find ("GameManager").GetComponent<StageSelect> ();
 				saveDataAnalyzer = SaveDataAnalyzer.GetInstance ();
 
-				imageNum = int.Parse (this.name.Substring (this.name.Length - 1)); // アタッチされているゲームオブジェクトの名前から番号を取得
-
+				imageNum = int.Parse (this.name.Replace("stage", "")); // アタッチされているゲームオブジェクトの名前から番号を取得
 				stageInfo = saveDataAnalyzer.GetStageInfo (imageNum);
 				
 				cone = GameObject.Find("Cone");

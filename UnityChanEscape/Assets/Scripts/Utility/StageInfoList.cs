@@ -56,6 +56,7 @@ public class StageInfoList {
 				for (int i = 0; i < this.Count(); i++) {
 					stageNumPerWorld[this[i].world] += 1;
 				}
+				// Debugger.List (stageNumPerWorld);
 				return stageNumPerWorld;
 		}
 }
