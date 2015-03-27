@@ -1,9 +1,0 @@
-stageNo,world,isAppeared,isCleared,deathCount,score,clearTime,stageTitle
-1,1,1,1,49,0,0,stage1
-2,1,1,1,25,0,0,stage2
-3,2,1,1,33,0,0,stage4
-4,2,1,1,13,0,0,stageShogen1
-5,2,1,0,3,0,0,stageSakamoto1
-6,3,1,0,3,0,0,stage3
-7,3,1,0,3,0,0,stageKitaguchi1
-8,3,1,0,3,0,0,stageKitaguchi2

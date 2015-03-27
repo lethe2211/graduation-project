@@ -33,3 +33,7 @@ EditorBuildSettings:
     path: Assets/Scene/StageSakamoto1.unity
   - enabled: 1
     path: Assets/Scene/StageShogen1.unity
+  - enabled: 1
+    path: Assets/Scene/StageSelect.unity
+  - enabled: 1
+    path: Assets/Scene/StageKitaguchi3.unity
