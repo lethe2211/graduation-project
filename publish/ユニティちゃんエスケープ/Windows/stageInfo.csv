@@ -10,4 +10,4 @@ stageNo,world,isAppeared,isCleared,deathCount,score,clearTime,stageFileName,stag
 9,3,1,0,3,0,0,stage3,回転床ルーレット
 10,3,1,0,3,0,0,stageKitaguchi1,裏表シーソー
 11,3,1,0,0,0,0,StageShogen2,めいろ
-12,3,1,0,3,0,0,stageKitaguchi2,おまけ
+12,4,1,0,3,0,0,stageKitaguchi2,おまけ
