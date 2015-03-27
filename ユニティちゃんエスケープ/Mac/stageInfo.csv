@@ -1,0 +1,13 @@
+stageNo,world,isAppeared,isCleared,deathCount,score,clearTime,stageFileName,stageTitle
+1,1,1,1,51,0,0,stage1,はじめての脱出
+2,1,1,1,31,0,0,StageKitaguchi3,いろゆか
+3,1,1,1,39,0,0,StageSakamoto2,アスレチック
+4,2,1,1,38,0,0,stage2,さかさまの友達
+5,2,1,1,13,0,0,stage4,アイ・キューブ
+6,2,1,0,0,0,0,stageShogen1,もしもしユニティちゃんですか
+7,2,1,0,0,0,0,StageShogen3,かいだん
+8,3,1,0,3,0,0,StageSakamoto1,手をつなごう
+9,3,1,0,3,0,0,stage3,回転床ルーレット
+10,3,1,0,3,0,0,stageKitaguchi1,裏表シーソー
+11,3,1,0,0,0,0,StageShogen2,めいろ
+12,3,1,0,3,0,0,stageKitaguchi2,おまけ
