@@ -6,18 +6,18 @@ using System.Collections;
  */
 public class CameraScript : MonoBehaviour {
 
-	static Camera mainCamera; // メインカメラ
-	static Camera subCamera; // サブのカメラです
-	GameObject unityChan;
-	GameObject boxUnityChan;
-	bool isFirstPersonCamera; // 主観カメラを使用中かどうか
-	bool cameraFirstPersonKeyPressed; // 主観カメラキーが押されたか
-	private Vector3 defaultEulerAngles;
+    static Camera mainCamera; // メインカメラ
+    static Camera subCamera; // サブのカメラです
+    GameObject unityChan;
+    GameObject boxUnityChan;
+    bool isFirstPersonCamera; // 主観カメラを使用中かどうか
+    bool cameraFirstPersonKeyPressed; // 主観カメラキーが押されたか
+    private Vector3 defaultEulerAngles;
 
     /**
      * 各種変数の初期化
      */
-	void Start ()
+    void Start ()
     {
         mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
         subCamera = GameObject.Find("SubCamera").GetComponent<Camera>();
@@ -27,7 +27,7 @@ public class CameraScript : MonoBehaviour {
         isFirstPersonCamera = false;
         cameraFirstPersonKeyPressed = false;
         defaultEulerAngles = transform.eulerAngles;
-	}
+    }
 
     /**
      * GetKeyDownはUpdateで取得し、処理自体はFixedUpdateで行う
@@ -35,8 +35,8 @@ public class CameraScript : MonoBehaviour {
      * GetKeyDown（押された瞬間判定）に関しては、FixedUpdateではなく
      * こちらで取得しなければ、取得漏れが発生する可能性がある
      */
-	void Update ()
-	{
+    void Update ()
+    {
         // change camera 切り替え
         if (Input.GetKeyDown (KeyInputManager.changeCharacterKeyCode) || Input.GetButtonDown ("changeCharacterButton")) {
             if (mainCamera.enabled && boxUnityChan != null) {
@@ -54,8 +54,8 @@ public class CameraScript : MonoBehaviour {
         if (Input.GetKeyDown (KeyInputManager.cameraFirstPersonKeyCode) || Input.GetButtonDown ("cameraFirstPersonButton")) {
             cameraFirstPersonKeyPressed = true;
         }
-	}
-	
+    }
+    
     /**
      * Updateで立てられたフラグを元に処理を行う
      *
@@ -68,7 +68,7 @@ public class CameraScript : MonoBehaviour {
 
         float h = Input.GetAxis ("Horizontal"); // 入力デバイスの水平軸をhで定義
         float v = Input.GetAxis ("Vertical");   // 入力デバイスの垂直軸をvで定義
-				
+                
         if (isFirstPersonCamera) {
             // Wキーの入力がなくなったら元のカメラに戻す
             if (!(Input.GetKey (KeyInputManager.cameraFirstPersonKeyCode) || Input.GetButton ("cameraFirstPersonButton"))) {
@@ -83,7 +83,7 @@ public class CameraScript : MonoBehaviour {
                 if (GameObject.Find ("Indicater"))
                     Destroy (GameObject.Find ("Indicater"));
             }
-						
+                        
             // 上下左右キーの入力分だけカメラの向きを変える
             Vector3 nr = EnabledCamera ().transform.eulerAngles;
             // ボックスユニティちゃんとユニティちゃんでは回転方向が逆転するのでその対応
@@ -93,7 +93,7 @@ public class CameraScript : MonoBehaviour {
                 EnabledCamera ().transform.eulerAngles = new Vector3 (nr.x + 3.0f * v, nr.y - 3.0f * h, nr.z);
 
             }
-						
+                        
             // ゴールの位置がわかるようにする
             Vector3 goalDirection = (GameObject.Find ("Goal").transform.position - unityChan.transform.position).normalized;
             GameObject indicater;
@@ -110,8 +110,8 @@ public class CameraScript : MonoBehaviour {
 
             }
             indicater.transform.forward = -goalDirection;
-		}
-				
+        }
+                
         // 主観カメラに切り替える
         // 移動中でない場合にのみ使用可能
         if(cameraFirstPersonKeyPressed && h == 0 && v == 0) {
@@ -122,9 +122,9 @@ public class CameraScript : MonoBehaviour {
             unityChan.SendMessage("SetMoveEnabled", false);
             if(boxUnityChan) boxUnityChan.SendMessage("SetMoveEnabled", false);
         }
-        cameraFirstPersonKeyPressed = false;			
+        cameraFirstPersonKeyPressed = false;            
     }
-		
+        
     /**
      * メインカメラとサブカメラで有効になっている方のカメラのオブジェクトを返す
      */
