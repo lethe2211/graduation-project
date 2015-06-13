@@ -15,7 +15,7 @@ using System.Collections.Generic;
 // トリガーの発火に必要な条件と，発火した後に動くGameObject(Target)の組を持つクラス
 [System.Serializable]
 public class TriggerTarget {
-		public List<GameObject> triggers;
-		public GameObject target;
+    public List<GameObject> triggers;
+    public GameObject target;
 }
 
