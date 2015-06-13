@@ -3,50 +3,42 @@ using System.Collections;
 
 public class MoveUpWallScript : MonoBehaviour {
 
-	private Vector3 initPosition;
-	private Vector3 pos;
+    private Vector3 initPosition;
+    private Vector3 pos;
 
-	private bool buttonFlag;
+    private bool buttonFlag;
 
-	// Use this for initialization
-	void Start () {
-	
-		initPosition = transform.position;
-		buttonFlag = false;
+    // Use this for initialization
+    void Start()
+    {
+        initPosition = transform.position;
+        buttonFlag = false;
+    }
 
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        pos = transform.position;
 
-		pos = transform.position;
+        if (buttonFlag)
+        {
+            if (pos.y <= initPosition.y + 2.0)
+            {
+                transform.Translate(0, 0.1f, 0);
+            }
+        }
+        else
+        {
+            if (pos.y >= initPosition.y)
+            {
+                transform.Translate(0, -0.1f, 0);
+            }
+        }
+    }
 
-		if (buttonFlag) {
-			if (pos.y <= initPosition.y + 2.0) {
-				transform.Translate (0, 0.1f, 0);
-			}
-		} else {
-			if (pos.y >= initPosition.y) {
-				transform.Translate (0, -0.1f, 0);
-			}
-		}
-	
-	}
-
-//	void ButtonOn() {
-//
-//		buttonFlag = true;
-//							
-//	}
-//
-//	void ButtonOff() {
-//
-//		buttonFlag = false;
-//	}
-
-		void TriggerOn() {
-				Debug.Log ("TriggerOn");
-				buttonFlag = !buttonFlag;
-		}
-
+    void TriggerOn()
+    {
+        Debug.Log("TriggerOn");
+        buttonFlag = !buttonFlag;
+    }
 }
