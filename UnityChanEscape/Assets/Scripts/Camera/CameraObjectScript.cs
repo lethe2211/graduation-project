@@ -21,7 +21,7 @@ public class CameraObjectScript : MonoBehaviour {
     bool isRotateToBack;
     Quaternion characterRotation;
     int rotateFlame;
-	
+    
     bool cameraBackKeyPressed;
     
     /**
@@ -38,11 +38,11 @@ public class CameraObjectScript : MonoBehaviour {
         unityChan = GameObject.Find ("unitychan");
         boxUnityChan = GameObject.Find ("BoxUnityChan");
         isRotateToBack = false;
-				
+                
         cameraBackKeyPressed = false;
         rotateFlame = 0;
     }
-		
+        
     /**
      * UpdateではGetKeyDownを取得してフラグを立てる
      *
@@ -55,7 +55,7 @@ public class CameraObjectScript : MonoBehaviour {
             cameraBackKeyPressed = true;
         }
     }
-		
+        
 
     /**
      * Updateで書き換えられたフラグを元にこちらで実際の処理をする
@@ -109,7 +109,7 @@ public class CameraObjectScript : MonoBehaviour {
                 characterPosition = boxUnityChan.transform.position + boxUnityChan.transform.up.normalized;
             } else
                 return;
-				
+                
             // カメラの角度を背面に来るように変更
             cameraPosition = characterPosition;
             Quaternion from = mainCamera.transform.rotation;
