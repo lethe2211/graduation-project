@@ -7,10 +7,10 @@ using System.Collections;
  */
 public class CameraObjectScript : MonoBehaviour {
 
-    GameObject horizontalObject; // 水平方向に回転させるためのゲームオブジェクト
-    GameObject verticalObject; // 垂直方向に回転させるためのゲームオブジェクト
-    Camera mainCamera;//メインカメラ
-    Camera subCamera;//サブのカメラです
+    GameObject horizontalObject; // カメラを水平方向に回転させるためのオブジェクト
+    GameObject verticalObject;   // カメラを垂直方向に回転させるためのオブジェクトです
+    Camera mainCamera; //メインカメラ
+    Camera subCamera;  //サブのカメラです
     
     public string horizontalObjectName;
     public string verticalObjectName;
@@ -44,8 +44,9 @@ public class CameraObjectScript : MonoBehaviour {
     }
 		
     /**
-     * キーの入力はUpdage()で取得する
-     * Fixed Update で取得するとキーの取得漏れが起こる可能性がある
+     * UpdateではGetKeyDownを取得してフラグを立てる
+     *
+     * Fixed Update でGetKeyDownを取得するとキーの取得漏れが起こる可能性がある
      * Updateでキー入力を取得しフラグを立て、FixedUpdateで処理を行う
      */
     void Update ()
@@ -59,7 +60,7 @@ public class CameraObjectScript : MonoBehaviour {
     /**
      * Updateで書き換えられたフラグを元にこちらで実際の処理をする
      *
-     * TODO: まだこちらでGetKeyいているものがあるので、Updateに移したほうがいい
+     * GetKey（押しっぱなし判定）はこちらで取得しても問題ない
      */
     void FixedUpdate ()
     {
