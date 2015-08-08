@@ -4,10 +4,8 @@ using System.Collections;
 /**
  * UnityChanScript と BoxUnityChanScript の共通した部分を記述するクラス
  *
- * TODO 一覧
- * - 地面に接触していない場合はジャンプできないようにする
- * - パテマ時にもともとはmassをいじくりまわしていたが、
- *   今は gravityEnabled を使っているので修正する(saveMassあたり)
+ * TODO: パテマ時にもともとはmassをいじくりまわしていたが、
+ * 今は gravityEnabled を使っているので修正する(saveMassあたり)
  */
 public class CharacterScript : MonoBehaviour {
 
@@ -21,7 +19,15 @@ public class CharacterScript : MonoBehaviour {
     protected Camera subCamera;
     protected int rotationZ;
     protected bool moveEnabled = true;
+    /**
+     * 重力を有効にするかどうか
+     * パテマの時などに変更される
+     */
     protected bool gravityEnabled = true;
+    /* 接触しているPlateの数を保持する変数 */
+    protected int collidingPlateCount = 0;
+    /* ジャンプボタンを押してから実際にジャンプするまでの時間 */
+    protected const int JUMP_DELAY_FRAME = 5;
 
     protected int jumpFrame = 0;
     protected float prevMass;
@@ -59,9 +65,8 @@ public class CharacterScript : MonoBehaviour {
         if(!moveEnabled) return;
         
         // Zボタンでジャンプ
-        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetButtonDown("jumpButton")) && jumpFrame == 0){
-            print ("JUMP!");
-            jumpFrame = 2;
+        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetButtonDown("jumpButton")) && IsOnPlate()){
+            jumpFrame = 1;
             animator.SetBool("Jump", true);
         }
 
@@ -118,13 +123,12 @@ public class CharacterScript : MonoBehaviour {
         }
         subKeyFlag = false;
 
-        // TODO ジャンプについては空中ジャンプできないようにするなどの修正が必要
-        if (jumpFrame >= 2) {
+        // ジャンプのaddForceを行う
+        if (jumpFrame >= 1) {
             jumpFrame++;
-            if(jumpFrame >= 5){ 
-                print ("Add Jump Force");
+            if(jumpFrame >= JUMP_DELAY_FRAME){ 
                 rigidbody.AddForce(transform.up * 4, ForceMode.VelocityChange);
-                jumpFrame = 1;
+                jumpFrame = 0;
             }else{
                 return;
             }
@@ -234,21 +238,19 @@ public class CharacterScript : MonoBehaviour {
     }
 
     /**
-     * 相方と触れた時はパテマ処理を、地面に触れた時はジャンプの復活を行う
-     *
-     * TODO: 地面に触れたらジャンプ判定復活
-     *       -> 地面に触れている時のみジャンプ可能 にする
+     * 物体と接触したときに呼ばれるメソッド
+     * 
+     * 相方と触れた時はパテマ処理を行う
      */
     protected void OnCollisionEnter(Collision collision)
     {
         string name = collision.gameObject.name;
         GameObject obj = collision.gameObject;
 
-        // ジャンプフラグの復活を行う
         if(collision.gameObject.name.IndexOf("Plate") >= 0){
             if(patema < 0) patema++;
             animator.SetBool("Jump", false);
-            jumpFrame = 0;
+            collidingPlateCount++;
         }
         
         // パテマフラグが0でないとパテマされない
@@ -260,13 +262,15 @@ public class CharacterScript : MonoBehaviour {
     
 
     /**
-     * キャラクター共通でさせたいことがあったらここに書く
-     *
-     * FIXME: 今ココに書いてあるコードは意味が無いのでは・・・？
+     * 物体と離れたときに呼ばれるメソッド
      */
     protected void OnCollisionExit(Collision collision)
     {
         string name = collision.gameObject.name;
+
+        if(collision.gameObject.name.IndexOf("Plate") >= 0){
+            collidingPlateCount--;
+        }
     }
 
     /**
@@ -326,5 +330,17 @@ public class CharacterScript : MonoBehaviour {
     public void SetGravityEnabled(bool b)
     {
         gravityEnabled = b;
+    }
+
+    /**
+     * キャラクターがプレートに接しているかを返す
+     * 
+     * true: 接していいる
+     * false: 接していなない
+     * 
+     * TODO: 接している物体の上に乗っているかどうかの判断はまだしていない
+     */
+    public bool IsOnPlate() {
+        return collidingPlateCount > 0;
     }
 }
