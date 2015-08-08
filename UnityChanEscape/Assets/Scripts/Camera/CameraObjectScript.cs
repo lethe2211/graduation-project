@@ -20,7 +20,7 @@ public class CameraObjectScript : MonoBehaviour {
     GameObject boxUnityChan;
     bool isRotateToBack;
     Quaternion characterRotation;
-    int rotateFlame;
+    int rotateFrame;
     
     bool cameraBackKeyPressed;
     
@@ -40,7 +40,7 @@ public class CameraObjectScript : MonoBehaviour {
         isRotateToBack = false;
                 
         cameraBackKeyPressed = false;
-        rotateFlame = 0;
+        rotateFrame = 0;
     }
         
     /**
@@ -99,7 +99,7 @@ public class CameraObjectScript : MonoBehaviour {
         
         // TODO: キーを押しっぱなしにすると回転し続けてしまうので直す
         if (isRotateToBack) {
-            rotateFlame++;
+            rotateFrame++;
             // 操作中のキャラクターと利用中のカメラの位置を取得
             if (mainCamera.enabled) {
                 cameraPosition = mainCamera.transform.position;
@@ -117,10 +117,10 @@ public class CameraObjectScript : MonoBehaviour {
                 from = subCamera.transform.rotation;
             Quaternion to = characterRotation;
 
-            if (Quaternion.Dot (from, to) > 0.999f || rotateFlame > 300) {
+            if (Quaternion.Dot (from, to) > 0.999f || rotateFrame > 300) {
                 Debug.Log ("finished");
                 isRotateToBack = false;
-                rotateFlame = 0;
+                rotateFrame = 0;
             } 
 
             horizontalObject.transform.rotation = Quaternion.Slerp (from, to, 0.1f);
