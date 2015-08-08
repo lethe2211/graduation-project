@@ -8,7 +8,7 @@ public class ColorPlateManager : MonoBehaviour {
 	string[] plateColors; // プレートの色全体
 	int linePlates; // 1行に含まれるプレートの数
 	float iniZ; // プレートの初期Z座標
-	int flame; // フレーム数
+	int frame; // フレーム数
 	int curCid; // 現在透明になっている色のID
 
 	// Use this for initialization
@@ -16,7 +16,7 @@ public class ColorPlateManager : MonoBehaviour {
 		plateColors = new string[]{"Red", "Blue", "Green"};
 		linePlates = 10;
 		iniZ = -7.5f;
-		flame = 0;
+		frame = 0;
 		curCid = 0;
 				
 		SetPlates();
@@ -25,7 +25,7 @@ public class ColorPlateManager : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
 		{
-				if (flame % 90 == 0) {
+				if (frame % 90 == 0) {
 						// 透明になっているPlateを元に戻す
 						GameObject[] plates = GameObject.FindGameObjectsWithTag (plateColors [curCid] + "Plate");
 						foreach (GameObject p in plates) {
@@ -38,13 +38,13 @@ public class ColorPlateManager : MonoBehaviour {
 						foreach (GameObject p in plates) {
 								p.renderer.material.shader = Shader.Find ("Transparent/Diffuse");
 						}
-				} else if ((flame - 10) % 90 == 0) {
+				} else if ((frame - 10) % 90 == 0) {
 						GameObject[] plates = GameObject.FindGameObjectsWithTag (plateColors [curCid] + "Plate");
 						foreach (GameObject p in plates) {
 								p.collider.enabled = false;
 						}
 				}
-				flame += 1;	
+				frame += 1;	
 	}
 	
 	// ステージ呼び出し時にプレートを配置する
