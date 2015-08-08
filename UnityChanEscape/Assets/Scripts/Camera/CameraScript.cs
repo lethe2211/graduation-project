@@ -80,8 +80,8 @@ public class CameraScript : MonoBehaviour {
                 if (boxUnityChan)
                     boxUnityChan.SendMessage ("SetMoveEnabled", true);
                 // インジケーターを削除
-                if (GameObject.Find ("Indicater"))
-                    Destroy (GameObject.Find ("Indicater"));
+                if (GameObject.Find ("Indicator"))
+                    Destroy (GameObject.Find ("Indicator"));
             }
                         
             // 上下左右キーの入力分だけカメラの向きを変える
@@ -96,20 +96,20 @@ public class CameraScript : MonoBehaviour {
                         
             // ゴールの位置がわかるようにする
             Vector3 goalDirection = (GameObject.Find ("Goal").transform.position - unityChan.transform.position).normalized;
-            GameObject indicater;
-            if (GameObject.Find ("Indicater")) {
-                indicater = GameObject.Find ("Indicater");
+            GameObject indicator;
+            if (GameObject.Find ("Indicator")) {
+                indicator = GameObject.Find ("Indicator");
             } else {
-                indicater = Instantiate ((GameObject)Resources.Load ("Prefab/Indicater")) as GameObject;
-                indicater.name = indicater.name.Split ("(" [0]) [0];
+                indicator = Instantiate ((GameObject)Resources.Load ("Prefab/Indicator")) as GameObject;
+                indicator.name = indicator.name.Split ("(" [0]) [0];
             }
             if (mainCamera.enabled) {
-                indicater.transform.position = unityChan.transform.position + goalDirection * 3;
+                indicator.transform.position = unityChan.transform.position + goalDirection * 3;
             } else {
-                indicater.transform.position = boxUnityChan.transform.position + boxUnityChan.transform.up + goalDirection * 3;
+                indicator.transform.position = boxUnityChan.transform.position + boxUnityChan.transform.up + goalDirection * 3;
 
             }
-            indicater.transform.forward = -goalDirection;
+            indicator.transform.forward = -goalDirection;
         }
                 
         // 主観カメラに切り替える
