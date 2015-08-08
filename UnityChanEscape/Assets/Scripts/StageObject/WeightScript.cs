@@ -5,11 +5,13 @@ public class WeightScript : MonoBehaviour {
 
     public float g = 9.8f;
     private Vector3 fixedPosition;
+    private GameObject triggerMessageObject;
 
     // Use this for initialization
     void Start()
     {
         fixedPosition = new Vector3(0.1f, 0.6f, 0.1f);
+        triggerMessageObject = GameObject.Find("TriggerMessageObject");
     }
 
     // Update is called once per frame
@@ -28,6 +30,25 @@ public class WeightScript : MonoBehaviour {
 				// transform.localPosition = fixedPosition;
 			}
 			*/
+        }
+    }
+    
+    void OnTriggerEnter(Collider c)
+    {
+        if (c.gameObject.name == "unitychan" || c.gameObject.name == "BoxUnityChan")
+        {
+            // FIXME: 現時点では，例えば，ユニティちゃんでおもりに近づいたままキャラチェンジしたり，ポーズしたりするとメッセージが出たままになる
+            // 現在の実装では，操作キャラがユニティちゃんかボックスユニティちゃんかを取得することが難しいため放置している
+            
+            triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを拾う");
+        }
+    }
+
+    void OnTriggerExit(Collider c)
+    {
+        if (c.gameObject.name == "unitychan" || c.gameObject.name == "BoxUnityChan")
+        {
+            triggerMessageObject.SendMessage("HideMessage");
         }
     }
 }
