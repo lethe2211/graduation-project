@@ -23,32 +23,14 @@ public class WeightScript : MonoBehaviour {
             rigidbody.AddForce(v * 50);
 
             /*
-			if(transform.parent != null) return;
-			if(transform.parent.name.Equals("Character1_Hips")){
-				print("omori soubi sareteiru");
-				// 以下、重りが装備されている場合の処理
-				// transform.localPosition = fixedPosition;
-			}
-			*/
+            if(transform.parent != null) return;
+            if(transform.parent.name.Equals("Character1_Hips")){
+            	print("omori soubi sareteiru");
+            	// 以下、重りが装備されている場合の処理
+            	// transform.localPosition = fixedPosition;
+            }
+            */
         }
     }
     
-    void OnTriggerEnter(Collider c)
-    {
-        if (c.gameObject.name == "unitychan" || c.gameObject.name == "BoxUnityChan")
-        {
-            // FIXME: 現時点では，例えば，ユニティちゃんでおもりに近づいたままキャラチェンジしたり，ポーズしたりするとメッセージが出たままになる
-            // 現在の実装では，操作キャラがユニティちゃんかボックスユニティちゃんかを取得することが難しいため放置している
-            
-            triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを拾う");
-        }
-    }
-
-    void OnTriggerExit(Collider c)
-    {
-        if (c.gameObject.name == "unitychan" || c.gameObject.name == "BoxUnityChan")
-        {
-            triggerMessageObject.SendMessage("HideMessage");
-        }
-    }
 }
