@@ -10,6 +10,10 @@ public class BUnityChanScript : CharacterScript {
     private Collider weightAroundCollider;
     private GameObject weightHaving; // 重りを持っていなかったらnull
     private Collider weightHavingCollider;
+    private bool gameOverFlag = false;
+
+    // この座標よりも大きくなったらゲームオーバーと判定する
+    public float gameOverPosition = 20.0f;
 
     /**
      * 変数の初期化などを行う
@@ -44,6 +48,17 @@ public class BUnityChanScript : CharacterScript {
         // ユニティちゃんの頭の方向に重力をかける
         // （ボックスユニティちゃんの下方向に重力をかけているのではないので注意）
         if(gravityEnabled)rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * 7); 
+
+        // ゲームオーバーまわり
+        if(gameOverFlag){
+            transform.Rotate(0, 1, 0);
+            return;
+        }
+        if(transform.position.y >= gameOverPosition){
+            GameOver(CharacterConst.BOX_UNITY_CHAN_ID);
+            gameOverFlag = true;
+            return;
+        }
 
         // スティックを倒しながらキャラチェンジしてもRunningフラグがちゃんと解除されるようにする
         animator.SetBool("isRunning", false);

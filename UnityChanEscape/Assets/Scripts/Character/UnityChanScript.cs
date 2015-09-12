@@ -14,10 +14,7 @@ public class UnityChanScript : CharacterScript {
     private bool cleared = false;
     private bool gameOverFlag = false;
 
-    GameObject gameOverCameraObject;
-    Camera gameOverCamera;
     GameObject gameClearObject;
-    GameObject gameOverObject;
     
     protected GameObject mainCameraHorizontalObject;
 
@@ -31,15 +28,10 @@ public class UnityChanScript : CharacterScript {
     {
         base.Start ();
         mainCameraHorizontalObject = GameObject.Find("MainCameraHorizontalObject");
-        
-        gameOverCameraObject = GameObject.Find("GameOverCamera");
-        gameOverCamera = gameOverCameraObject.GetComponent<Camera>();
-        gameOverCamera.enabled = false;
 
         cameraObject = GameObject.Find ("MainCameraHorizontalObject");
         rotationZ = 0;
 
-        gameOverObject = GameObject.Find ("GameOverObject");
         gameClearObject = GameObject.Find ("GameClearObject");
     }
 
@@ -78,7 +70,7 @@ public class UnityChanScript : CharacterScript {
             return;
         }
         if(transform.position.y <= gameOverPosition){
-            GameOver();
+            GameOver(CharacterConst.UNITY_CHAN_ID);
             gameOverFlag = true;
             return;
         }
@@ -137,20 +129,5 @@ public class UnityChanScript : CharacterScript {
             Destroy(collision.gameObject);
         }
 
-    }
-
-
-    /**
-     * ゲームオーバー時の処理
-     */ 
-    void GameOver(){
-        gameOverObject.SendMessage("Over");
-        animator.SetBool ("Fall", true);
-        Vector3 v = transform.position;
-        gameOverCameraObject.transform.position = new Vector3(v.x, -3, v.z);
-        mainCamera.enabled = false;
-        subCamera.enabled = false;
-        gameOverCamera.enabled = true;
-        // gameOverCamera.SendMessage("fadeOut");
     }
 }
