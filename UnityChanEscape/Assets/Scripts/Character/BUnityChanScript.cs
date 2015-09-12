@@ -47,7 +47,9 @@ public class BUnityChanScript : CharacterScript {
     {
         // ユニティちゃんの頭の方向に重力をかける
         // （ボックスユニティちゃんの下方向に重力をかけているのではないので注意）
-        if(gravityEnabled)rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * 7); 
+        if(gravityEnabled) {
+            rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * GameConst.GRAVITY);
+        }
 
         // ゲームオーバーまわり
         if(gameOverFlag){

@@ -8,7 +8,7 @@ using System.Collections;
  * 今は gravityEnabled を使っているので修正する(saveMassあたり)
  */
 public class CharacterScript : MonoBehaviour {
-
+    
     protected Animator animator;
     protected GameObject boxUnityChan;
     protected GameObject unityChan;
@@ -135,7 +135,7 @@ public class CharacterScript : MonoBehaviour {
         if (jumpFrame >= 1) {
             jumpFrame++;
             if(jumpFrame >= JUMP_DELAY_FRAME){ 
-                rigidbody.AddForce(transform.up * 4, ForceMode.VelocityChange);
+                rigidbody.AddForce(transform.up * GameConst.JUMP_POWER, ForceMode.VelocityChange);
                 jumpFrame = 0;
             }else{
                 return;
