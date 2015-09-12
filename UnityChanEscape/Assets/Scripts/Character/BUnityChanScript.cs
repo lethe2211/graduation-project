@@ -10,10 +10,12 @@ public class BUnityChanScript : CharacterScript {
     private Collider weightAroundCollider;
     private GameObject weightHaving; // 重りを持っていなかったらnull
     private Collider weightHavingCollider;
+
     private bool gameOverFlag = false;
 
     // この座標よりも大きくなったらゲームオーバーと判定する
     public float gameOverPosition = 20.0f;
+    private GameObject triggerMessageObject;
 
     /**
      * 変数の初期化などを行う
@@ -23,6 +25,7 @@ public class BUnityChanScript : CharacterScript {
         base.Start ();
         cameraObject = GameObject.Find ("SubCameraHorizontalObject");
         rotationZ = 180;
+        triggerMessageObject = GameObject.Find("TriggerMessageObject");
     }
 
     /**
@@ -87,7 +90,9 @@ public class BUnityChanScript : CharacterScript {
                     weight.transform.localPosition = p;
                     weightHaving = weightAround;
                     weightAround = null;
-
+                    
+                    // 重りを持った時のメッセージを表示する
+                    triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを離す");
                 }else if(weightHaving != null){
                     // 重りを持っている場合は重りを捨てる処理                
                     weightHaving.rigidbody.isKinematic = false;
@@ -97,6 +102,9 @@ public class BUnityChanScript : CharacterScript {
                     weightHaving.rigidbody.mass = 2.0f;
                     rigidbody.mass -= 2.0f;
                     weightHaving = null;
+                    
+                    // 重りを離した時のメッセージを表示する
+                    triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを拾う");
                 }
             }
         }
@@ -126,6 +134,12 @@ public class BUnityChanScript : CharacterScript {
     {
         weightAroundCollider = collider;
         weightAround = collider.gameObject;
+        
+        // 重りを持てるのはボックスユニティちゃんだけ（という想定）
+        if (CharacterManager.GetEnabledCharacterId() == CharacterConst.BOX_UNITY_CHAN_ID)
+        {
+            triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを拾う");
+        }
     }
 
     /**
@@ -134,6 +148,25 @@ public class BUnityChanScript : CharacterScript {
     private void OnTriggerExit(Collider collider)
     {
         weightAround = null;
-    }    
+        triggerMessageObject.SendMessage("HideMessage");
+    }
+    
+    void NotifyCharacterChanged(int characterId)
+    {
+        if (characterId == CharacterConst.BOX_UNITY_CHAN_ID)
+        {
+            if (weightAround != null)
+            {
+                triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを拾う");
+            } else if (weightHaving != null)
+            {
+                triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを離す");
+            } else {
+                triggerMessageObject.SendMessage("HideMessage");
+            }
+        } else {
+            triggerMessageObject.SendMessage("HideMessage");
+        }
+    }
 
 }

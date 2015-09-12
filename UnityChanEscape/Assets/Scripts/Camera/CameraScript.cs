@@ -43,11 +43,17 @@ public class CameraScript : MonoBehaviour {
                 if (!(CharacterScript.whichPatema == 1)) {
                     mainCamera.enabled = false;
                     subCamera.enabled = true;
+                    
+                    // キャラクターが変わったことを通知
+                    boxUnityChan.SendMessage("NotifyCharacterChanged", CharacterConst.BOX_UNITY_CHAN_ID);
                 }
             } else if (subCamera.enabled) {
                 if (!(CharacterScript.whichPatema == 2)) {
                     mainCamera.enabled = true;
                     subCamera.enabled = false;
+                    
+                    // キャラクターが変わったことを通知
+                    boxUnityChan.SendMessage("NotifyCharacterChanged", CharacterConst.UNITY_CHAN_ID);
                 }
             }
         }
@@ -134,4 +140,5 @@ public class CameraScript : MonoBehaviour {
         else if(subCamera.enabled) return GameObject.Find("SubCamera");
         else return null;
     }
+    
 }
