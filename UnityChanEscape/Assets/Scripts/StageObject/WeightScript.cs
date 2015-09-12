@@ -11,7 +11,6 @@ public class WeightScript : MonoBehaviour {
     void Start()
     {
         fixedPosition = new Vector3(0.1f, 0.6f, 0.1f);
-        triggerMessageObject = GameObject.Find("TriggerMessageObject");
     }
 
     // Update is called once per frame

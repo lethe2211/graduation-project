@@ -10,14 +10,12 @@ public class BUnityChanScript : CharacterScript {
     private Collider weightAroundCollider;
     private GameObject weightHaving; // 重りを持っていなかったらnull
     private Collider weightHavingCollider;
-<<<<<<< c23b783c5003ea81898c86e94b2aae540992d2aa
+
     private bool gameOverFlag = false;
 
     // この座標よりも大きくなったらゲームオーバーと判定する
     public float gameOverPosition = 20.0f;
-=======
     private GameObject triggerMessageObject;
->>>>>>> 重りを持った時のメッセージ表示ロジックを追加
 
     /**
      * 変数の初期化などを行う
@@ -138,7 +136,10 @@ public class BUnityChanScript : CharacterScript {
         weightAround = collider.gameObject;
         
         // 重りを持てるのはボックスユニティちゃんだけ（という想定）
-        triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを拾う");
+        if (CharacterManager.GetEnabledCharacterId() == CharacterConst.BOX_UNITY_CHAN_ID)
+        {
+            triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを拾う");
+        }
     }
 
     /**
@@ -152,8 +153,7 @@ public class BUnityChanScript : CharacterScript {
     
     void NotifyCharacterChanged(int characterId)
     {
-        triggerMessageObject.SendMessage("HideMessage");
-        if (characterId == CharacterConst.BOX_UNITY_CHAN)
+        if (characterId == CharacterConst.BOX_UNITY_CHAN_ID)
         {
             if (weightAround != null)
             {
@@ -161,7 +161,11 @@ public class BUnityChanScript : CharacterScript {
             } else if (weightHaving != null)
             {
                 triggerMessageObject.SendMessage("DisplayMessage", "サブキーでおもりを離す");
+            } else {
+                triggerMessageObject.SendMessage("HideMessage");
             }
+        } else {
+            triggerMessageObject.SendMessage("HideMessage");
         }
     }
 

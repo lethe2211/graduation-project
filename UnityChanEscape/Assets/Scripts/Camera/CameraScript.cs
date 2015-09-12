@@ -45,7 +45,7 @@ public class CameraScript : MonoBehaviour {
                     subCamera.enabled = true;
                     
                     // キャラクターが変わったことを通知
-                    SendMessage("NotifyCharacterChanged", CharacterConst.UNITY_CHAN);
+                    boxUnityChan.SendMessage("NotifyCharacterChanged", CharacterConst.BOX_UNITY_CHAN_ID);
                 }
             } else if (subCamera.enabled) {
                 if (!(CharacterScript.whichPatema == 2)) {
@@ -53,7 +53,7 @@ public class CameraScript : MonoBehaviour {
                     subCamera.enabled = false;
                     
                     // キャラクターが変わったことを通知
-                    SendMessage("NotifyCharacterChanged", CharacterConst.BOX_UNITY_CHAN);
+                    boxUnityChan.SendMessage("NotifyCharacterChanged", CharacterConst.UNITY_CHAN_ID);
                 }
             }
         }

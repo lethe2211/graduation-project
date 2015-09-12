@@ -17,10 +17,7 @@ public class TriggerMessageScript : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyInputManager.changeCharacterKeyCode) || Input.GetButtonDown("changeCharacterButton")) || (Input.GetKeyDown(KeyInputManager.pauseKeyCode) || Input.GetButtonDown("pauseButton")))
-        {
-            guiText.enabled = false;
-        }
+
     }
 
     // メッセージ表示のトリガー
