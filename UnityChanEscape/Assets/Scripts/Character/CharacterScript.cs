@@ -19,6 +19,9 @@ public class CharacterScript : MonoBehaviour {
     protected Camera subCamera;
     protected int rotationZ;
     protected bool moveEnabled = true;
+    protected GameObject gameOverCameraObject;
+    protected Camera gameOverCamera;
+    protected GameObject gameOverObject;
     /**
      * 重力を有効にするかどうか
      * パテマの時などに変更される
@@ -55,6 +58,11 @@ public class CharacterScript : MonoBehaviour {
         patema = 0;
         whichPatema = 0;
         subKeyFlag = false;
+        
+        gameOverCameraObject = GameObject.Find("GameOverCamera");
+        gameOverCamera = gameOverCameraObject.GetComponent<Camera>();
+        gameOverCamera.enabled = false;
+        gameOverObject = GameObject.Find ("GameOverObject");
     }
 
     /**
@@ -342,5 +350,24 @@ public class CharacterScript : MonoBehaviour {
      */
     public bool IsOnPlate() {
         return collidingPlateCount > 0;
+    }
+    
+    /**
+     * ゲームオーバー時の処理
+     */ 
+    protected void GameOver(int characterId){
+        gameOverObject.SendMessage("Over");
+        animator.SetBool ("Fall", true);
+        Vector3 v = transform.position;
+        if(characterId == CharacterConst.UNITY_CHAN_ID){
+            gameOverCameraObject.transform.position = new Vector3(v.x, transform.position.y + 2, v.z);
+        }else if(characterId == CharacterConst.BOX_UNITY_CHAN_ID){
+            gameOverCameraObject.transform.position = new Vector3(v.x, transform.position.y - 2, v.z);
+            gameOverCameraObject.transform.Rotate(0, 180, 0);
+        }
+        mainCamera.enabled = false;
+        subCamera.enabled = false;
+        gameOverCamera.enabled = true;
+        // gameOverCamera.SendMessage("fadeOut");
     }
 }
