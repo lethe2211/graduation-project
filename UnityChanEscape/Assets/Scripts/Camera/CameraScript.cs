@@ -10,6 +10,8 @@ public class CameraScript : MonoBehaviour {
     static Camera subCamera; // サブのカメラです
     GameObject unityChan;
     GameObject boxUnityChan;
+    UnityChanScript unityChanComponent;
+    BUnityChanScript boxUnityChanComponent;
     bool isFirstPersonCamera; // 主観カメラを使用中かどうか
     bool cameraFirstPersonKeyPressed; // 主観カメラキーが押されたか
     private Vector3 defaultEulerAngles;
@@ -23,6 +25,9 @@ public class CameraScript : MonoBehaviour {
         subCamera = GameObject.Find("SubCamera").GetComponent<Camera>();
         unityChan = GameObject.Find("unitychan");
         boxUnityChan = GameObject.Find("BoxUnityChan");
+        unityChanComponent = unityChan.GetComponent<UnityChanScript>();
+        if(boxUnityChan != null)
+            boxUnityChanComponent = boxUnityChan.GetComponent<BUnityChanScript>();
         subCamera.enabled = false;
         isFirstPersonCamera = false;
         cameraFirstPersonKeyPressed = false;
@@ -39,12 +44,12 @@ public class CameraScript : MonoBehaviour {
     {
         // change camera 切り替え
         if (Input.GetKeyDown (KeyInputManager.changeCharacterKeyCode) || Input.GetButtonDown ("changeCharacterButton")) {
-            if (mainCamera.enabled && boxUnityChan != null) {
+            if (mainCamera.enabled && boxUnityChan != null && unityChanComponent.IsOnPlate()) {
                 if (!(CharacterScript.whichPatema == 1)) {
                     mainCamera.enabled = false;
                     subCamera.enabled = true;
                 }
-            } else if (subCamera.enabled) {
+            } else if (subCamera.enabled && boxUnityChanComponent.IsOnPlate()) {
                 if (!(CharacterScript.whichPatema == 2)) {
                     mainCamera.enabled = true;
                     subCamera.enabled = false;
