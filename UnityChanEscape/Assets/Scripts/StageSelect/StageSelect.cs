@@ -11,7 +11,8 @@ public class StageSelect : MonoBehaviour {
     public GameObject mainCamera;
 
     public AudioSource audioSource;
-    GameObject soundManager;
+    private GameObject soundManager;
+    private GameObject loadingImage;
 
     bool horizontalPressed = false; // 左右キーが押されたか
     bool verticalPressed = false; // 上下キーが押されたか
@@ -23,6 +24,8 @@ public class StageSelect : MonoBehaviour {
     {
         mainCamera = GameObject.Find("Main Camera");
         soundManager = GameObject.Find("SoundManager");
+        loadingImage = GameObject.Find("LoadingImage");
+        loadingImage.guiTexture.enabled = false;
     }
 
     // Update is called once per frame
@@ -70,6 +73,7 @@ public class StageSelect : MonoBehaviour {
         if (Input.GetKeyDown(KeyInputManager.jumpKeyCode) || Input.GetButtonDown("jumpButton"))
         {
             soundManager.SendMessage("Play", "stage_decide");
+            loadingImage.guiTexture.enabled = true;
             string stageName = StageNoManager.stageInfoList[StageNoManager.stageNo() - 1].stageFileName;
             Application.LoadLevel(stageName);
         }
