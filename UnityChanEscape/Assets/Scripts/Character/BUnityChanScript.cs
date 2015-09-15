@@ -142,11 +142,7 @@ public class BUnityChanScript : CharacterScript {
      * @return bool 持っている場合true
      */
     public bool IsHavingWeight() {
-        if(weightHaving != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return weightHaving != null;
     }
 
     /**
@@ -155,10 +151,6 @@ public class BUnityChanScript : CharacterScript {
      * @return bool 重りが近くにある場合true
      */
     public bool IsAroundWeight() {
-        if(weightAround != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return weightAround != null;
     }
 }

@@ -87,12 +87,7 @@ public class CharacterManager : MonoBehaviour {
         if(boxUnityChanComponent == null) {
             return false;
         }
-
-        if(boxUnityChanComponent.IsHavingWeight()) {
-            return true;
-        } else {
-            return false;
-        }
+        return boxUnityChanComponent.IsHavingWeight();
     }
 
     /**
@@ -108,12 +103,7 @@ public class CharacterManager : MonoBehaviour {
         if(boxUnityChanComponent == null) {
             return false;
         }
-
-        if(boxUnityChanComponent.IsAroundWeight()) {
-            return true;
-        } else {
-            return false;
-        }
+        return boxUnityChanComponent.IsAroundWeight();
     }
     
     /**
