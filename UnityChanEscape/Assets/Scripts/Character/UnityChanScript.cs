@@ -62,7 +62,9 @@ public class UnityChanScript : CharacterScript {
     void FixedUpdate ()
     {
         // gravityEnabled = true の時のみ下方向に重力をかける
-        if(gravityEnabled)rigidbody.AddForce (unityChan.transform.up * rigidbody.mass * -7);
+        if(gravityEnabled){
+            rigidbody.AddForce(unityChan.transform.up * rigidbody.mass * GameConst.GRAVITY * -1);
+        }
 
         // ゲームオーバーまわり
         if(gameOverFlag){
