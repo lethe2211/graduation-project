@@ -14,7 +14,6 @@ public class CharacterManager : MonoBehaviour {
     protected static UnityChanScript unityChanComponent;
     protected static BUnityChanScript boxUnityChanComponent;
 
-
     /**
      * カメラオブジェクトを取得する
      */
@@ -26,9 +25,9 @@ public class CharacterManager : MonoBehaviour {
             unityChan = GameObject.Find ("unitychan"); 
             boxUnityChan = GameObject.Find ("BoxUnityChan");
             unityChanComponent = unityChan.GetComponent<UnityChanScript>();
-            if(boxUnityChan != null)
+            if(boxUnityChan != null) {
                 boxUnityChanComponent = boxUnityChan.GetComponent<BUnityChanScript>();
-
+            }
         }
     }
 
@@ -52,11 +51,11 @@ public class CharacterManager : MonoBehaviour {
     }
 
     /**
-     * 操作キャラクターを返す
+     * キャラクターIDからキャラクターのオブジェクトを取得する
      */
-    public static GameObject GetEnabledCharacter() {
+    public static GameObject GetCharacterById(int characterId) {
         Init();
-        switch(GetEnabledCharacterId()) {
+        switch(characterId) {
             case CharacterConst.UNITY_CHAN_ID:
                 return unityChan;
             case CharacterConst.BOX_UNITY_CHAN_ID:
@@ -65,6 +64,15 @@ public class CharacterManager : MonoBehaviour {
                 return null;
         }
     }
+
+    /**
+     * 操作キャラクターを返す
+     */
+    public static GameObject GetEnabledCharacter() {
+        Init();
+        return GetCharacterById(GetEnabledCharacterId());
+    }
+
 
     /**
      * ボックスユニティちゃんが重りを持っているかどうか
@@ -105,6 +113,28 @@ public class CharacterManager : MonoBehaviour {
             return true;
         } else {
             return false;
+        }
+    }
+    
+    /**
+     * ユニゾンしているかどうかを取得する
+     */
+    public static bool IsUniting() {
+        return CharacterScript.patema == 2;
+    }
+
+    /**
+     * 入力されたIDのキャラクターがが床に触れているかどうかを取得する
+     */
+    public static bool IsCharacterOnPlate(int characterId) {
+        Init();
+        switch(characterId) {
+            case CharacterConst.UNITY_CHAN_ID:
+                return unityChanComponent.IsOnPlate();
+            case CharacterConst.BOX_UNITY_CHAN_ID:
+                return boxUnityChanComponent.IsOnPlate();
+            default:
+                return false;
         }
     }
 }
