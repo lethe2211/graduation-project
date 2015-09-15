@@ -134,6 +134,23 @@ public class BUnityChanScript : CharacterScript {
     private void OnTriggerExit(Collider collider)
     {
         weightAround = null;
-    }    
+    }
 
+    /**
+     * 重りを持っているかどうかを返す
+     *
+     * @return bool 持っている場合true
+     */
+    public bool IsHavingWeight() {
+        return weightHaving != null;
+    }
+
+    /**
+     * 重りが近く（拾える距離）にあるかどうかを返す
+     *
+     * @return bool 重りが近くにある場合true
+     */
+    public bool IsAroundWeight() {
+        return weightAround != null;
+    }
 }
