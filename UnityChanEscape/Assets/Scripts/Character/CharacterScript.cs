@@ -157,7 +157,7 @@ public class CharacterScript : MonoBehaviour {
             Quaternion to = Quaternion.Euler(0, Quaternion.LookRotation (input).eulerAngles.y, rotationZ);
             transform.rotation = Quaternion.Slerp (transform.rotation, to, 0.5f); 
             velocity = transform.forward * System.Math.Max (System.Math.Abs (v), System.Math.Abs (h));
-            velocity *= 5.0f;
+            velocity *= GameConst.CHARACTER_MOVE_VELOCITY;
         } else {
             animator.SetBool ("isRunning", false);
         }

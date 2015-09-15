@@ -7,4 +7,5 @@ using System.Collections;
 public class GameConst : MonoBehaviour {
     public const float GRAVITY = 7.0f;
     public const float JUMP_POWER = 4.0f;
+    public const float CHARACTER_MOVE_VELOCITY = 5.0f;
 }
